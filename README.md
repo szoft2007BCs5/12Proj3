@@ -2,10 +2,10 @@
 Ricsi, Patrik, Kevin
 
 Mi a terv Ricsi? Struktúrát ide:
-Projekt fold
-|-> html
-|-> css
-|-> js
-|-> source
-  |-> audio
-  |-> data
+Projekt
+a|-> html
+a|-> css
+a|-> js
+a|-> source
+a  |-> audio
+a  |-> data
