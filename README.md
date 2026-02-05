@@ -12,7 +12,3 @@ Projekt
 |-> js
 
 |-> source
-
-  |-> audio
-
-  |-> data
