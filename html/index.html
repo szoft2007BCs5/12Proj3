@@ -5,24 +5,49 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/main.css">
     <script src="../js/main.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Mogra&display=swap" rel="stylesheet">
     <title>Tanár Clicker</title>
 </head>
 <body>
-    <div class="overlay-main">
+    <div class="overlay-main" style="display: flex;">
+        <div class="overlay-top">
+            <select class="bt-lang" onchange="ChangeLanguage(this)" onload="ChangeLanguage(this)">
+                <option selected>Magyar</option>
+                <option>Angol</option>
+                <option>Magyar - Szleng</option>
+            </select>
+        </div>
+        <div class="overlay-center">
+            <h1 class="overlay-title" id="title-main">Helyi Bolondok Szövetsége</h1>
+            <img src="../source/img/bt-settings.webp" class="bt-settings" alt="Beállítások gomb"></img>
+            <img src="../source/img/bt-play.webp" class="bt-play" alt="Játék indítása gomb"></img>   
+            <img src="../source/img/bt-info.webp" class="bt-info" alt="Infó gomb"></img>
+        </div>
+        <div class="overlay-bottom">
+            <p id="verification">100%-ig MODERN, MEGBÍZHATÓ weboldal.</p>
+        </div>
+    </div>
+<!--
+    <div class="overlay-settings" id="" style="display: none;">
         <div class="overlay-top">
             <select class="bt-lang">
                 <option>Magyar</option>
                 <option>Angol</option>
+                <option>Magyar - Szleng</option>
             </select>
         </div>
+        <h1 class="overlay-title">Lorem, ipsum dolor.</h1>
         <div class="overlay-center">
-            <button class="bt-settings"></button>
-            <button class="bt-play"></button>
-            <button class="bt-info"></button>
+            <input type="button" class="bt-settings"></input>
+            <input type="button" class="bt-play"></input>
+            <input type="button" class="bt-info"></input>
         </div>
         <div class="overlay-bottom">
             <p>Lorem ipsum dolor sit amet.</p>
         </div>
     </div>
+-->
 </body>
 </html>
