@@ -1,15 +1,17 @@
-export function AddBtEventListeners(){ //main oldal gombjainak eseménykezelőinek hozzáadaása
+import * as Menu from "./menu.js"
+
+export function AddBtEventListeners() { //main oldal gombjainak eseménykezelőinek hozzáadaása
     document.getElementsByClassName("bt-settings")[0]
-        .addEventListener("click", () => {enableTemplate("settings")});
+        .addEventListener("click", () => { enableTemplate("settings") });
 
     document.getElementsByClassName("bt-info")[0]
-        .addEventListener("click", () => {enableTemplate("info")});
+        .addEventListener("click", () => { enableTemplate("info") });
 
     document.getElementsByClassName("bt-play")[0]
-        .addEventListener("click", () => {console.log("play")});
+        .addEventListener("click", () => { console.log("play") });
 }
 
-export function enableTemplate(selected){ //kiválasztott oldal betöltése
+export function enableTemplate(selected) { //kiválasztott oldal betöltése
     const templateSelected = document.getElementById(`overlay-${selected}`); //kiválasztott oldal template-je
     if (!templateSelected) throw new Error(`Nem található ${selected} template`) //hiba kezelése, ha nem található a kiválasztott oldal
     const screen = document.getElementById("screen"); //oldal tartalma
@@ -22,14 +24,14 @@ export function enableTemplate(selected){ //kiválasztott oldal betöltése
 
         const langSelect = document.getElementById("language-select"); //nyelv választó eseménykezelője
         langSelect.value = localStorage.getItem("currentLang"); //aktuális nyelv beállítása
-        langSelect.addEventListener("change", (x) => {changeLanguage(x.target.value)}); //nyelv változtatása
-        
-    } else if (selected == "main"){
+        langSelect.addEventListener("change", (x) => { changeLanguage(x.target.value) }); //nyelv változtatása
+
+    } else if (selected == "main") {
         AddBtEventListeners(); //main oldal eseménykezelőinek újra hozzáadása, mivel a main oldal újratöltődik
 
-    } else if (selected == "info"){
-        document.getElementsByClassName("bt-back")[0] //vissza a main oldalra
-        .addEventListener("click", () => {enableTemplate("main")});
+    } else if (selected == "info") {
+        document.getElementsByClassName("bt-info")[0] //vissza a main oldalra
+            .addEventListener("click", () => { enableTemplate("main") });
     }
 }
 

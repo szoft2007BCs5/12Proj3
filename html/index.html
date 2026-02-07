@@ -6,7 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/main.css">
     <script src="../js/main.js" type="module" defer></script>
-    <script src="../js/overlay.js" type="modul" defer></script>
+    <script src="../js/overlay.js" type="module" defer></script>
+    <script src="../js/menu.js" type="module" defer></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Mogra&display=swap" rel="stylesheet">
@@ -23,7 +24,8 @@
             <h1 class="overlay-title" id="title-main" style="grid-column: 1 / span 2; text-align: center;">Helyi Bolondok Szövetsége</h1>
         </div>
         <div class="overlay-center">
-            <img src="../source/img/bt-settings.webp" class="bt-settings" alt="Beállítások gomb" draggable="false"></img>
+            <img src="../source/img/bt-settings.webp" class="bt-settings" alt="Beállítások gomb"
+                draggable="false"></img>
             <img src="../source/img/bt-play.webp" class="bt-play" alt="Játék indítása gomb" draggable="false"></img>
             <img src="../source/img/bt-info.webp" class="bt-info" alt="Infó gomb" draggable="false"></img>
         </div>
@@ -48,6 +50,21 @@
                     <option>Magyar - Szleng</option>
                 </select>
             </div>
+            <section id="settings-section">
+                <div class="menu-part-container" id="language-select-container">
+                    <label for="language-select" class="menu-label" id="language-label">Nyelv:</label>
+                    <select class="bt-lang drawed-style" id="language-select">
+                        <option>English</option>
+                        <option selected>Magyar</option>
+                        <option>Magyar - Szleng</option>
+                    </select>
+                </div>
+                <div class="menu-part-container" id="volume-select-container">
+                    <label for="volume-slider" class="menu-label" id="volume-label">Hangerő:</label>
+                    <input type="range" id="volume-slider" class="bt-volume" min="0" max="100" value="50"></input>
+                    <input type="text" id="volume-slider-text" class="drawed-style" min="0" max="100" value="50"></input>
+                </div>
+            </section>
         </div>
         <div class="overlay-bottom">
             <p id="verification">100%-ig MODERN, MEGBÍZHATÓ weboldal.</p>

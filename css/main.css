@@ -3,7 +3,7 @@
     margin: 0;
     scroll-behavior: smooth;
     box-sizing: border-box;
-    
+
     font-family: "Mogra", system-ui;
 }
 
@@ -41,7 +41,7 @@ body {
     padding: 3cqmin;
 }
 
-.overlay-title{
+.overlay-title {
     font-size: calc(0.5rem + 6cqmin);
     font-family: "Mogra", system-ui;
     margin-top: 5cqmin;
@@ -64,11 +64,12 @@ body {
     cursor: pointer;
     user-select: none;
 }
-.overlay-center > img:nth-child(2){
+
+.overlay-center>img:nth-child(2) {
     scale: 1.5;
 }
 
-.overlay-center > img:hover{
+.overlay-center>img:hover {
     filter: brightness(1.8) saturate(4);
 }
 
@@ -90,11 +91,29 @@ body {
 
 
 
+.menu-part-container {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    gap: 1dvw;
+}
 
+.menu-label {
+    font-size: 2cqmin;
+    font-weight: bold;
+}
 
+#settings-section {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: left;
+    gap: 2dvw;
+}
 
-.sl-lang{
-    font-size: 3cqmin;
+.drawed-style {
     font-weight: bold;
     font-family: "Caveat Brush", cursive;
     border: solid var(--black) 0.5cqmin;
@@ -104,6 +123,19 @@ body {
     border-radius: 1.5cqmin;
 }
 
+
+.bt-lang {
+    font-size: 3cqmin;
+}
+
+#volume-slider {
+    width: 20cqmin;
+}
+
+#volume-slider-text {
+    font-size: 2cqmin;
+    width: 5cqmin;
+}
 
 
 
