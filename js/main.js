@@ -3,7 +3,7 @@ import * as Overlay from "./overlay.js";
 
 document.addEventListener("DOMContentLoaded", async () => {
     if (!localStorage.getItem("currentLang")) //ha nincs elmentve aktuális nyelv, akkor magyar lesz az alapértelmezett
-        localStorage.setItem("currentLang", "magyar");
+        localStorage.setItem("currentLang", "Magyar");
 
     window.lang = await fetch("../source/data/lang.json") //nyelveket tartalmzó fájl betöltése
         .then((promise) => promise.json())
