@@ -17,7 +17,7 @@ export function enableTemplate(selected){ //kiválasztott oldal betöltése
     changeLanguage(); //betöltött oldal nyelvének beállítása
 
     if(selected == "settings"){ //settings oldal eseménykezelőinek hozzáadása
-        document.getElementsByClassName("bt-settings")[0] //vissza a main oldalra
+        document.getElementsByClassName("bt-back")[0] //vissza a main oldalra
         .addEventListener("click", () => {enableTemplate("main")});
 
         const langSelect = document.getElementById("language-select"); //nyelv választó eseménykezelője
@@ -28,7 +28,7 @@ export function enableTemplate(selected){ //kiválasztott oldal betöltése
         AddBtEventListeners(); //main oldal eseménykezelőinek újra hozzáadása, mivel a main oldal újratöltődik
 
     } else if (selected == "info"){
-        document.getElementsByClassName("bt-info")[0] //vissza a main oldalra
+        document.getElementsByClassName("bt-back")[0] //vissza a main oldalra
         .addEventListener("click", () => {enableTemplate("main")});
     }
 }

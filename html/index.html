@@ -20,7 +20,7 @@
 <template id="overlay-main">
     <div class="overlay">
         <div class="overlay-top">
-            <h1 class="overlay-title" id="title-main">Helyi Bolondok Szövetsége</h1>
+            <h1 class="overlay-title" id="title-main" style="grid-column: 1 / span 2; text-align: center;">Helyi Bolondok Szövetsége</h1>
         </div>
         <div class="overlay-center">
             <img src="../source/img/bt-settings.webp" class="bt-settings" alt="Beállítások gomb" draggable="false"></img>
@@ -36,15 +36,13 @@
 <template id="overlay-settings">
     <div class="overlay">
         <div class="overlay-top">
+            <img src="../source/img/bt-back.webp" class="bt-back" alt="Beállítások gomb" draggable="false"></img>
             <h1 class="overlay-title" id="title-settings">Beállítások</h1>
         </div>
         <div class="overlay-center">
-            <div>
-                <img src="../source/img/bt-settings.webp" class="bt-settings" alt="Beállítások gomb" draggable="false"></img>
-            </div>
             <div id="language-select-container">
                 <label for="language-select" id="language-label">Nyelv:</label>
-                <select class="bt-lang" id="language-select">
+                <select class="sl-lang" id="language-select">
                     <option selected>Magyar</option>
                     <option>Angol</option>
                     <option>Magyar - Szleng</option>
@@ -65,12 +63,11 @@
 <template id="overlay-info">
     <div class="overlay">
         <div class="overlay-top">
-            <h1 class="overlay-title" id="title-main">Helyi Bolondok Szövetsége</h1>
+            <img src="../source/img/bt-back.webp" class="bt-back" alt="Infó gomb" draggable="false"></img>
+            <h1 class="overlay-title" id="title-info">Információ</h1>
         </div>
         <div class="overlay-center">
-            <img src="../source/img/settings-paint.webp" class="bt-settings" alt="Beállítások gomb" draggable="false"></img>
-            <img src="../source/img/play-paint.webp" class="bt-play" alt="Játék indítása gomb" draggable="false"></img>
-            <img src="../source/img/info-paint.webp" class="bt-info" alt="Infó gomb" draggable="false"></img>
+            <p id="info-text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Possimus voluptatem neque rem, id inventore minus sunt tenetur corrupti ex nam obcaecati, laudantium eius tempore delectus quibusdam perferendis, explicabo beatae a facilis rerum sequi. Neque excepturi accusantium, alias soluta, consequatur nobis voluptatum assumenda commodi aliquam vitae id delectus error explicabo officiis facilis nam cum corporis quia iusto? Praesentium temporibus sit repellendus ad deserunt tenetur corrupti voluptas totam, quibusdam harum magnam hic nemo vitae sint optio tempora cum, omnis fugiat quis. Repudiandae quis quasi minima reprehenderit ea error, aperiam quod iure minus ex, consequuntur omnis quos eaque nulla hic quas quisquam dolor.</p>
         </div>
         <div class="overlay-bottom">
             <p id="verification">100%-ig MODERN, MEGBÍZHATÓ weboldal.</p>
