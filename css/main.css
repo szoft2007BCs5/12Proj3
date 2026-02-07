@@ -3,6 +3,8 @@
     margin: 0;
     scroll-behavior: smooth;
     box-sizing: border-box;
+    
+    font-family: "Mogra", system-ui;
 }
 
 :root {
