@@ -76,7 +76,7 @@ export function setupVolumeControls(type) {
     sliderText.oninput = () => handleChange(sliderText.value);
 }
 
-export function updateVolume(type, value) {
+function updateVolume(type, value) {
     localStorage.setItem(`${type}Volume`, value);
 
     // Végig megyünk az összes szóló hangon
