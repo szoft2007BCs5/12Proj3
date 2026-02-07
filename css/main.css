@@ -27,6 +27,7 @@ body {
     align-items: center;
     justify-content: space-between;
     position: relative;
+    gap: 2cqmin;
 }
 
 .overlay-top {
@@ -34,7 +35,18 @@ body {
     height: 100%;
     display: flex;
     justify-content: end;
-    padding: 2cqmin;
+    padding: 3cqmin;
+}
+
+.bt-lang{
+    font-size: 3cqmin;
+    font-weight: bold;
+    font-family: "Caveat Brush", cursive;
+    border: solid var(--black) 0.5cqmin;
+    background-image: url(../source/img/lang-select.webp);
+    background-position: center;
+    background-size: contain;
+    border-radius: 1.5cqmin;
 }
 
 .overlay-center {
@@ -50,9 +62,11 @@ body {
 
 .overlay-title{
     position: absolute;
-    font-size: clamp(1.25rem, 0.5357rem + 3.5714vw, 6.25rem);
+    font-size: calc(0.5rem + 6cqmin);
     top: -25dvh;
     font-family: "Mogra", system-ui;
+    text-align: center;
+    margin-inline: 3dvw;
 }
 
 .overlay-center > img{

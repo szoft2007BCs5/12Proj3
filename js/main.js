@@ -5,7 +5,7 @@ function ChangeLanguage(btLang){
 }
 
 document.addEventListener("DOMContentLoaded", async() => {
-    window.JSONfile = await fetch("../source/data/data.json")
+    window.JSONfile = await fetch("../source/data/lang.json")
         .then((promise) => promise.json())
         .catch((error) => console.log(error));
 });
