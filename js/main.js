@@ -1,9 +1,14 @@
-import { enableTemplate, changeLanguage } from "./overlay.js";
+import * as Overlay from "./overlay.js";
 
 
 document.addEventListener("DOMContentLoaded", async () => {
-    enableTemplate("settings");
-    window.JSONfile = await fetch("../source/data/lang.json")
+    if (!localStorage.getItem("currentLang")) //ha nincs elmentve aktuális nyelv, akkor magyar lesz az alapértelmezett
+        localStorage.setItem("currentLang", "magyar");
+
+    window.lang = await fetch("../source/data/lang.json") //nyelveket tartalmzó fájl betöltése
         .then((promise) => promise.json())
         .catch((error) => console.log(error));
+
+    Overlay.enableTemplate("main"); //main betöltése
+    Overlay.AddBtEventListeners(); //gombok eseménykezelői
 });
