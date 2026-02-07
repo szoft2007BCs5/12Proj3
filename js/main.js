@@ -1,5 +1,4 @@
 import * as Overlay from "./overlay.js";
-import * as Menu from "./menu.js";
 
 
 document.addEventListener("DOMContentLoaded", async () => {

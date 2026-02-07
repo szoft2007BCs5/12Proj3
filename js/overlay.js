@@ -21,6 +21,7 @@ export function enableTemplate(selected) { //kiválasztott oldal betöltése
     if(selected == "settings"){ //settings oldal eseménykezelőinek hozzáadása
         document.getElementsByClassName("bt-back")[0] //vissza a main oldalra
         .addEventListener("click", () => {enableTemplate("main")});
+        Menu.synchronizeVolumeOnChange();
 
         const langSelect = document.getElementById("language-select"); //nyelv választó eseménykezelője
         langSelect.value = localStorage.getItem("currentLang"); //aktuális nyelv beállítása
@@ -30,7 +31,7 @@ export function enableTemplate(selected) { //kiválasztott oldal betöltése
         AddBtEventListeners(); //main oldal eseménykezelőinek újra hozzáadása, mivel a main oldal újratöltődik
 
     } else if (selected == "info") {
-        document.getElementsByClassName("bt-info")[0] //vissza a main oldalra
+        document.getElementsByClassName("bt-back")[0] //vissza a main oldalra
             .addEventListener("click", () => { enableTemplate("main") });
     }
 }
