@@ -134,16 +134,14 @@ body {
     font-size: 3cqmin;
 }
 
-#volume-slider {
+.volume-slider {
     width: 20cqmin;
 }
 
-#volume-slider-text {
+.volume-slider-text {
     font-size: 2cqmin;
     width: 5cqmin;
 }
-
-
 
 @media screen and (max-width: 500px) {
     .overlay-center {

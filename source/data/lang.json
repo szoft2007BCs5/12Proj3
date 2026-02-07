@@ -17,11 +17,11 @@
     "language-label": {
         "magyar": "Nyelv:",
         "english": "Language:",
-        "magyar - szleng": "Nyelvtechnika:"
+        "magyar - szleng": "Makogás:"
     },
-    "volume-label": {
-        "magyar": "Hangerő:",
-        "english": "Volume:",
-        "magyar - szleng": "Kakaó:"
+    "backgroundMusic-volume-label": {
+        "magyar": "Zenehangerő:",
+        "english": "Music volume:",
+        "magyar - szleng": "Vibe kakaó:"
     }
 }
