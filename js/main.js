@@ -13,6 +13,8 @@ document.addEventListener("DOMContentLoaded", async () => {
     Overlay.enableTemplate("main"); //main betöltése
     Overlay.AddBtEventListeners(); //gombok eseménykezelői
 
+//    Audio.setupButtonClickSounds("../source/audio/button-click4.mp3"); //button click sound beállítása
+
     document.addEventListener("click", () => {
         Audio.playAudio("../source/audio/chill-drum-loop.mp3", "music", true); //zene elindítása a mentett hangerővel
     }, { once: true }); //csak egyszer, hogy ne induljon újra a zene minden kattintásra

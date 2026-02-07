@@ -82,7 +82,7 @@ function updateVolume(type, value) {
     // Végig megyünk az összes szóló hangon
     for (let key in activeSounds) {
         const soundType = getEffectiveType(key);
-        
+
         // Ha a mastert állítjuk, minden hangot frissíteni kell
         // Ha a típust állítjuk (pl. other), akkor csak azokat, amik oda tartoznak
         if (type === 'master' || soundType === type) {
@@ -99,6 +99,21 @@ export function stopAudio(type) {  // Leállítjuk a zenét és eltávolítjuk a
     }
 }
 
+
+
+
+/*
+
+export function setupButtonClickSounds(src) {
+    const buttons = document.querySelectorAll('.button');
+    console.log(buttons);
+    buttons.forEach(button => {
+        button.addEventListener('onclick', () => {
+            playAudio(src, 'click', false);
+        });
+    });
+}
+*/
 
 // MAGYARÁZAT:
 
