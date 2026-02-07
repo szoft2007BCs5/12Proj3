@@ -1,17 +1,17 @@
 {
     "title-main": {
-        "HU": "Helyi Bolondok Szövetsége",
-        "EN": "Local Fools' Association",
+        "magyar": "Helyi Bolondok Szövetsége",
+        "angol": "Local Fools' Association",
         "magyar - szleng": "Helyi Crazy Dudes"
     },
     "title-settings": {
-        "HU": "Beállítások",
-        "EN": "Settings",
+        "magyar": "Beállítások",
+        "angol": "Settings",
         "magyar - szleng": "Beállítások"
     },
     "verification": {
-        "HU": "100%-ig MODERN, MEGBÍZHATÓ magyar weboldal.",
-        "EN": "100% MODERN, TRUSTWORTHY hungarian webpage",
+        "magyar": "100%-ig MODERN, MEGBÍZHATÓ magyar weboldal.",
+        "angol": "100% MODERN, TRUSTWORTHY hungarian webpage",
         "magyar - szleng": "Low key 100% trust hell yeah webpage"
     }
 }
