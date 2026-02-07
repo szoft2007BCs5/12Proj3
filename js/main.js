@@ -1,4 +1,5 @@
 import * as Overlay from "./overlay.js";
+import * as Audio from "./audio.js";
 
 
 document.addEventListener("DOMContentLoaded", async () => {
@@ -14,4 +15,8 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     Overlay.enableTemplate("main"); //main betöltése
     Overlay.AddBtEventListeners(); //gombok eseménykezelői
+    
+    document.addEventListener("click", () => {
+        Audio.playAudio("../source/audio/chill-drum-loop.mp3", localStorage.getItem("volume") / 100); //zene elindítása a mentett hangerővel
+    }, {once: true}); //csak egyszer, hogy ne induljon újra a zene minden kattintásra
 });

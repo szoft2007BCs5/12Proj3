@@ -18,7 +18,14 @@ body {
     min-width: 100dvw;
     min-height: 100dvh;
 }
-
+/*
+body {
+    background-image: url(../source/img/Gemini_Generated_Image_8mabns8mabns8mab.png);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+*/
 .overlay {
     min-width: 100dvw;
     min-height: 100dvh;

@@ -14,10 +14,12 @@
     <title>Tanár Clicker</title>
 </head>
 
+<!-- A játék egyetlen oldalas, minden tartalom egy index.html-ben van, a különböző "képernyőket" (főmenü, beállítások, infó) overlay-ekkel van megoldva, amiket template-ekből szúr be a DOM-ba. -->
 <div id="screen">
 
 </div>
 
+<!-- Főoldal template -->
 <template id="overlay-main">
     <div class="overlay">
         <div class="overlay-top">
@@ -35,6 +37,7 @@
     </div>
 </template>
 
+<!-- Settings template -->
 <template id="overlay-settings">
     <div class="overlay">
         <div class="overlay-top">
@@ -64,11 +67,7 @@
     </div>
 </template>
 
-
-
-
-
-
+<!-- Info template -->
 <template id="overlay-info">
     <div class="overlay">
         <div class="overlay-top">
