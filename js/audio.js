@@ -19,3 +19,4 @@ export function setVolume(value) {
         backgroundMusic.volume = value / 100;
     }
 }
+
