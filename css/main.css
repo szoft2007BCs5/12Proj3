@@ -143,13 +143,13 @@ body {
   font-size: 5cqmin;
 }
 
-#volume-slider {
-  width: 20cqmin;
+.volume-slider {
+    width: 20cqmin;
 }
 
-#volume-slider-text {
-  font-size: 4cqmin;
-  width: 4ch;
+.volume-slider-text {
+    font-size: 2cqmin;
+    width: 5cqmin;
 }
 
 @media screen and (max-width: 500px) {

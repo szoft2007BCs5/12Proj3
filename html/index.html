@@ -8,6 +8,7 @@
     <script src="../js/main.js" type="module" defer></script>
     <script src="../js/overlay.js" type="module" defer></script>
     <script src="../js/menu.js" type="module" defer></script>
+    <script src="../js/audio.js" type="module" defer></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Caveat+Brush&family=DynaPuff:wght@400..700&family=Mogra&family=Story+Script&display=swap" rel="stylesheet">
@@ -26,10 +27,10 @@
             <h1 class="overlay-title" id="title-main" style="grid-column: 1 / span 2; text-align: center;">Helyi Bolondok Szövetsége</h1>
         </div>
         <div class="overlay-center">
-            <img src="../source/img/bt-settings.webp" class="bt-settings" alt="Beállítások gomb"
+            <img src="../source/img/bt-settings.webp" class="bt-settings button" alt="Beállítások gomb"
                 draggable="false"></img>
-            <img src="../source/img/bt-play.webp" class="bt-play" alt="Játék indítása gomb" draggable="false"></img>
-            <img src="../source/img/bt-info.webp" class="bt-info" alt="Infó gomb" draggable="false"></img>
+            <img src="../source/img/bt-play.webp" class="bt-play button" alt="Játék indítása gomb" draggable="false"></img>
+            <img src="../source/img/bt-info.webp" class="bt-info button" alt="Infó gomb" draggable="false"></img>
         </div>
         <div class="overlay-bottom">
             <p id="verification">100%-ig MODERN, MEGBÍZHATÓ weboldal.</p>
@@ -54,10 +55,28 @@
                         <option>Magyar - Szleng</option>
                     </select>
                 </div>
-                <div class="menu-part-container" id="volume-select-container">
-                    <label for="volume-slider" class="menu-label" id="volume-label">Hangerő:</label>
-                    <input type="range" id="volume-slider" class="bt-volume" min="0" max="100" value="50"></input>
-                    <input type="text" id="volume-slider-text" class="drawed-style" min="0" max="100" value="50"></input>
+                <div class="menu-part-container">
+                    <label for="master-volume-slider" class="menu-label">Fő hangerő:</label>
+                    <input type="range" class="volume-slider" id="master-volume-slider" min="0" max="100" value="50">
+                    <input type="text" class="volume-slider-text drawed-style" id="master-volume-slider-text" min="0" max="100" value="50">
+                </div>
+
+                <div class="menu-part-container">
+                    <label for="music-volume-slider" class="menu-label">Zenehangerő:</label>
+                    <input type="range" class="volume-slider" id="music-volume-slider" min="0" max="100" value="50">
+                    <input type="text" class="volume-slider-text drawed-style" id="music-volume-slider-text" min="0" max="100" value="50">
+                </div>
+
+                <div class="menu-part-container">
+                    <label for="game-volume-slider" class="menu-label">Játék hangerő:</label>
+                    <input type="range" class="volume-slider" id="game-volume-slider" min="0" max="100" value="50">
+                    <input type="text" class="volume-slider-text drawed-style" id="game-volume-slider-text" min="0" max="100" value="50">
+                </div>
+                
+                <div class="menu-part-container">
+                    <label for="other-volume-slider" class="menu-label">További hangerő:</label>
+                    <input type="range" class="volume-slider" id="other-volume-slider" min="0" max="100" value="50">
+                    <input type="text" class="volume-slider-text drawed-style" id="other-volume-slider-text" min="0" max="100" value="50">
                 </div>
             </section>
         </div>

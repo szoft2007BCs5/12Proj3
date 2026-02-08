@@ -1,27 +1,27 @@
 {
-  "title-main": {
-    "magyar": "Helyi Bolondok Szövetsége",
-    "english": "Local Fools' Association",
-    "magyar - szleng": "Helyi Crazy Dudes"
-  },
-  "title-settings": {
-    "magyar": "Beállítások",
-    "english": "Settings",
-    "magyar - szleng": "Szetttingek"
-  },
-  "verification": {
-    "magyar": "100%-ig MODERN, MEGBÍZHATÓ magyar weboldal.",
-    "english": "100% MODERN, TRUSTWORTHY hungarian webpage",
-    "magyar - szleng": "Low key 100% trust hell yeah webpage"
-  },
-  "language-label": {
-    "magyar": "Nyelv:",
-    "english": "Language:",
-    "magyar - szleng": "Nyelvtechnika:"
-  },
-  "volume-label": {
-    "magyar": "Hangerő:",
-    "english": "Volume:",
-    "magyar - szleng": "Kakaó:"
-  }
+    "title-main": {
+        "magyar": "Helyi Bolondok Szövetsége",
+        "english": "Local Fools' Association",
+        "magyar - szleng": "Helyi Crazy Dudes"
+    },
+    "title-settings": {
+        "magyar": "Beállítások",
+        "english": "Settings",
+        "magyar - szleng": "Szetttingek"
+    },
+    "verification": {
+        "magyar": "100%-ig MODERN, MEGBÍZHATÓ magyar weboldal.",
+        "english": "100% MODERN, TRUSTWORTHY hungarian webpage",
+        "magyar - szleng": "Low key 100% trust hell yeah webpage"
+    },
+    "language-label": {
+        "magyar": "Nyelv:",
+        "english": "Language:",
+        "magyar - szleng": "Makogás:"
+    },
+    "backgroundMusic-volume-label": {
+        "magyar": "Zenehangerő:",
+        "english": "Music volume:",
+        "magyar - szleng": "Vibe kakaó:"
+    }
 }
