@@ -1,57 +1,106 @@
 <!DOCTYPE html>
 <html lang="hu">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/main.css">
-    <script src="../js/main.js"></script>
+    <script src="../js/main.js" type="module" defer></script>
+    <script src="../js/overlay.js" type="module" defer></script>
+    <script src="../js/menu.js" type="module" defer></script>
+    <script src="../js/audio.js" type="module" defer></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Mogra&display=swap" rel="stylesheet">
     <title>Tanár Clicker</title>
 </head>
-<body>
-    <!-- Main overlay -->
-    <div class="overlay" id="overlay-main" style="display: flex;">
+
+<!-- A játék egyetlen oldalas, minden tartalom egy index.html-ben van, a különböző "képernyőket" (főmenü, beállítások, infó) overlay-ekkel van megoldva, amiket template-ekből szúr be a DOM-ba. -->
+<div id="screen">
+
+</div>
+
+<!-- Főoldal template -->
+<template id="overlay-main">
+    <div class="overlay">
         <div class="overlay-top">
-            <select class="bt-lang" onchange="ChangeLanguage(this)" onload="ChangeLanguage(this)">
-                <option selected>Magyar</option>
-                <option>Angol</option>
-                <option>Magyar - Szleng</option>
-            </select>
+            <h1 class="overlay-title" id="title-main" style="grid-column: 1 / span 2; text-align: center;">Helyi Bolondok Szövetsége</h1>
         </div>
         <div class="overlay-center">
-            <h1 class="overlay-title active" id="title-main">Helyi Bolondok Szövetsége</h1>
-            <div class="overlay-content" id="main-content">
-                <img src="../source/img/bt-settings.webp" class="bt-settings" onclick="toggleScreen('settings', this)" alt="Beállítások gomb"></img>
-                <img src="../source/img/bt-play.webp" class="bt-play" onclick="toggleScreen('play', this)" alt="Játék indítása gomb"></img>   
-                <img src="../source/img/bt-info.webp" class="bt-info" onclick="toggleScreen('info', this)" alt="Infó gomb"></img>
-            </div>
+            <img src="../source/img/bt-settings.webp" class="bt-settings button" alt="Beállítások gomb"
+                draggable="false"></img>
+            <img src="../source/img/bt-play.webp" class="bt-play button" alt="Játék indítása gomb" draggable="false"></img>
+            <img src="../source/img/bt-info.webp" class="bt-info button" alt="Infó gomb" draggable="false"></img>
         </div>
         <div class="overlay-bottom">
             <p id="verification">100%-ig MODERN, MEGBÍZHATÓ weboldal.</p>
         </div>
     </div>
+</template>
 
-    <!-- Settings overlay -->
-    <div class="overlay" id="overlay-settings" style="display: none;">
+<!-- Settings template -->
+<template id="overlay-settings">
+    <div class="overlay">
         <div class="overlay-top">
-            <select class="bt-lang">
-                <option>Magyar</option>
-                <option>Angol</option>
-                <option>Magyar - Szleng</option>
-            </select>
+            <img src="../source/img/bt-back.webp" class="bt-back" alt="Beállítások gomb" draggable="false"></img>
+            <h1 class="overlay-title" id="title-settings">Beállítások</h1>
         </div>
         <div class="overlay-center">
-            <h1 class="overlay-title active" id="title-settings">Helyi Bolondok Szövetsége</h1>
-            <div class="overlay-content" id="settings-content">
-                <img src="../source/img/play-paint.webp" class="bt-settings" onclick="toggleScreen('main', this)" alt="Beállítások gomb"></img>
-            </div>
+            <section id="settings-section">
+                <div class="menu-part-container" id="language-select-container">
+                    <label for="language-select" class="menu-label" id="language-label">Nyelv:</label>
+                    <select class="sl-lang drawed-style" id="language-select">
+                        <option>English</option>
+                        <option selected>Magyar</option>
+                        <option>Magyar - Szleng</option>
+                    </select>
+                </div>
+                <div class="menu-part-container">
+                    <label for="master-volume-slider" class="menu-label">Fő hangerő:</label>
+                    <input type="range" class="volume-slider" id="master-volume-slider" min="0" max="100" value="50">
+                    <input type="text" class="volume-slider-text drawed-style" id="master-volume-slider-text" min="0" max="100" value="50">
+                </div>
+
+                <div class="menu-part-container">
+                    <label for="music-volume-slider" class="menu-label">Zenehangerő:</label>
+                    <input type="range" class="volume-slider" id="music-volume-slider" min="0" max="100" value="50">
+                    <input type="text" class="volume-slider-text drawed-style" id="music-volume-slider-text" min="0" max="100" value="50">
+                </div>
+
+                <div class="menu-part-container">
+                    <label for="game-volume-slider" class="menu-label">Játék hangerő:</label>
+                    <input type="range" class="volume-slider" id="game-volume-slider" min="0" max="100" value="50">
+                    <input type="text" class="volume-slider-text drawed-style" id="game-volume-slider-text" min="0" max="100" value="50">
+                </div>
+                
+                <div class="menu-part-container">
+                    <label for="other-volume-slider" class="menu-label">További hangerő:</label>
+                    <input type="range" class="volume-slider" id="other-volume-slider" min="0" max="100" value="50">
+                    <input type="text" class="volume-slider-text drawed-style" id="other-volume-slider-text" min="0" max="100" value="50">
+                </div>
+            </section>
         </div>
         <div class="overlay-bottom">
-            <p id="settings-verification">100%-ig MODERN, MEGBÍZHATÓ weboldal.</p>
+            <p id="verification">100%-ig MODERN, MEGBÍZHATÓ weboldal.</p>
         </div>
     </div>
+</template>
 
+<!-- Info template -->
+<template id="overlay-info">
+    <div class="overlay">
+        <div class="overlay-top">
+            <img src="../source/img/bt-back.webp" class="bt-back" alt="Infó gomb" draggable="false"></img>
+            <h1 class="overlay-title" id="title-info">Információ</h1>
+        </div>
+        <div class="overlay-center">
+            <p id="info-text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Possimus voluptatem neque rem, id inventore minus sunt tenetur corrupti ex nam obcaecati, laudantium eius tempore delectus quibusdam perferendis, explicabo beatae a facilis rerum sequi. Neque excepturi accusantium, alias soluta, consequatur nobis voluptatum assumenda commodi aliquam vitae id delectus error explicabo officiis facilis nam cum corporis quia iusto? Praesentium temporibus sit repellendus ad deserunt tenetur corrupti voluptas totam, quibusdam harum magnam hic nemo vitae sint optio tempora cum, omnis fugiat quis. Repudiandae quis quasi minima reprehenderit ea error, aperiam quod iure minus ex, consequuntur omnis quos eaque nulla hic quas quisquam dolor.</p>
+        </div>
+        <div class="overlay-bottom">
+            <p id="verification">100%-ig MODERN, MEGBÍZHATÓ weboldal.</p>
+        </div>
+    </div>
+</template>
 </body>
+
 </html>
