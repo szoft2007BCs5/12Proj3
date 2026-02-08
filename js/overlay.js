@@ -1,5 +1,6 @@
 // overlay.js
 import * as Audio from "./audio.js";
+import * as Input from "./input.js";
 
 // Állapotkövető változók
 let activePage = "main"; 
@@ -122,25 +123,29 @@ function initInfoListeners() {
 }
 
 function initGameIframe() {
-    // Rákötjük az ESC gomb figyelését az iframe BELSŐ dokumentumára is.
     setTimeout(() => {
         const iframe = document.querySelector('iframe.clicker-iframe');
-        if (iframe) {
-            iframe.onload = function () {
-                // 1. Fókusz, hogy azonnal működjön a játék
-                this.contentWindow.focus();
 
-                // 2. ESC figyelés az iframe-en belül ("Script Injection")
+        if (iframe) {
+            const setupLogic = () => {
                 try {
-                    this.contentWindow.document.addEventListener('keydown', (e) => {
-                        if (e.key === 'Escape') {
-                            toggleSettings();
-                        }
-                    });
+                    // 1. Fókusz
+                    iframe.contentWindow.focus();
+
+                    // 2. KÖZÖS INPUT LOGIKA RÁKÖTÉSE
+                    iframe.contentWindow.document.addEventListener('keydown', Input.handleKeyDown);
+                    
                 } catch (err) {
-                    console.warn("Nem sikerült eseménykezelőt tenni az iframe-re (Cross-origin hiba?):", err);
+                    console.warn("Nem sikerült elérni az iframe tartalmát:", err);
                 }
             };
+
+            // Biztosra megyünk: ha már betöltött, azonnal futtatjuk, ha nem, megvárjuk
+            if (iframe.contentDocument && iframe.contentDocument.readyState === 'complete') {
+                setupLogic();
+            } else {
+                iframe.onload = setupLogic;
+            }
         }
     }, 50);
 }
