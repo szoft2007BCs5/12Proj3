@@ -32,7 +32,7 @@ export function playAudio(src, type, loop) {
 
   if (!loop) {
     audio.addEventListener("ended", () => {
-      console.log(`"${type}" lejátszása befejeződött, törlés a tárolóból.`);
+//      console.log(`"${type}" lejátszása befejeződött, törlés a tárolóból.`);
       delete activeSounds[type];
     });
   }
@@ -41,7 +41,7 @@ export function playAudio(src, type, loop) {
 
   // Eltároljuk a típusa szerint
   activeSounds[type] = audio;
-  console.log(`"${type}" típusú zene elindítva, hangerő: ${audio.volume}`);
+//  console.log(`"${type}" típusú zene elindítva, hangerő: ${audio.volume}`);
 
   // Beállítjuk a csúszkákat
   setupVolumeControls(effectiveType);
