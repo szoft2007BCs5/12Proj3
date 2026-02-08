@@ -13,6 +13,16 @@
   --lightblue: rgb(212, 232, 255);
 }
 
+.clicker-iframe {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100dvw;
+  height: 100dvh;
+  margin: 0;
+  padding: 0;
+}
+
 html,
 body {
   background: var(--white);
@@ -40,6 +50,7 @@ body {
   font-family: "Mogra", system-ui;
   margin-top: 5cqmin;
 }
+
 .overlay-center {
   height: 100%;
   display: flex;
@@ -70,7 +81,7 @@ body {
   rotate: -360deg;
 }
 
-.overlay-center > img:nth-child(2) {
+.overlay-center>img:nth-child(2) {
   scale: 1.5;
 }
 
@@ -127,11 +138,11 @@ body {
   rotate: -180deg;
 }
 
-.drawed-style > option {
+.drawed-style>option {
   font-family: "Story Script", sans-serif;
 }
 
-.drawed-style > option:nth-child(odd) {
+.drawed-style>option:nth-child(odd) {
   background: var(--lightblue);
 }
 
@@ -158,11 +169,11 @@ body {
     gap: 4dvw;
   }
 
-  .overlay-center > img {
+  .overlay-center>img {
     width: 25cqmin;
   }
 
-  .overlay-center > img:nth-child(2) {
+  .overlay-center>img:nth-child(2) {
     scale: 1.2;
   }
 }

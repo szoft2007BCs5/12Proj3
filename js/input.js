@@ -1,4 +1,5 @@
 import * as Overlay from "./overlay.js";
+
 document.addEventListener("DOMContentLoaded", () => {
 
     // Billentyűzet figyelése
@@ -8,6 +9,9 @@ document.addEventListener("DOMContentLoaded", () => {
         if (e.key === "Escape") {
             Overlay.toggleSettings();
         }
+
+        if (e.key === "m")
+            Overlay.enableTemplate("main")
     });
 
     // Egérkattintás figyelése
