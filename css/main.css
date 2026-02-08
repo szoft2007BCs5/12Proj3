@@ -1,192 +1,168 @@
 * {
-    padding: 0;
-    margin: 0;
-    scroll-behavior: smooth;
-    box-sizing: border-box;
-    font-family: "DynaPuff", system-ui;
-    hyphens: auto;
+  padding: 0;
+  margin: 0;
+  scroll-behavior: smooth;
+  box-sizing: border-box;
+  font-family: "DynaPuff", system-ui;
+  hyphens: auto;
 }
 
 :root {
-    --white: rgb(255, 255, 255);
-    --black: rgb(0, 0, 0);
-    --lightblue: rgb(212, 232, 255);
+  --white: rgb(255, 255, 255);
+  --black: rgb(0, 0, 0);
+  --lightblue: rgb(212, 232, 255);
 }
 
 html,
 body {
-    background: var(--white);
-    min-width: 100dvw;
-    min-height: 100dvh;
+  background: var(--white);
 }
-/*
-body {
-    background-image: url(../source/img/Gemini_Generated_Image_8mabns8mabns8mab.png);
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-}
-*/
+
 .overlay {
-    min-width: 100dvw;
-    min-height: 100dvh;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
-    position: relative;
-    gap: 2cqmin;
+  min-height: 100dvh;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .overlay-top {
-    width: 100%;
-    height: 100%;
-    display: grid;
-    grid-template-columns: 1fr 1.75fr;
-    align-items: center;
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1.75fr;
+  align-items: center;
 }
 
 .overlay-title {
-    font-size: calc(0.5rem + 6cqmin);
-    font-family: "Mogra", system-ui;
-    margin-top: 5cqmin;
+  font-size: 6cqmin;
+  font-family: "Mogra", system-ui;
+  margin-top: 5cqmin;
 }
 .overlay-center {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 8dvw;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8dvw;
+  margin-block: 5dvh;
 }
 
-
-[class^="bt-"]{
-    width: 20cqmin;
-    aspect-ratio: 1/1;
-    filter: saturate(2) brightness(1);
-    cursor: pointer;
-    user-select: none;
-    transition: 1s rotate;
+[class^="bt-"] {
+  width: 20cqmin;
+  aspect-ratio: 1/1;
+  filter: saturate(2) brightness(1);
+  cursor: pointer;
+  user-select: none;
+  transition: 1s rotate;
 }
 
 [class^="bt-"]:hover {
-    filter: brightness(1.2);
+  filter: brightness(1.2);
 }
 
 [class^="bt-"]:nth-child(even):hover {
-    rotate: 360deg;
+  rotate: 360deg;
 }
 
 [class^="bt-"]:nth-child(odd):hover {
-    rotate: -360deg;
+  rotate: -360deg;
 }
 
-
-.overlay-center>img:nth-child(2) {
-    scale: 1.5;
+.overlay-center > img:nth-child(2) {
+  scale: 1.5;
 }
 
-#info-text{
-    font-size: clamp(1.25rem, 1.0714rem + 0.8929vw, 2.5rem);
-    text-align: justify;
-    text-wrap: pretty;
-    margin: 8cqmin;
+#info-text {
+  font-size: clamp(1.25rem, 1.0714rem + 0.8929vw, 2.5rem);
+  text-align: justify;
+  text-wrap: pretty;
+  margin: 8cqmin;
 }
 
 .overlay-bottom {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
+  word-break: normal;
+  white-space: normal;
+  text-wrap: wrap;
 }
 
-
+#verification {
+  width: fit-content;
+}
 
 .menu-part-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 1dvw;
-}
-
-.menu-label {
-    font-size: 2cqmin;
-    font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1dvw;
 }
 
 #settings-section {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: left;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: left;
 }
 
 .drawed-style {
-    font-weight: bold;
-    font-family: "Story Script", sans-serif;
-    border: solid var(--black) 0.5cqmin;
-    background-image: url(../source/img/lang-select.webp);
-    background-position: center;
-    background-size: cover;
-    border-radius: 1.5cqmin;
-    padding: 0.5cqmin;
-    appearance: base-select;
+  font-weight: bold;
+  font-family: "Story Script", sans-serif;
+  border: solid var(--black) 0.5cqmin;
+  background-image: url(../source/img/lang-select.webp);
+  background-position: center;
+  background-size: cover;
+  border-radius: 1.5cqmin;
+  padding: 0.5cqmin;
+  appearance: base-select;
 }
 
-.drawed-style::picker-icon{
-    transition: 0.2s all;
+.drawed-style::picker-icon {
+  transition: 0.2s all;
 }
 
-.drawed-style:open::picker-icon{
-    rotate: -180deg;
+.drawed-style:open::picker-icon {
+  rotate: -180deg;
 }
 
-.drawed-style > option{
-    font-family: "Story Script", sans-serif;
+.drawed-style > option {
+  font-family: "Story Script", sans-serif;
 }
 
-.drawed-style > option:nth-child(odd){
-    background: var(--lightblue);
+.drawed-style > option:nth-child(odd) {
+  background: var(--lightblue);
 }
-
 
 .sl-lang {
-    font-size: 5cqmin;
+  font-size: 4cqmin;
 }
 
-.menu-label{
-    font-size: 5cqmin;
+.menu-label {
+  font-size: 5cqmin;
 }
 
 #volume-slider {
-    width: 20cqmin;
+  width: 20cqmin;
 }
 
 #volume-slider-text {
-    font-size: 4cqmin;
-    width: 4ch;
+  font-size: 4cqmin;
+  width: 4ch;
 }
 
-
-
 @media screen and (max-width: 500px) {
-    .overlay-center {
-        flex-direction: column;
-        gap: 4dvw;
-    }
+  .overlay-center {
+    flex-direction: column;
+    gap: 4dvw;
+  }
 
-    .overlay-center > img{
-        width: 40cqmin;
-    }
+  .overlay-center > img {
+    width: 40cqmin;
+  }
 
-    .overlay-center > img:nth-child(2){
-        scale: 1.2;
-    }
+  .overlay-center > img:nth-child(2) {
+    scale: 1.2;
+  }
 }
