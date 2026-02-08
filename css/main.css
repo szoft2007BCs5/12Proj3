@@ -5,6 +5,7 @@
   box-sizing: border-box;
   font-family: "DynaPuff", system-ui;
   hyphens: auto;
+  cursor: url(../source/img/cursor.png) 25 20, auto;
 }
 
 :root {
@@ -40,9 +41,17 @@ body {
 .overlay-top {
   width: 100%;
   height: 100%;
-  display: grid;
-  grid-template-columns: 1fr 1.75fr;
+  display: flex;
   align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.bt-back{
+  position: absolute;
+  left: 1cqmin;
+  top: 1cqmin;
+  width: 15cqmin !important;
 }
 
 .overlay-title {
@@ -64,7 +73,7 @@ body {
   width: 20cqmin;
   aspect-ratio: 1/1;
   filter: saturate(2) brightness(1);
-  cursor: pointer;
+  cursor: url(../source/img/cursor-pointer.png) 25 1, auto;
   user-select: none;
   transition: 1s rotate;
 }
@@ -104,9 +113,10 @@ body {
 
 .menu-part-container {
   display: flex;
-  justify-content: center;
+  justify-content: right;
   align-items: center;
-  gap: 1dvw;
+  width: 100%;
+  gap: 2dvw;
 }
 
 #settings-section {
@@ -114,8 +124,7 @@ body {
   height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: left;
+  align-items: start;
 }
 
 .drawed-style {
@@ -138,7 +147,11 @@ body {
   rotate: -180deg;
 }
 
-.drawed-style>option {
+.drawed-style{
+  cursor: url(../source/img/cursor-pointer.png) 25 1, auto;
+}
+
+.drawed-style > option {
   font-family: "Story Script", sans-serif;
 }
 
@@ -152,15 +165,18 @@ body {
 
 .menu-label {
   font-size: 5cqmin;
+  margin-right: auto;
 }
 
 .volume-slider {
   width: 20cqmin;
+  cursor: url(../source/img/cursor-pointer.png) 25 1, auto;
 }
 
 .volume-slider-text {
-  font-size: 2cqmin;
-  width: 5cqmin;
+  font-size: 3cqmin;
+  width: fit-content;
+  cursor: url(../source/img/cursor-pointer.png) 25 1, auto;
 }
 
 @media screen and (max-width: 500px) {
