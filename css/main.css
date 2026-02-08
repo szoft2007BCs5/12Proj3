@@ -48,8 +48,6 @@ body {
     padding: 3cqmin;
 }
 
-.active-overlay {
-    display: flex;
 .overlay-title {
     font-size: calc(0.5rem + 6cqmin);
     font-family: "Mogra", system-ui;
