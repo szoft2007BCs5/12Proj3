@@ -29,6 +29,14 @@ export function playAudio(src, type, loop) {
     // Hangerő kiszámítása az effectiveType alapján
     audio.volume = calculateFinalVolume(effectiveType);
     audio.loop = loop;
+
+    if (!loop) {
+        audio.addEventListener('ended', () => {
+            console.log(`"${type}" lejátszása befejeződött, törlés a tárolóból.`);
+            delete activeSounds[type];
+        });
+    }
+
     audio.play().catch(e => console.error(`${type} hiba:`, e))
 
     // Eltároljuk a típusa szerint
@@ -102,18 +110,20 @@ export function stopAudio(type) {  // Leállítjuk a zenét és eltávolítjuk a
 
 
 
-/*
-
 export function setupButtonClickSounds(src) {
     const buttons = document.querySelectorAll('.button');
-    console.log(buttons);
+    document.addEventListener("click", () =>{
+        playAudio(src, 'click', false)
+    });
+    /*
     buttons.forEach(button => {
         button.addEventListener('onclick', () => {
-            playAudio(src, 'click', false);
+            playAudio(src, 'click', true);
         });
     });
+    */
 }
-*/
+
 
 // MAGYARÁZAT:
 
