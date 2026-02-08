@@ -1,4 +1,3 @@
-import * as Menu from "./menu.js";
 import * as Audio from "./audio.js";
 
 export function AddBtEventListeners() {
@@ -30,13 +29,17 @@ export function enableTemplate(selected) {
   screen.innerHTML = templateSelected.innerHTML; //kiválasztott oldal betöltése
   changeLanguage(); //betöltött oldal nyelvének beállítása
 
-    if(selected == "settings"){ //settings oldal eseménykezelőinek hozzáadása
-        document.getElementsByClassName("bt-back")[0] //vissza a main oldalra
-        .addEventListener("click", () => {enableTemplate("main")});
-        Audio.setupVolumeControls("music"); //music hangerő csúszka beállítása
-        Audio.setupVolumeControls("game"); //game hangerő csúszka beállítása
-        Audio.setupVolumeControls("master"); //master hangerő csúszka beállítása
-        Audio.setupVolumeControls("other"); //other hangerő csúszka beállítása
+  if (selected == "settings") {
+    //settings oldal eseménykezelőinek hozzáadása
+    document
+      .getElementsByClassName("bt-back")[0] //vissza a main oldalra
+      .addEventListener("click", () => {
+        enableTemplate("main");
+      });
+    Audio.setupVolumeControls("music"); //music hangerő csúszka beállítása
+    Audio.setupVolumeControls("game"); //game hangerő csúszka beállítása
+    Audio.setupVolumeControls("master"); //master hangerő csúszka beállítása
+    Audio.setupVolumeControls("other"); //other hangerő csúszka beállítása
 
     const langSelect = document.getElementById("language-select"); //nyelv választó eseménykezelője
     langSelect.value = localStorage.getItem("currentLang"); //aktuális nyelv beállítása
