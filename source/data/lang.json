@@ -1,0 +1,47 @@
+{
+    "title-main": {
+        "magyar": "Helyi Bolondok Szövetsége",
+        "english": "Local Fools' Association",
+        "magyar - szleng": "Helyi Crazy Dudes"
+    },
+    "title-settings": {
+        "magyar": "Beállítások",
+        "english": "Settings",
+        "magyar - szleng": "Szetttingek"
+    },
+    "verification": {
+        "magyar": "100%-ig MODERN, MEGBÍZHATÓ magyar weboldal.",
+        "english": "100% MODERN, TRUSTWORTHY hungarian webpage",
+        "magyar - szleng": "Low key 100% trust hell yeah webpage"
+    },
+    "language-label": {
+        "magyar": "Nyelv:",
+        "english": "Language:",
+        "magyar - szleng": "Makogás:"
+    },
+    "master-volume-label": {
+        "magyar": "Fő hangerő:",
+        "english": "Master volume:",
+        "magyar - szleng": "Boss kakaó:"
+    },
+    "music-volume-label": {
+        "magyar": "Zenehangerő:",
+        "english": "Music volume:",
+        "magyar - szleng": "Vibe kakaó:"
+    },
+    "game-volume-label": {
+        "magyar": "Játék hangerő:",
+        "english": "Game volume:",
+        "magyar - szleng": "Gém kakaó:"
+    },
+    "other-volume-label": {
+        "magyar": "További hangerő:",
+        "english": "Other volume:",
+        "magyar - szleng": "Bullshit kakaó:"
+    },
+    "title-info": {
+        "magyar": "Információ",
+        "english": "Information",
+        "magyar - szleng": "Btw tesó"
+    }
+}
