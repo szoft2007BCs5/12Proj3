@@ -1,103 +1,151 @@
+// overlay.js
 import * as Audio from "./audio.js";
-
+import * as Input from "./input.js";
 
 // Állapotkövető változók
-let activePage = "main"; // Hol vagyunk most
-let returnPage = "main"; // Hova lépjünk vissza ESC-re
+let activePage = "main"; 
+let returnPage = "main"; 
 
-export function AddBtEventListeners() {
-    // Főoldal gombjainak eseménykezelőinek hozzáadása
-    // Fontos: Ezt mindig meg kell hívni, amikor a main oldalt betöltjük!
-    const btSettings = document.getElementsByClassName("bt-settings")[0];
-    const btInfo = document.getElementsByClassName("bt-info")[0];
-    const btPlay = document.getElementsByClassName("bt-play")[0];
-
-    if (btSettings) {
-        btSettings.addEventListener("click", () => {
-            enableTemplate("settings");
-        });
-    }
-
-    if (btInfo) {
-        btInfo.addEventListener("click", () => {
-            enableTemplate("info");
-        });
-    }
-
-    if (btPlay) {
-        btPlay.addEventListener("click", () => {
-            enableTemplate("play");
-        });
-    }
-}
+// --- Publikus függvények ---
 
 export function enableTemplate(selected) {
-    // 1. Logika: Ha beállításokra megyünk, mentsük el, honnan jöttünk
+    // 1. Visszatérési oldal mentése (ha a settingsbe lépünk be)
     if (selected === "settings" && activePage !== "settings") {
         returnPage = activePage;
     }
 
-    // 2. kiválasztott oldal betöltése
+    // 2. Template keresése és betöltése
     const templateSelected = document.getElementById(`overlay-${selected}`);
-    if (!templateSelected) throw new Error(`Nem található ${selected} template`);
-    
-    const screen = document.getElementById("screen");   //oldal tartalma
-    screen.innerHTML = templateSelected.innerHTML;      //kiválasztott oldal betöltése
+    if (!templateSelected) {
+        console.error(`Hiba: Nem található overlay-${selected} template!`);
+        return;
+    }
 
-    // 3. Aktív oldal frissítése
+    const screen = document.getElementById("screen");
+    screen.innerHTML = templateSelected.innerHTML;
     activePage = selected;
-    changeLanguage(); // Nyelv beállítása az új elemeken
 
-    // 4. Eseménykezelők (gombok) újraaktiválása az adott oldalhoz
-    if (selected == "settings") {
-        //settings oldal eseménykezelőinek hozzáadása
-        document
-            .getElementsByClassName("bt-back")[0] //vissza a main oldalra
-            .addEventListener("click", () => {
-                enableTemplate(returnPage);
-            });
+    // 3. Nyelv frissítése az új elemeken
+    changeLanguage(); 
 
-            // Csúszkák beállítása
-        Audio.setupVolumeControls("music");
-        Audio.setupVolumeControls("game");
-        Audio.setupVolumeControls("master");
-        Audio.setupVolumeControls("other");
+    // 4. Oldal-specifikus logika futtatása
+    switch (selected) {
+        case "main":
+            initMainListeners();
+            break;
+        case "settings":
+            initSettingsListeners();
+            break;
+        case "info":
+            initInfoListeners();
+            break;
+        case "play":
+            initGameIframe();
+            break;
+    }
+}
 
-        const langSelect = document.getElementById("language-select"); //nyelv választó eseménykezelője
-        langSelect.value = localStorage.getItem("currentLang"); //aktuális nyelv beállítása
-        langSelect.addEventListener("change", (x) => {
-            changeLanguage(x.target.value);
-        }); //nyelv változtatása
-    } 
-    
-    else if (selected == "main") {
-        AddBtEventListeners(); //main oldal eseménykezelőinek újra hozzáadása, mivel a main oldal újratöltődik
-    } 
-    
-    else if (selected == "info") {
-        document
-            .getElementsByClassName("bt-back")[0] //vissza a main oldalra
-            .addEventListener("click", () => {
-                enableTemplate("main");
-            });
+export function toggleSettings() {
+    if (activePage === "settings") {
+        // Visszalépés
+        enableTemplate(returnPage);
+        
+        // Ha a játékba lépünk vissza, trükközni kell a fókusszal
+        if (returnPage === "play") {
+            setTimeout(() => {
+                const iframe = document.querySelector('iframe.clicker-iframe');
+                if (iframe && iframe.contentWindow) iframe.contentWindow.focus();
+            }, 50);
+        } else {
+            // Sima oldal esetén a főablakra fókuszálunk
+            window.focus();
+        }
+    } else {
+        // Megnyitás
+        enableTemplate("settings");
     }
 }
 
 export function changeLanguage(selected = localStorage.getItem("currentLang")) {
-    for (const e in window.lang) {
-        //minden elemre a lang fájlban
-        if (document.getElementById(e))
-            document.getElementById(e).innerHTML =
-                window.lang[e][selected.toLowerCase()];
+    if (!selected) selected = "Magyar"; // Alapértelmezett
+
+    if (window.lang) {
+        for (const key in window.lang) {
+            const element = document.getElementById(key);
+            if (element && window.lang[key][selected.toLowerCase()]) {
+                element.innerHTML = window.lang[key][selected.toLowerCase()];
+            }
+        }
     }
-    localStorage.setItem("currentLang", selected); //aktuális nyelv elmentése
+    localStorage.setItem("currentLang", selected);
 }
 
-// Ezt hívja majd az input.js az ESC gombra
-export function toggleSettings() {
-    if (activePage === "settings") {
-        enableTemplate(returnPage); // Vissza az előzőre
-    } else {
-        enableTemplate("settings"); // Beállítások megnyitása
+// --- Belső (privát) segédfüggvények ---
+
+function initMainListeners() {
+    const btSettings = document.querySelector(".bt-settings");
+    const btInfo = document.querySelector(".bt-info");
+    const btPlay = document.querySelector(".bt-play");
+
+    if (btSettings) btSettings.addEventListener("click", () => enableTemplate("settings"));
+    if (btInfo) btInfo.addEventListener("click", () => enableTemplate("info"));
+    if (btPlay) btPlay.addEventListener("click", () => enableTemplate("play"));
+}
+
+function initSettingsListeners() {
+    // Vissza gomb
+    const btBack = document.querySelector(".bt-back");
+    if (btBack) {
+        btBack.addEventListener("click", () => enableTemplate(returnPage));
     }
+
+    // Hangerő csúszkák inicializálása
+    Audio.setupVolumeControls("music");
+    Audio.setupVolumeControls("game");
+    Audio.setupVolumeControls("master");
+    Audio.setupVolumeControls("other");
+
+    // Nyelvválasztó
+    const langSelect = document.getElementById("language-select");
+    if (langSelect) {
+        langSelect.value = localStorage.getItem("currentLang") || "Magyar";
+        langSelect.addEventListener("change", (e) => {
+            changeLanguage(e.target.value);
+        });
+    }
+}
+
+function initInfoListeners() {
+    const btBack = document.querySelector(".bt-back");
+    if (btBack) {
+        btBack.addEventListener("click", () => enableTemplate("main"));
+    }
+}
+
+function initGameIframe() {
+    setTimeout(() => {
+        const iframe = document.querySelector('iframe.clicker-iframe');
+
+        if (iframe) {
+            const setupLogic = () => {
+                try {
+                    // 1. Fókusz
+                    iframe.contentWindow.focus();
+
+                    // 2. KÖZÖS INPUT LOGIKA RÁKÖTÉSE
+                    iframe.contentWindow.document.addEventListener('keydown', Input.handleKeyDown);
+                    
+                } catch (err) {
+                    console.warn("Nem sikerült elérni az iframe tartalmát:", err);
+                }
+            };
+
+            // Biztosra megyünk: ha már betöltött, azonnal futtatjuk, ha nem, megvárjuk
+            if (iframe.contentDocument && iframe.contentDocument.readyState === 'complete') {
+                setupLogic();
+            } else {
+                iframe.onload = setupLogic;
+            }
+        }
+    }, 50);
 }

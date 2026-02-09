@@ -1,25 +1,33 @@
+// main.js
 import * as Overlay from "./overlay.js";
 import * as Audio from "./audio.js";
+import * as Input from "./input.js";
 
 document.addEventListener("DOMContentLoaded", async () => {
-    if (!localStorage.getItem("currentLang"))
-        //ha nincs elmentve aktuális nyelv, akkor magyar lesz az alapértelmezett
+    // 1. Nyelv betöltése
+    if (!localStorage.getItem("currentLang")) {
         localStorage.setItem("currentLang", "Magyar");
+    }
 
-    window.lang = await fetch("../source/data/lang.json") //nyelveket tartalmzó fájl betöltése
-        .then((promise) => promise.json())
-        .catch((error) => console.log(error));
+    try {
+        const filePath = "../source/data/lang.json";
+        const response = await fetch(filePath);
+        window.lang = await response.json();
+    } catch (error) {
+        console.error(`Hiba a ${filePath} fájl betöltésekor:`, error);
+        window.lang = {}; // Üres objektum hiba esetére
+    }
 
-    Overlay.enableTemplate("main"); //main betöltése
-    Overlay.AddBtEventListeners(); //gombok eseménykezelői
+    // 2. Rendszerek indítása
+    Overlay.enableTemplate("main"); // Főoldal megjelenítése
+    Input.setupGlobalInput();       // Billentyűzet figyelés indítása
 
-    Audio.setupButtonClickSounds("../source/audio/button-click4.mp3"); //button click sound beállítása
+    // 3. Hangok előkészítése
+    Audio.setupButtonClickSounds("../source/audio/button-click4.mp3");
 
-    document.addEventListener(
-        "click",
-        () => {
-            Audio.playAudio("../source/audio/chill-drum-loop.mp3", "music", true); //zene elindítása a mentett hangerővel
-        },
-        { once: true },
-    ); //csak egyszer, hogy ne induljon újra a zene minden kattintásra
+    // Böngésző policy miatt csak első kattintás után indulhat a zene
+    document.addEventListener("click", () => {
+            Audio.playAudio("../source/audio/chill-drum-loop.mp3", "music", true);
+        }, { once: true }
+    );
 });
