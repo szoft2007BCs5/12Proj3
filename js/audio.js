@@ -102,10 +102,16 @@ function updateVolume(type, value) {
     }
 }
 
-export function setupButtonClickSounds(src) {
-    // Globális kattintás figyelő a gombokra, jobb teljesítmény mint egyesével
-    document.addEventListener("click", (e) => {
-            playAudio(src, "click", false);
-        
+export function setupPremadeAudios() {
+    // Globális kattintás figyelő a gombokra
+
+    // Böngésző policy miatt csak első kattintás után indulhat a zene
+    document.addEventListener("click", () => {
+            playAudio("../source/audio/chill-drum-loop.mp3", "music", true);
+        }, { once: true }
+    );
+
+    document.addEventListener("click", () => {
+            playAudio("../source/audio/button-click4.mp3", "click", false);
     });
 }

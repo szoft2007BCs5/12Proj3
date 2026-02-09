@@ -23,11 +23,5 @@ document.addEventListener("DOMContentLoaded", async () => {
     Input.setupGlobalInput();       // Billentyűzet figyelés indítása
 
     // 3. Hangok előkészítése
-    Audio.setupButtonClickSounds("../source/audio/button-click4.mp3");
-
-    // Böngésző policy miatt csak első kattintás után indulhat a zene
-    document.addEventListener("click", () => {
-            Audio.playAudio("../source/audio/chill-drum-loop.mp3", "music", true);
-        }, { once: true }
-    );
+    Audio.setupPremadeAudios();
 });
