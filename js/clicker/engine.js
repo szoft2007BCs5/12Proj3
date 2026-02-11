@@ -59,16 +59,17 @@ function buyUnit() {
     // 1. Kiszámolja az aktuális árat (basePrice * multiplier^darabszám)
     // 2. Ha van elég codeLines, levonja és növeli az inventory-t
     // 3. Visszaadja a sikert vagy sikertelenséget
-
+    const shopButton = document.querySelectorAll("#buy-bt");
+    shopButton.forEach(e => {
+        e.addEventListener("click", () => buyUnit())
+    });
     console.log("click")
+
+    // Ezt az UI.js-be kellene rakni
 }
 
 function shopEventListeners() {
-    // 1. Rárakja az eventListenereket a shop gombjaira
-    const shopButton = document.querySelectorAll("#buy-bt");
-    shopButton.forEach(e => {
-        e.addEventListener("onclick", () => buyUnit())
-    });
+
 }
 
 function saveGame() {
