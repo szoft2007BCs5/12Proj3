@@ -5,10 +5,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/clicker.css">
-    <link rel="stylesheet" href="../css/main.css">
+
+    <script src="../js/clicker/messages.js"></script>
+    <script src="../js/clicker/console.js" type="module" defer></script>
+    <script src="../js/clicker/ui.js" type="module" defer></script>
+    <script src="../js/clicker/engine.js" type="module" defer></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=VT323&family=Fira+Code:wght@300..700&display=swap"
+        rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Caveat+Brush&family=DynaPuff:wght@400..700&family=Mogra&family=Story+Script&display=swap">
 </head>
 
 <body>
+    <div id="blueDeath-overlay" class="hidden">
+        <h1>:(</h1>
+        <p>A rendszered hibába ütközött, mert a tanár kihúzta a kábelt.</p>
+        <p>Hibakód: _SPAGHETTI_CODE_ERROR</p>
+        <p>A javításhoz írd be: "sudo reboot"</p>
+        <input type="text" id="bsod-input" placeholder="Írd ide..." autocomplete="off">
+    </div>
+
     <div class="play" id="clicker-screen">
         <!-- Left Section -->
         <section id="left-section">
@@ -18,22 +37,30 @@
         <!-- Center Section -->
         <section id="center-section">
             <div id="messages">
-                <p>Random bejövő szövegek</p>
+                <!-- ide töltjük be a message-t-->
+            </div>
+            <div id="clicker-container">
+                <h1 id="codeLinesCouner"></h1>
+                <img src="../source/img/bt-play.webp" alt="click" id="clicker-button">
             </div>
         </section>
 
         <!-- Right Section -->
         <section id="right-section">
             <!-- Right header -->
-            <div id="right-section-header">
-                <h2>Kattintás erősítő</h2>
+            <div id="console">
+                <div id="console-log">
+
+                </div>
+                <div id="console-input-holder">
+                    <input type="text" name="console-input" id="console-input" autocomplete="off">
+                </div>
             </div>
 
             <!-- Clicker blueprint -->
             <div id="clicker-blueprint">
                 <div class="clicker-blueprint-item">
-                    <p>Kattintás erősítő</p>
-                    <button>Kattints rám!</button>
+                    <p>Blueprints</p>
                 </div>
             </div>
 
@@ -41,59 +68,11 @@
             <div id="clicker-shop">
                 <div class="clicker-shop-item">
                     <p>Kattintás sebesség növelő</p>
-                    <button>Kattints rám!</button>
+                    <button id="buy-bt">Kattints rám!</button>
                 </div>
                 <div class="clicker-shop-item">
                     <p>Kattintás sebesség növelő</p>
-                    <button>Kattints rám!</button>
-                </div>
-                <div class="clicker-shop-item">
-                    <p>Kattintás sebesség növelő</p>
-                    <button>Kattints rám!</button>
-                </div><div class="clicker-shop-item">
-                    <p>Kattintás sebesség növelő</p>
-                    <button>Kattints rám!</button>
-                </div>
-                <div class="clicker-shop-item">
-                    <p>Kattintás sebesség növelő</p>
-                    <button>Kattints rám!</button>
-                </div>
-                <div class="clicker-shop-item">
-                    <p>Kattintás sebesség növelő</p>
-                    <button>Kattints rám!</button>
-                </div><div class="clicker-shop-item">
-                    <p>Kattintás sebesség növelő</p>
-                    <button>Kattints rám!</button>
-                </div>
-                <div class="clicker-shop-item">
-                    <p>Kattintás sebesség növelő</p>
-                    <button>Kattints rám!</button>
-                </div>
-                <div class="clicker-shop-item">
-                    <p>Kattintás sebesség növelő</p>
-                    <button>Kattints rám!</button>
-                </div><div class="clicker-shop-item">
-                    <p>Kattintás sebesség növelő</p>
-                    <button>Kattints rám!</button>
-                </div>
-                <div class="clicker-shop-item">
-                    <p>Kattintás sebesség növelő</p>
-                    <button>Kattints rám!</button>
-                </div>
-                <div class="clicker-shop-item">
-                    <p>Kattintás sebesség növelő</p>
-                    <button>Kattints rám!</button>
-                </div><div class="clicker-shop-item">
-                    <p>Kattintás sebesség növelő</p>
-                    <button>Kattints rám!</button>
-                </div>
-                <div class="clicker-shop-item">
-                    <p>Kattintás sebesség növelő</p>
-                    <button>Kattints rám!</button>
-                </div>
-                <div class="clicker-shop-item">
-                    <p>Kattintás sebesség növelő</p>
-                    <button>Kattints rám!</button>
+                    <button id="buy-bt">Kattints rám!</button>
                 </div>
             </div>
         </section>
