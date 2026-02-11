@@ -5,18 +5,18 @@
 }
 
 * {
-  padding: 0;
-  margin: 0;
-  scroll-behavior: smooth;
-  box-sizing: border-box;
-  font-family: "DynaPuff", system-ui;
-  hyphens: auto;
-  cursor: url(../source/img/cursor.png) 25 20, auto;
+    padding: 0;
+    margin: 0;
+    scroll-behavior: smooth;
+    box-sizing: border-box;
+    font-family: "DynaPuff", system-ui;
+    hyphens: auto;
+    cursor: url(../source/img/cursor.png) 25 20, auto;
 }
 
 html,
 body {
-  background: var(--white);
+    background: var(--white);
 }
 
 #clicker-screen {
@@ -35,38 +35,46 @@ body {
 }
 
 #left-section {
-    background-color: red;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-
-    #clicker-button {
-        transition: transform 0.05s ease-in-out;
-
-        user-select: none;
-        -webkit-user-drag: none;
-    }
-
-    #clicker-button:active {
-        transform: scale(0.90);
-    }
+    background-color: green;
 }
 
 #center-section {
-    background-color: green;
     border-left: 10px solid black;
     border-right: 10px solid black;
+
+    #messages {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+        height: 10%;
+        background-color: white;
+    }
+
+    #clicker-container {
+        height: 90%;
+        background-color: red;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        #clicker-button {
+            transition: transform 0.05s ease-in-out;
+
+            user-select: none;
+            -webkit-user-drag: none;
+        }
+
+        #clicker-button:active {
+            transform: scale(0.90);
+        }
+    }
 }
 
-#messages {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
-    height: 10%;
-    background-color: white;
-}
+
+
 
 #right-section {
     background-color: blue;

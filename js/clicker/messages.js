@@ -21,7 +21,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         // 4. Beállítjuk az időzítőt
         setInterval(() => {
             showRandomMessage(data, messagesDiv);
-        }, 5000);
+        }, 4000);
 
     } catch (error) {
         console.error(`Hiba a ${filePath} fájl betöltésekor:`, error);

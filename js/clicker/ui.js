@@ -8,11 +8,29 @@ export function updateDisplay() {
     // 3. Ha BSOD állapot van, hozzáadja a .visible osztályt a kékhalál div-hez
 
     codeLinesCouner.innerHTML = Engine.gameState.codeLines;
+    // 
 }
-
+renderShop()
 function renderShop() {
     // A GAME_DATA.units alapján legenerálja a gombokat a HTML-ben
     // Beállítja rajtuk a 'click' eseményt, ami hívja az engine.buyUnit()-ot
+    const clickerShop = document.getElementById("clicker-shop");
+
+    Engine.upgrades.units.forEach(element => {
+        let item = document.createElement("div")
+        let name = document.createElement("p")
+        let buy = document.createElement("button")
+        if (element.level = Engine.gameState.level) {
+            item.id = "clicker-shop-item";
+            buy.id = "buy-bt"
+
+            name.innerHTML = element.id;
+
+            item.appendChild(name)
+            item.appendChild(buy)
+            clickerShop.appendChild(item)
+        }
+    });
 }
 
 function playSound(soundId) {

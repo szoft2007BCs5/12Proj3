@@ -7,8 +7,19 @@ export let gameState = {
     clickPower: 1,
     status: 'NORMAL', // NORMAL, BSOD, PANIC
     wifiLevel: 100,
-    currentLanguage: 'hu'
+    currentLanguage: 'hu',
+    level: 0
 };
+
+export let upgrades = {
+    units: [
+        { id: "student", cost: 15, prod: 0.5, level: 0 },
+        { id: "nerd", cost: 100, prod: 5, level: 1 },
+        { id: "chatgpt", cost: 500, prod: 20, level: 2 },
+        { id: "indians", cost: 2000, prod: 100, level: 3 }
+    ]
+}
+
 
 // --- FUNKCIÓK ---
 initGame();
@@ -18,6 +29,7 @@ function initGame() {
     // 2. Ha nincs, inicializálja az alapértékeket
     // 3. Elindítja a Game Loop-ot
     handleManualClick();
+    shopEventListeners();
     gameLoop();
 }
 
@@ -43,10 +55,20 @@ function handleManualClick() {
     });
 }
 
-function buyUnit(unitId) {
+function buyUnit() {
     // 1. Kiszámolja az aktuális árat (basePrice * multiplier^darabszám)
     // 2. Ha van elég codeLines, levonja és növeli az inventory-t
     // 3. Visszaadja a sikert vagy sikertelenséget
+
+    console.log("click")
+}
+
+function shopEventListeners() {
+    // 1. Rárakja az eventListenereket a shop gombjaira
+    const shopButton = document.querySelectorAll("#buy-bt");
+    shopButton.forEach(e => {
+        e.addEventListener("onclick", () => buyUnit())
+    });
 }
 
 function saveGame() {
