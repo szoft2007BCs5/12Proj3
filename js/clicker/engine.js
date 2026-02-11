@@ -1,0 +1,54 @@
+import * as UI from "./ui.js";
+
+export let gameState = {
+    codeLines: 0,
+    totalCodeGenerated: 0,
+    inventory: {}, // Pl: { 'keyboard': 5, 'monitor': 1 }
+    clickPower: 1,
+    status: 'NORMAL', // NORMAL, BSOD, PANIC
+    wifiLevel: 100,
+    currentLanguage: 'hu'
+};
+
+// --- FUNKCIÓK ---
+initGame();
+
+function initGame() {
+    // 1. Megpróbálja betölteni a mentést a localStorage-ból
+    // 2. Ha nincs, inicializálja az alapértékeket
+    // 3. Elindítja a Game Loop-ot
+    handleManualClick();
+    gameLoop();
+}
+
+function gameLoop() {
+    // 1. Kiszámolja a passzív termelést (inventory alapján)
+    // 2. Levonja a Wi-Fi-t (ha van ilyen mechanika)
+    // 3. Lefuttatja a véletlenszerű eseménygenerátort (pl. jön a tanár?)
+    // 4. Szól a ui.js-nek, hogy: "Frissíts, mert változtak a számok!"
+    let interval = setInterval(() => {
+        UI.updateDisplay();
+    }, 100);
+
+}
+
+function handleManualClick() {
+    // Megnézi, kattintható-e a terminál (nincs-e BSOD)
+    // Növeli a codeLines értékét
+
+    const clickerButton = document.getElementById("clicker-button");
+    clickerButton.addEventListener("click", () => {
+        gameState.codeLines += gameState.clickPower;
+        gameState.totalCodeGenerated += gameState.clickPower;
+    });
+}
+
+function buyUnit(unitId) {
+    // 1. Kiszámolja az aktuális árat (basePrice * multiplier^darabszám)
+    // 2. Ha van elég codeLines, levonja és növeli az inventory-t
+    // 3. Visszaadja a sikert vagy sikertelenséget
+}
+
+function saveGame() {
+    // JSON.stringify(gameState) -> localStorage
+}
