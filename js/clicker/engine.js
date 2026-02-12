@@ -4,7 +4,7 @@ import * as _console from "./console.js";
 export let gameState = {
     codeLines: 0,
     totalCodeGenerated: 0,
-    inventory: { }, // Pl: { 'keyboard': 5, 'monitor': 1 }
+    inventory: {}, // Pl: { 'keyboard': 5, 'monitor': 1 }
     clickPower: 1,
     status: 'NORMAL', // NORMAL, BSOD, PANIC
     wifiLevel: 100,
@@ -34,16 +34,24 @@ function initGame() {
     gameLoop();
 }
 
-function gameLoop() {
+async function gameLoop() {
     // 1. Kiszámolja a passzív termelést (inventory alapján)
     // 2. Levonja a Wi-Fi-t (ha van ilyen mechanika)
     // 3. Lefuttatja a véletlenszerű eseménygenerátort (pl. jön a tanár?)
     // 4. Szól a ui.js-nek, hogy: "Frissíts, mert változtak a számok!"
     let interval = setInterval(() => {
-        gameState.codeLines += passiveIncome()
-        UI.updateDisplay();
-    }, 100);
+        switch (gameState) {
+            case "DSOD": return;
+        }
 
+        gameState.codeLines += passiveIncome();
+        UI.updateDisplay();
+        console.log("ASD");
+
+        if (Math.random() < 0.0002) { // 1% esély
+            triggerBlueScreen();
+        }
+    }, 100);
 }
 
 function passiveIncome() {
@@ -87,16 +95,15 @@ export function buyUnit(key) {
     if (gameState.codeLines >= unitData.cost) {
         gameState.codeLines -= unitData.cost;
         if (gameState.inventory[key]) {
-            gameState.inventory[key]++; // Ha van, növeljük
+            gameState.inventory[key]++;         // Ha van, növeljük
         } else {
-            gameState.inventory[key] = 1; // Ha nincs, létrehozzuk és beállítjuk 1-re
-            gameState.level = unitData.level
-            console.log(gameState.level)
+            gameState.inventory[key] = 1;       // Ha nincs, létrehozzuk és beállítjuk 1-re
+            gameState.level = unitData.level;
         }
         _console.renderToScreen("Siker");
         upgrades.units.forEach(unit => {
             if (unit.id === key)
-                unit.cost = Math.round(unit.cost * 1.5, 2)        // Érték helytelen
+                unit.cost = Math.round(unit.cost * 1.5, 2);
         });
 
         UI.renderShop();
@@ -105,6 +112,48 @@ export function buyUnit(key) {
     _console.renderToScreen("NEM LYÓ");
 }
 
+export function triggerBlueScreen() {
+    console.log("Kék Halál!");
+
+    // 1. Játék megállítása
+    gameState.status = "DSOD";
+
+    // 2. Képernyő megjelenítése
+    const blueDeath = document.getElementById("blueDeath-overlay");
+    const bsodInput = document.getElementById("bsod-input");
+    blueDeath.classList.remove("hidden");
+
+    // Fókuszáljunk az inputra, hogy azonnal tudjon írni
+    bsodInput.focus();
+    bsodInput.value = ""; // Töröljük a korábbi szöveget
+
+    // Eseményfigyelő
+    bsodInput.addEventListener("keyup", function (event) {
+        // Ellenőrizzük, hogy Enter-t nyomott-e
+        if (event.key === "Enter") {
+
+            // Itt olvassuk ki, mit írt be
+            const beirtSzoveg = bsodInput.value;
+
+            console.log("A játékos ezt írta: " + beirtSzoveg);
+
+            // Ellenőrzés (pl. ha azt írja be: "reboot")
+            if (beirtSzoveg === "reboot") resolveBlueScreen();
+            else bsodInput.value = "";
+        }
+    });
+}
+
+function resolveBlueScreen() {
+    console.log("Hiba elhárítva!");
+
+    // 1. Képernyő eltüntetése
+    const blueDeath = document.getElementById("blueDeath-overlay");
+    blueDeath.classList.add("hidden");
+
+    // 2. Játék folytatása
+    gameState.status = "DSOD";
+}
 
 function saveGame() {
     // JSON.stringify(gameState) -> localStorage

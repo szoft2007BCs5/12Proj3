@@ -28,20 +28,29 @@ export function renderShop() {
 
             if (inventory[unit.id])
                 div.innerHTML = `
-                    <h1>${unit.id}</h1>
-                    <div id="clicker-shop-item-description">
-                        <h2>Ár: ${unit.cost}<h2>
-                        <h2>Db: ${inventory[unit.id]}</h2>
+                    <div id="clicker-shop-item-left">
+                        <h1 id="clicker-item-count">${inventory[unit.id]}</h1>
                     </div>
-                    <button id="buy-bt" draggable="false">Kattints rám!</button>`;
+                    <div id="clicker-shop-item-right">
+                        <h1>${unit.id}</h1>
+                        <div id="clicker-shop-item-description">
+                            <h2>Ár: ${unit.cost}<h2>
+                        </div>
+                        <p>${unit.prod * inventory[unit.id] * 10}/sec</p>
+                        <button id="buy-bt" draggable="false">Kattints rám!</button>
+                    </div>`;
             else
                 div.innerHTML = `
-                    <h1>${unit.id}</h1>
-                    <div id="clicker-shop-item-description">
-                        <h2>Ár: ${unit.cost}</h2>
-                        <h2>Db: 0</h2>
+                    <div id="clicker-shop-item-left">
+                        <h1 id="clicker-item-count">0</h1>
                     </div>
-                    <button id="buy-bt" draggable="false">Kattints rám!</button>`;
+                    <div id="clicker-shop-item-right">
+                        <h1>${unit.id}</h1>
+                        <div id="clicker-shop-item-description">
+                            <h2>Ár: ${unit.cost}<h2>
+                        </div>
+                        <button id="buy-bt" draggable="false">Kattints rám!</button>
+                    </div>`;
 
 
             clickerShop.appendChild(div)
@@ -52,40 +61,6 @@ export function renderShop() {
         };
     });
 }
-
-console.log("Frissült");
-
-
-/*
-export function renderShop() {
-    // A GAME_DATA.units alapján legenerálja a gombokat a HTML-ben
-    // Beállítja rajtuk a 'click' eseményt, ami hívja az engine.buyUnit()-ot
-    const clickerShop = document.getElementById("clicker-shop");
-    clickerShop.innerHTML = "";
-    console.log("Frissült")
-
-
-    for (const key in Engine.gameState.inventory) {
-        let div = document.createElement("div")
-        div.classList = "clicker-shop-item"
-        let p = document.createElement("p")
-
-        const unitData = Engine.upgrades.units.find(unit => unit.id === key);
-
-        p.innerHTML = key + " ár: " + unitData.cost + " db: " + Engine.gameState.inventory[key];
-
-        let button = document.createElement("button")
-        button.innerHTML = "Kattints rám!"
-        button.id = "buy-bt"
-        button.draggable = false;
-        button.addEventListener("click", () => Engine.buyUnit(key))
-
-        div.appendChild(p)
-        div.appendChild(button)
-        clickerShop.appendChild(div)
-    }
-}
-*/
 
 function playSound(soundId) {
     // Lejátsza a kattintás, hiba vagy modem hangot az assets/sounds-ból

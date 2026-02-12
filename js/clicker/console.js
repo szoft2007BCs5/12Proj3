@@ -1,3 +1,5 @@
+import * as Engine from "./engine.js";
+
 // Segédfüggvény, ami CSAK kiír, de nem értelmez parancsokat (megelőzi a hurkokat)
 export function renderToScreen(text) {
     const terminal = document.getElementById("console-log");
@@ -26,23 +28,25 @@ export function writeLog(text) {
     switch (command) {
         case "clear":
             clearLogs();
-            break;
+            return;
         case "start":
             renderToScreen("SYSTEM: Üdvözöllek a játékban!");
             renderToScreen("SYSTEM: A te kedves, megbízható rendszered beszél!");
-            break;
+            return;
         case "save":
             saveLogs();
-            break;
+            return;
         case "load":
             loadLogs();
-            break;
+            return;
+        case "blue death":
+            Engine.triggerBlueScreen()
+            return;
         default:
             renderToScreen(text);
-            break;
+            return;
     }
 }
-
 function clearLogs() {
     const terminal = document.getElementById("console-log");
     terminal.innerHTML = "";

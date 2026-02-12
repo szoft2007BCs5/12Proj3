@@ -208,25 +208,41 @@ body {
             width: 100%;
             height: 100px;
             border-bottom: 10px solid black;
-            padding: 0 2cqmin;
-            background-image: url(../source/img/shopitem-bg.webp);
-            flex-shrink: 0;
 
             display: flex;
             flex-direction: row;
             align-items: center;
-            justify-content: space-between;
 
-            #clicker-shop-item-description {
+            #clicker-shop-item-left {
+                background-color: var(--pure-white);
+                width: 10%;
                 height: 100%;
                 display: flex;
                 flex-direction: column;
                 justify-content: center;
                 align-items: center;
+                border-right: 5px solid var(--border-color);
+                border-radius: 10px;
             }
 
-            #buy-bt {
+            #clicker-shop-item-right {
+                width: 90%;
                 height: 100%;
+                padding-left: 1dvw;
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+                background-image: url(../source/img/shopitem-bg.webp);
+
+                #clicker-item-count {
+                    color: rgb(59, 59, 59);
+                    font-size: 8cqmin;
+                }
+
+                #buy-bt {
+                    height: 100%;
+                }
             }
         }
     }
