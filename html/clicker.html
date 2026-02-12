@@ -16,7 +16,8 @@
     <link href="https://fonts.googleapis.com/css2?family=VT323&family=Fira+Code:wght@300..700&display=swap"
         rel="stylesheet">
     <link
-        href="https://fonts.googleapis.com/css2?family=Caveat+Brush&family=DynaPuff:wght@400..700&family=Mogra&family=Story+Script&display=swap">
+        href="https://fonts.googleapis.com/css2?family=Caveat+Brush&family=DynaPuff:wght@400..700&family=Mogra&family=Story+Script&display=swap"
+        rel="stylesheet">
 </head>
 
 <body>
@@ -40,8 +41,9 @@
                 <!-- ide töltjük be a message-t-->
             </div>
             <div id="clicker-container">
-                <h1 id="codeLinesCouner"></h1>
-                <img src="../source/img/bt-play.webp" alt="click" id="clicker-button">
+                <canvas id="clicker-bg-canvas"></canvas>
+                <h1 id="codeLinesCounter"></h1>
+                <img src="../source/img/mouse.webp" alt="click" id="clicker-button">
             </div>
         </section>
 
@@ -50,7 +52,7 @@
             <!-- Right header -->
             <div id="console">
                 <div id="console-log">
-
+                    <!-- Ide tölti be a console itemeket -->
                 </div>
                 <div id="console-input-holder">
                     <input type="text" name="console-input" id="console-input" autocomplete="off">

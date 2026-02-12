@@ -2,9 +2,9 @@ import * as UI from "./ui.js";
 import * as _console from "./console.js";
 
 export let gameState = {
-    codeLines: 1000,
+    codeLines: 0,
     totalCodeGenerated: 0,
-    inventory: { "student": 2, 'nerd': 1 }, // Pl: { 'keyboard': 5, 'monitor': 1 }
+    inventory: { }, // Pl: { 'keyboard': 5, 'monitor': 1 }
     clickPower: 1,
     status: 'NORMAL', // NORMAL, BSOD, PANIC
     wifiLevel: 100,
@@ -14,10 +14,10 @@ export let gameState = {
 
 export let upgrades = {
     units: [
-        { id: "student", cost: 15, prod: 0.1, level: 0 },
-        { id: "nerd", cost: 100, prod: 5, level: 1 },
-        { id: "chatgpt", cost: 500, prod: 20, level: 2 },
-        { id: "indians", cost: 2000, prod: 100, level: 3 }
+        { id: "student", cost: 15, prod: 0.02, level: 1 },
+        { id: "nerd", cost: 100, prod: 0.3, level: 2 },
+        { id: "chatgpt", cost: 2500, prod: 0.5, level: 3 },
+        { id: "indians", cost: 125000, prod: 1, level: 4 }
     ]
 }
 
@@ -72,6 +72,8 @@ function handleManualClick() {
     clickerButton.addEventListener("click", () => {
         gameState.codeLines += gameState.clickPower;
         gameState.totalCodeGenerated += gameState.clickPower;
+
+
     });
 }
 
@@ -88,6 +90,8 @@ export function buyUnit(key) {
             gameState.inventory[key]++; // Ha van, növeljük
         } else {
             gameState.inventory[key] = 1; // Ha nincs, létrehozzuk és beállítjuk 1-re
+            gameState.level = unitData.level
+            console.log(gameState.level)
         }
         _console.renderToScreen("Siker");
         upgrades.units.forEach(unit => {

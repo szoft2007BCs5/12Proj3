@@ -1,13 +1,13 @@
 import * as Engine from "./engine.js"
 
-const codeLinesCouner = document.getElementById("codeLinesCouner");
+const codeLinesCounter = document.getElementById("codeLinesCounter");
 
 export function updateDisplay() {
     // 1. Lekéri a számokat az engine.js-ből
     // 2. Beírja az elemekbe: document.getElementById('code-count').innerText = gameState.codeLines;
     // 3. Ha BSOD állapot van, hozzáadja a .visible osztályt a kékhalál div-hez
 
-    codeLinesCouner.innerHTML = Math.round(Engine.gameState.codeLines);
+    codeLinesCounter.innerHTML = Math.round(Engine.gameState.codeLines);
 }
 
 export function renderShop() {
@@ -25,26 +25,33 @@ export function renderShop() {
 
             let div = document.createElement("div")
             div.classList = "clicker-shop-item"
-            let p = document.createElement("p")
 
             if (inventory[unit.id])
-                p.innerHTML = unit.id + " ár: " + unit.cost + " db: " + inventory[unit.id];
+                div.innerHTML = `
+                    <h1>${unit.id}</h1>
+                    <div id="clicker-shop-item-description">
+                        <h2>Ár: ${unit.cost}<h2>
+                        <h2>Db: ${inventory[unit.id]}</h2>
+                    </div>
+                    <button id="buy-bt" draggable="false">Kattints rám!</button>`;
             else
-                p.innerHTML = unit.id + " ár: " + unit.cost + " db: 0";
+                div.innerHTML = `
+                    <h1>${unit.id}</h1>
+                    <div id="clicker-shop-item-description">
+                        <h2>Ár: ${unit.cost}</h2>
+                        <h2>Db: 0</h2>
+                    </div>
+                    <button id="buy-bt" draggable="false">Kattints rám!</button>`;
 
-            let button = document.createElement("button")
-            button.innerHTML = "Kattints rám!"
-            button.id = "buy-bt"
-            button.draggable = false;
-            button.addEventListener("click", () => Engine.buyUnit(unit.id))
 
-            div.appendChild(p)
-            div.appendChild(button)
             clickerShop.appendChild(div)
-
-        }
+            div.addEventListener("click", (e) => {
+                if (e.target.closest("#buy-bt"))
+                    Engine.buyUnit(unit.id);
+            });
+        };
     });
-});
+}
 
 console.log("Frissült");
 
