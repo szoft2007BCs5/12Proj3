@@ -60,6 +60,9 @@ body {
         justify-content: center;
         align-items: center;
 
+        #codeLinesCouner {
+            text-align: left
+        }
         #clicker-button {
             transition: transform 0.05s ease-in-out;
 
