@@ -19,16 +19,12 @@
 
 html,
 body {
+    height: 100dvh;
+    width: 100dvw;
     background: var(--white);
 }
 
-#clicker-screen {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100dvh;
-    width: 100dvw;
-}
+
 
 #left-section,
 #center-section,
@@ -248,16 +244,18 @@ body {
     }
 }
 
-
-
-
-
-
-.hidden {
-    display: none !important;
+#clicker-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: none;
+    flex-direction: row;
+    z-index: 1000;
 }
 
-#blueDeath-overlay {
+#BSOD-overlay {
     position: fixed;
     top: 0;
     left: 0;
@@ -265,9 +263,38 @@ body {
     height: 100%;
     background-color: #0000AA;
     color: white;
-    display: flex;
+    display: none;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    z-index: 1000;
+}
+
+#menu-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    z-index: 1000;
+}
+
+#information-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: none;
+    z-index: 1000;
+}
+#settings-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: none;
     z-index: 1000;
 }

@@ -1,12 +1,14 @@
 import * as UI from "./ui.js";
 import * as _console from "./console.js";
+import { initAudioSystem } from "./audio.js";
 
 export let gameState = {
     codeLines: 0,
     totalCodeGenerated: 0,
     inventory: {}, // Pl: { 'keyboard': 5, 'monitor': 1 }
     clickPower: 1,
-    status: 'NORMAL', // NORMAL, BSOD, PANIC
+    status: 'menu', // clicker, BSOD, menu, settings, information
+    lastStatus: '',
     wifiLevel: 100,
     currentLanguage: 'hu',
     level: 0
@@ -31,6 +33,8 @@ function initGame() {
     // 3. Elindítja a Game Loop-ot
     handleManualClick();
     loadGame();
+    setupButtons();
+    setupGlobalInput();
     UI.renderShop();
     gameLoop();
 }
@@ -40,23 +44,60 @@ async function gameLoop() {
     // 2. Levonja a Wi-Fi-t (ha van ilyen mechanika)
     // 3. Lefuttatja a véletlenszerű eseménygenerátort (pl. jön a tanár?)
     // 4. Szól a ui.js-nek, hogy: "Frissíts, mert változtak a számok!"
-    let interval = setInterval(() => {
-        switch (gameState) {
-            case "DSOD": return;
-            case "STOP": return;
-        }
-
+    setInterval(() => {
         gameState.codeLines += passiveIncome();
         UI.updateDisplay();
-        console.log("ASD");
-
-        if (Math.random() < 0.0002) { // 1% esély
-            triggerBlueScreen();
-        }
+        triggerBlueScreen();
         saveGame();
     }, 100);
 }
 
+function setupButtons() {
+    const buttons = document.querySelectorAll(".button");
+    buttons.forEach(button => {
+        if (button.classList.contains("bt-back")) {
+            button.addEventListener("click", () => {
+                gameState.status = gameState.lastStatus;
+                UI.activateOverlay()
+            });
+        }
+        else {
+            button.addEventListener("click", (e) => {
+                gameState.lastStatus = gameState.status
+                gameState.status = e.target.dataset.target
+                UI.activateOverlay()
+            });
+        }
+
+    });
+}
+
+// --- Input ---
+function setupGlobalInput() {
+    document.addEventListener("keydown", handleKeyDown);
+}
+function handleKeyDown(e) {
+    console.log(e.key)
+    if (e.key === "Escape") {
+        if (gameState.status == "settings") {
+            gameState.status = gameState.lastStatus;
+            UI.activateOverlay()
+        }
+        else {
+            gameState.lastStatus = gameState.status;
+            gameState.status = "settings";
+            UI.activateOverlay()
+        }
+    }
+
+    if (e.key === "m") {
+        gameState.status = "menu";
+        UI.activateOverlay()
+    }
+}
+
+
+// --- Gameplay ---
 function passiveIncome() {
     let income = 0;
 
@@ -116,35 +157,33 @@ export function buyUnit(key) {
 }
 
 export function triggerBlueScreen() {
-    console.log("Kék Halál!");
+    if (Math.random() < 0.0002) { // 1% esély
+        console.log("Kék Halál!");
 
-    // 1. Játék megállítása
-    gameState.status = "DSOD";
+        gameState.status = "DSOD";
 
-    // 2. Képernyő megjelenítése
-    const blueDeath = document.getElementById("blueDeath-overlay");
-    const bsodInput = document.getElementById("bsod-input");
-    blueDeath.classList.remove("hidden");
+        const bsodInput = document.getElementById("bsod-input");
 
-    // Fókuszáljunk az inputra, hogy azonnal tudjon írni
-    bsodInput.focus();
-    bsodInput.value = ""; // Töröljük a korábbi szöveget
+        // Fókuszáljunk az inputra, hogy azonnal tudjon írni
+        bsodInput.focus();
+        bsodInput.value = ""; // Töröljük a korábbi szöveget
 
-    // Eseményfigyelő
-    bsodInput.addEventListener("keyup", function (event) {
-        // Ellenőrizzük, hogy Enter-t nyomott-e
-        if (event.key === "Enter") {
+        // Eseményfigyelő
+        bsodInput.addEventListener("keyup", function (event) {
+            // Ellenőrizzük, hogy Enter-t nyomott-e
+            if (event.key === "Enter") {
 
-            // Itt olvassuk ki, mit írt be
-            const beirtSzoveg = bsodInput.value;
+                // Itt olvassuk ki, mit írt be
+                const beirtSzoveg = bsodInput.value;
 
-            console.log("A játékos ezt írta: " + beirtSzoveg);
+                console.log("A játékos ezt írta: " + beirtSzoveg);
 
-            // Ellenőrzés (pl. ha azt írja be: "reboot")
-            if (beirtSzoveg === "reboot") resolveBlueScreen();
-            else bsodInput.value = "";
-        }
-    });
+                // Ellenőrzés (pl. ha azt írja be: "reboot")
+                if (beirtSzoveg === "reboot") resolveBlueScreen();
+                else bsodInput.value = "";
+            }
+        });
+    }
 }
 
 function resolveBlueScreen() {
@@ -163,15 +202,16 @@ function saveGame() {
         console.error("HIBA: A codeLines értéke elveszett mentés előtt!", gameState);
         return; // Ne mentsük el a hibás állapotot!
     }
-    localStorage.setItem("save", JSON.stringify(gameState));
-    console.log("Sikeres mentés:", gameState);
+    // localStorage.setItem("save", JSON.stringify(gameState));
 }
 
 function loadGame() {
+    /*
     const saved = localStorage.getItem("save");
     if (saved) {
         const parsed = JSON.parse(saved);
         // Csak azokat az értékeket írjuk felül, amik megvannak a mentésben
         Object.assign(gameState, parsed);               // HA BESZARIK TÖRÖLT EZT A SORT
     }
+        */
 }

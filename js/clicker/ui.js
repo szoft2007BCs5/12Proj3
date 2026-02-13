@@ -10,6 +10,26 @@ export function updateDisplay() {
     codeLinesCounter.innerHTML = Math.round(Engine.gameState.codeLines);
 }
 
+export function activateOverlay() {
+    const overlays = document.querySelectorAll(".overlay");
+    let activeStatus = Engine.gameState.status
+
+    overlays.forEach((overlay) => {
+        if (overlay.id != `${activeStatus}-overlay`) {
+            overlay.style.display = "none";
+            overlay.style.height = "0";
+            overlay.style.width = "0";
+        }
+        else {
+            overlay.style.display = "flex";
+            overlay.style.height = "100dvh";
+            overlay.style.width = "100dvw";
+        }
+    });
+
+
+}
+
 export function renderShop() {
     // A GAME_DATA.units alapján legenerálja a gombokat a HTML-ben
     // Beállítja rajtuk a 'click' eseményt, ami hívja az engine.buyUnit()-ot
