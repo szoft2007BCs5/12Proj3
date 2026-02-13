@@ -56,7 +56,7 @@ export function renderShop() {
                         <div id="clicker-shop-item-description">
                             <h2>Ár: ${unit.cost}<h2>
                         </div>
-                        <p>${unit.prod * inventory[unit.id] * 10}/sec</p>
+                        <p>${(unit.prod * inventory[unit.id] * 10).toFixed(1)}/sec</p>
                         <button id="buy-bt" draggable="false">Kattints rám!</button>
                     </div>`;
             else
@@ -81,6 +81,43 @@ export function renderShop() {
         };
     });
 }
+
+
+export function renderDoor(){
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 function playSound(soundId) {
     // Lejátsza a kattintás, hiba vagy modem hangot az assets/sounds-ból

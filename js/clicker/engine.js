@@ -1,6 +1,6 @@
 import * as UI from "./ui.js";
 import * as _console from "./console.js";
-import { initAudioSystem } from "./audio.js";
+import { playAudio, setupAudioSystem, stopAudio } from "./audio.js";
 
 export let gameState = {
     codeLines: 0,
@@ -147,7 +147,7 @@ export function buyUnit(key) {
         _console.renderToScreen("Siker");
         upgrades.units.forEach(unit => {
             if (unit.id === key)
-                unit.cost = Math.round(unit.cost * 1.5, 2);
+                unit.cost = Math.round(unit.cost ** 1.05, 2);
         });
 
         UI.renderShop();
