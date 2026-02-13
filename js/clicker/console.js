@@ -26,6 +26,14 @@ export function writeLog(text) {
     const command = text.trim().toLowerCase();
 
     switch (command) {
+        /*
+        case "stop":
+            Engine.gameState.status = "stop";
+            return;
+        case "start":
+            Engine.gameState.status = "start";
+            return;
+        */
         case "clear":
             clearLogs();
             return;

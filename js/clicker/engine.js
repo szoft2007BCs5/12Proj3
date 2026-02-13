@@ -30,6 +30,7 @@ function initGame() {
     // 2. Ha nincs, inicializálja az alapértékeket
     // 3. Elindítja a Game Loop-ot
     handleManualClick();
+    loadGame();
     UI.renderShop();
     gameLoop();
 }
@@ -42,6 +43,7 @@ async function gameLoop() {
     let interval = setInterval(() => {
         switch (gameState) {
             case "DSOD": return;
+            case "STOP": return;
         }
 
         gameState.codeLines += passiveIncome();
@@ -51,6 +53,7 @@ async function gameLoop() {
         if (Math.random() < 0.0002) { // 1% esély
             triggerBlueScreen();
         }
+        saveGame();
     }, 100);
 }
 
@@ -156,5 +159,19 @@ function resolveBlueScreen() {
 }
 
 function saveGame() {
-    // JSON.stringify(gameState) -> localStorage
+    if (gameState.codeLines === null || gameState.codeLines === undefined) {
+        console.error("HIBA: A codeLines értéke elveszett mentés előtt!", gameState);
+        return; // Ne mentsük el a hibás állapotot!
+    }
+    localStorage.setItem("save", JSON.stringify(gameState));
+    console.log("Sikeres mentés:", gameState);
+}
+
+function loadGame() {
+    const saved = localStorage.getItem("save");
+    if (saved) {
+        const parsed = JSON.parse(saved);
+        // Csak azokat az értékeket írjuk felül, amik megvannak a mentésben
+        Object.assign(gameState, parsed);               // HA BESZARIK TÖRÖLT EZT A SORT
+    }
 }
