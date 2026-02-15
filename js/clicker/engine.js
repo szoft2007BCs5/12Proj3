@@ -47,9 +47,12 @@ async function gameLoop() {
     // 3. Lefuttatja a véletlenszerű eseménygenerátort (pl. jön a tanár?)
     // 4. Szól a ui.js-nek, hogy: "Frissíts, mert változtak a számok!"
     setInterval(() => {
-        gameState.codeLines += passiveIncome();
+        if (gameState.status == "clicker") {
+            gameState.codeLines += passiveIncome();
+            triggerBlueScreen();
+        }
+
         UI.updateDisplay();
-        triggerBlueScreen();
         saveGame();
     }, 100);
 }
@@ -204,16 +207,14 @@ function saveGame() {
         console.error("HIBA: A codeLines értéke elveszett mentés előtt!", gameState);
         return; // Ne mentsük el a hibás állapotot!
     }
-    // localStorage.setItem("save", JSON.stringify(gameState));
+    localStorage.setItem("save", JSON.stringify(gameState));
 }
 
 function loadGame() {
-    /*
     const saved = localStorage.getItem("save");
     if (saved) {
         const parsed = JSON.parse(saved);
         // Csak azokat az értékeket írjuk felül, amik megvannak a mentésben
         Object.assign(gameState, parsed);               // HA BESZARIK TÖRÖLT EZT A SORT
     }
-        */
 }
