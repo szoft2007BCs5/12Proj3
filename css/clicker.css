@@ -40,7 +40,7 @@ body {
     height: 100%;
     display: none;
     /* Alapból rejtve, JS kapcsolja be flex-re */
-    flex-direction: row;
+    flex-direction: column;
     z-index: 100;
 }
 
@@ -50,6 +50,28 @@ body {
     width: calc(100% / 3);
     height: 100%;
     transition: all 0.3s ease;
+}
+
+
+/* TOP SECTION */
+#top-section{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 4%;
+    position: relative;
+    background-color: #212121;
+    padding: 0.35dvh 20dvw;
+
+}
+
+/* MIDDLE SECTION */
+#middle-section{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 100%;
+    position: relative;
 }
 
 /* --- BAL SZEKCIÓ (AJTÓ) --- */
@@ -335,111 +357,4 @@ body {
 
 .button:active {
     transform: scale(0.95);
-}
-
-/* --- RESZPONZÍV (MOBIL ÉS TABLET) --- */
-@media screen and (max-width: 1024px) {
-
-    /* Kurzort visszaállítjuk alapértelmezettre érintőképernyőn */
-    * {
-        cursor: auto !important;
-    }
-
-    #clicker-overlay {
-        flex-direction: column;
-    }
-
-    /* 1. KÖZÉP (JÁTÉK) - FELSŐ RÉSZ */
-    #center-section {
-        order: 1;
-        width: 100%;
-        height: 45dvh;
-        /* Képernyő 45%-a */
-        border: none;
-        border-bottom: 8px solid black;
-    }
-
-    #messages {
-        height: 20%;
-        font-size: 0.9rem;
-        padding: 5px;
-    }
-
-    #clicker-container {
-        height: 80%;
-    }
-
-    #clicker-button {
-        width: auto;
-        height: 50%;
-    }
-
-    /* 2. JOBB (BOLT) - ALSÓ RÉSZ */
-    #right-section {
-        order: 2;
-        width: 100%;
-        height: 55dvh;
-        border: none;
-        grid-template-rows: 140px 1fr;
-    }
-
-    #console {
-        font-size: 0.8rem;
-    }
-
-    #console-input-holder {
-        height: 30px;
-    }
-
-    #clicker-blueprint {
-        display: none;
-    }
-
-    /* Nem kell mobilon */
-
-    /* Kisebb shop itemek mobilon */
-    .clicker-shop-item {
-        height: auto;
-        min-height: 80px;
-    }
-
-    #clicker-shop-item-left {
-        width: 20%;
-    }
-
-    #clicker-shop-item-right {
-        width: 80%;
-    }
-
-    /* 3. BAL (AJTÓ) - ELREJTVE */
-    #left-section {
-        order: 3;
-        display: none;
-    }
-
-    /* MENÜ MOBILON */
-    .overlay-center {
-        flex-direction: column;
-    }
-
-    .button {
-        width: 60%;
-        max-width: 250px;
-    }
-
-    /* Beállítások */
-    #settings-section {
-        width: 90%;
-        margin: 0 auto;
-    }
-
-    .menu-part-container {
-        flex-direction: column;
-        align-items: flex-start;
-        margin-bottom: 15px;
-    }
-
-    .volume-slider {
-        width: 100%;
-    }
 }

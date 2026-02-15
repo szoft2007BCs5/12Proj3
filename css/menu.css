@@ -45,11 +45,15 @@ body {
   position: relative;
 }
 
-.bt-back{
+.bt-back {
   position: absolute;
   left: 1cqmin;
   top: 1cqmin;
   width: 15cqmin !important;
+}
+
+.bt-settings {
+  object-fit: contain;
 }
 
 .overlay-title {
@@ -145,11 +149,11 @@ body {
   rotate: -180deg;
 }
 
-.drawed-style{
+.drawed-style {
   cursor: url(../source/img/cursor-pointer.png) 25 1, auto;
 }
 
-.drawed-style > option {
+.drawed-style>option {
   font-family: "Story Script", sans-serif;
 }
 

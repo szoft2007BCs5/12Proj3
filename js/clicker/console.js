@@ -1,4 +1,5 @@
 import * as Engine from "./engine.js";
+import { activateOverlay } from "./ui.js";
 
 // Segédfüggvény, ami CSAK kiír, de nem értelmez parancsokat (megelőzi a hurkokat)
 export function renderToScreen(text) {
@@ -48,7 +49,8 @@ export function writeLog(text) {
             loadLogs();
             return;
         case "blue death":
-            Engine.triggerBlueScreen()
+            Engine.gameState.status = "BSOD";
+            activateOverlay();      // NEM JÓ mivel ez nem futtatja a bluescreen methodust így nincs ami vigyelje hogy helyes e az input
             return;
         default:
             renderToScreen(text);

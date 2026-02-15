@@ -1,0 +1,62 @@
+{
+    "title-main": {
+        "magyar": "Helyi Bolondok Szövetsége",
+        "english": "Local Fools' Association",
+        "magyar - szleng": "Helyi Crazy Dudes"
+    },
+    "title-settings": {
+        "magyar": "Beállítások",
+        "english": "Settings",
+        "magyar - szleng": "Szetttingek"
+    },
+    "verification": {
+        "magyar": "100%-ig MODERN, MEGBÍZHATÓ magyar weboldal.",
+        "english": "100% MODERN, TRUSTWORTHY hungarian webpage",
+        "magyar - szleng": "No cap 100% legit cucc, eskü." 
+    },
+    "language-label": {
+        "magyar": "Nyelv:",
+        "english": "Language:",
+        "magyar - szleng": "Makogás:"
+    },
+    "master-volume-label": {
+        "magyar": "Fő hangerő:",
+        "english": "Master volume:",
+        "magyar - szleng": "Boss kakaó:"
+    },
+    "music-volume-label": {
+        "magyar": "Zenehangerő:",
+        "english": "Music volume:",
+        "magyar - szleng": "Vibe level:"
+    },
+    "game-volume-label": {
+        "magyar": "Játék hangerő:",
+        "english": "Game volume:",
+        "magyar - szleng": "Gém zaj:"
+    },
+    "other-volume-label": {
+        "magyar": "További hangerő:",
+        "english": "Other volume:",
+        "magyar - szleng": "Egyéb zörejek:"
+    },
+    "title-info": {
+        "magyar": "Információ",
+        "english": "Information",
+        "magyar - szleng": "Btw tesó"
+    },
+    "info-text": {
+        "magyar": "Üdvözöllek a Clicker játékban! Ez a projekt a végtelen kattintgatás örömét hozza el neked. Gyűjts kódsorokat, fejleszd a rendszeredet, és vigyázz a tanárokra! A játék célja, hogy minél jobb fejlesztővé válj (vagy legalábbis annak tűnj).",
+        "english": "Welcome to the Clicker game! This project brings you the joy of infinite clicking. Collect code lines, upgrade your system, and watch out for teachers! The goal is to become the best developer (or at least look like one).",
+        "magyar - szleng": "Csáó! Ez itt a game, ahol az egeredet tönkrevághatod. Farmold a kódot, told fel a statokat, aztán hadd szóljon. A tanárok befigyelhetnek, szóval csak okosan. GL HF!"
+    },
+    "bsod-input": {
+        "magyar": "Írd ide...",
+        "english": "Type here...",
+        "magyar - szleng": "Ide köhögd be..."
+    },
+    "clicker-blueprint": {
+        "magyar": "Tervrajzok",
+        "english": "Blueprints",
+        "magyar - szleng": "Sufnituning"
+    }
+}

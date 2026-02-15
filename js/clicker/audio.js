@@ -1,13 +1,13 @@
 // --- BEÁLLÍTÁSOK ---
 const BASE_PATH = "../../source/audio/";
 
-const types = ["master", "music", "sfx", "game"];
+const types = ["master", "music", "other", "game"];
 
 // Hangerők
 let volumes = {
     master: 1.0,
     music: 0.5,
-    sfx: 0.5,
+    other: 0.5,
     game: 0.5
 };
 
@@ -95,10 +95,10 @@ export function setupAudioSystem() {
 
     volumes = localStorage.getItem("volumes") ? JSON.parse(localStorage.getItem("volumes")) : localStorage.setItem("volumes", JSON.stringify(volumes));
 
-    // 2. Globális kattintás figyelő (SFX)
+    // 2. Globális kattintás figyelő (other)
     document.addEventListener("click", () => {
-        playAudio("button-click4.mp3", "sfx", false, "click");
-        setVolume("click", volumes["sfx"]);
+        playAudio("button-click4.mp3", "other", false, "click");
+        setVolume("click", volumes["other"]);
     });
 
     // 3. Háttérzene indítása
@@ -112,7 +112,7 @@ export function setupAudioSystem() {
         const slider = document.getElementById(type + "-volume-slider");
         const sliderText = document.getElementById(type + "-volume-slider-text");
 
-        slider.value = localStorage.getItem(type + "Volume") * 100;
+        slider.value = volumes[type] * 100;
         sliderText.value = slider.value;
 
         slider.addEventListener("input", () => {

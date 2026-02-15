@@ -1,6 +1,7 @@
 import * as UI from "./ui.js";
 import * as Audio from "./audio.js";
 import * as _console from "./console.js";
+import * as Language from "./language.js";
 
 export let gameState = {
     codeLines: 0,
@@ -31,13 +32,13 @@ function initGame() {
     // 1. Megpróbálja betölteni a mentést a localStorage-ból
     // 2. Ha nincs, inicializálja az alapértékeket
     // 3. Elindítja a Game Loop-ot
-    console.log(Math.random().toString(36).substr(2, 9))
+    // loadGame();
     handleManualClick();
-    loadGame();
     setupButtons();
     setupGlobalInput();
     UI.activateOverlay();
     Audio.setupAudioSystem();
+    Language.setupLanguageSelector();
     gameLoop();
 }
 
@@ -51,7 +52,7 @@ async function gameLoop() {
             gameState.codeLines += passiveIncome();
             triggerBlueScreen();
         }
-
+        triggerBlueScreen();
         UI.updateDisplay();
         saveGame();
     }, 100);
@@ -82,7 +83,6 @@ function setupGlobalInput() {
     document.addEventListener("keydown", handleKeyDown);
 }
 function handleKeyDown(e) {
-    console.log(e.key)
     if (e.key === "Escape") {
         if (gameState.status == "settings") {
             gameState.status = gameState.lastStatus;
@@ -162,11 +162,11 @@ export function buyUnit(key) {
 }
 
 export function triggerBlueScreen() {
-    if (Math.random() < 0.0002) { // 1% esély
+    if (Math.random() < 0.0002 && gameState.status != "BSOD" && gameState.status == "clicker") { // 1% esély  || gameState.status == "BSOD"
         console.log("Kék Halál!");
 
-        gameState.status = "DSOD";
-
+        gameState.status = "BSOD";
+        UI.activateOverlay();
         const bsodInput = document.getElementById("bsod-input");
 
         // Fókuszáljunk az inputra, hogy azonnal tudjon írni
@@ -184,22 +184,17 @@ export function triggerBlueScreen() {
                 console.log("A játékos ezt írta: " + beirtSzoveg);
 
                 // Ellenőrzés (pl. ha azt írja be: "reboot")
-                if (beirtSzoveg === "reboot") resolveBlueScreen();
+                if (beirtSzoveg === "reboot") {
+                    gameState.status = "clicker";
+                    UI.activateOverlay();
+                    console.log("Rendszer újra visszaállt erre: " + gameState.status)
+                    bsodInput.value = "";
+                    return;
+                }
                 else bsodInput.value = "";
             }
         });
     }
-}
-
-function resolveBlueScreen() {
-    console.log("Hiba elhárítva!");
-
-    // 1. Képernyő eltüntetése
-    const blueDeath = document.getElementById("blueDeath-overlay");
-    blueDeath.classList.add("hidden");
-
-    // 2. Játék folytatása
-    gameState.status = "DSOD";
 }
 
 function saveGame() {
