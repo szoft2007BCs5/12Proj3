@@ -1,6 +1,6 @@
 import * as UI from "./ui.js";
+import * as Audio from "./audio.js";
 import * as _console from "./console.js";
-import { playAudio, setupAudioSystem, stopAudio } from "./audio.js";
 
 export let gameState = {
     codeLines: 0,
@@ -31,11 +31,13 @@ function initGame() {
     // 1. Megpróbálja betölteni a mentést a localStorage-ból
     // 2. Ha nincs, inicializálja az alapértékeket
     // 3. Elindítja a Game Loop-ot
+    console.log(Math.random().toString(36).substr(2, 9))
     handleManualClick();
     loadGame();
     setupButtons();
     setupGlobalInput();
-    UI.renderShop();
+    UI.activateOverlay();
+    Audio.setupAudioSystem();
     gameLoop();
 }
 

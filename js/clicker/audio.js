@@ -1,50 +1,35 @@
-// audio.js
-
 // --- BEÁLLÍTÁSOK ---
 const BASE_PATH = "../../source/audio/";
 
-// Hangerők (alapból 1 = 100%, 0.5 = 50%)
-// Ezt később a localStorage-ból is betöltheted, ha akarod
+const types = ["master", "music", "sfx", "game"];
+
+// Hangerők
 let volumes = {
     master: 1.0,
     music: 0.5,
-    sfx: 1.0,
-    game: 1.0
+    sfx: 0.5,
+    game: 0.5
 };
 
+
 // Ebben a listában tároljuk az összes éppen futó hangot
-let activeSounds = []; 
+let activeSounds = [];
 
 // --- FŐ FÜGGVÉNYEK ---
 
 // 1. Hang lejátszása
 export function playAudio(fileName, type, loop = false, id = null) {
-    // Útvonal összerakása
     const src = BASE_PATH + fileName;
-    
-    // Audio létrehozása
     const audio = new Audio(src);
-    
-    // Típus beállítása (hogy tudjuk, mi ez: music, sfx vagy game)
-    audio.myType = type; 
-    
-    // ID beállítása (ha adtál meg nevet, pl: "intro_zene", amivel később leállíthatod)
-    // Ha nem adtál, generálunk egy véletlen számot, hogy megkülönböztessük
-    audio.myId = id || Math.random().toString(36).substr(2, 9);
-
-    // Loop beállítás
+    audio.myType = type;
+    audio.myId = id || Math.random().toString(36).substr(2, 9); // ID beállítása (ha adtál meg nevet, pl: "intro_zene", amivel később leállíthatod)
     audio.loop = loop;
-
-    // Hangerő kiszámolása (Master * Típus)
     audio.volume = getFinalVolume(type);
 
-    // Lejátszás (hiba elkapással, ha a böngésző nem engedi)
     audio.play().catch(err => console.warn("Nem sikerült lejátszani:", src, err));
-
-    // Hozzáadjuk a listához, hogy tudjuk kezelni
     activeSounds.push(audio);
 
-    // TAKARÍTÁS: Ha vége a hangnak és NEM loopolós, kivesszük a listából
+    // TÖRLÉS: Ha vége a hangnak és NEM loopolós, kivesszük a listából
     if (!loop) {
         audio.onended = () => {
             // Megkeressük hol van a listában és kivesszük
@@ -55,91 +40,89 @@ export function playAudio(fileName, type, loop = false, id = null) {
         };
     }
 
-    return audio; // Visszaadjuk, ha esetleg közvetlenül kellene
+    return audio;
 }
 
-// 2. Hang leállítása (Sokoldalú függvény!)
+// 2. Hang leállítása
 // Használat:
 // stopAudio("music") -> Leállít minden zenét
 // stopAudio("intro_zene") -> Leállítja azt a konkrét hangot, aminek ez az ID-ja
-// stopAudio("all") -> Leállít MINDENT (csend)
+// stopAudio("all") -> Leállít MINDENT
 export function stopAudio(target) {
-    // Végigmegyünk a listán visszafelé (hogy törlésnél ne csússzon el a lista)
+    // Végigmegyünk a listán visszafelé
     for (let i = activeSounds.length - 1; i >= 0; i--) {
         const sound = activeSounds[i];
 
-        let shouldStop = false;
-
-        if (target === "all") {
-            shouldStop = true; // Minden megáll
-        } 
-        else if (sound.myType === target) {
-            shouldStop = true; // Pl. minden "music" megáll
-        } 
-        else if (sound.myId === target) {
-            shouldStop = true; // Konkrét ID megáll
-        }
-
-        if (shouldStop) {
+        if (target === "all" || target === sound.myType || target === sound.myId) {
             sound.pause();
             sound.currentTime = 0;
-            activeSounds.splice(i, 1); // Kivesszük a listából
+            activeSounds.splice(i, 1);
         }
     }
 }
 
 // 3. Hangerő beállítása
 export function setVolume(type, value) {
-    // Érték mentése (value: 0-tól 1-ig legyen, pl 0.5)
     if (volumes[type] !== undefined) {
         volumes[type] = value;
     }
 
-    // Frissítjük az éppen szóló hangokat is azonnal
+    // Frissítjük az éppen szóló hangokat
     activeSounds.forEach(sound => {
-        // Ha mastert állítunk, mindenkire hat
+        // Ha mastert állítunk, mindenre hat
         // Ha típust állítunk, csak arra a típusra hat
         if (type === "master" || sound.myType === type) {
             sound.volume = getFinalVolume(sound.myType);
         }
     });
-    
-    // Itt elmentheted localStorage-ba is, ha akarod
-    localStorage.setItem(type + "Volume", value);
+
+    localStorage.setItem("volumes", JSON.stringify(volumes));
 }
+
 
 // --- SEGÉDFÜGGVÉNYEK ---
 
 function getFinalVolume(type) {
     // A végső hangerő = Master * Típus hangereje
-    return volumes.master * volumes[type];
+    return volumes["master"] * volumes[type];
 }
+
 
 // --- SETUP (Ezt hívd meg a játék elején) ---
 
 export function setupAudioSystem() {
-    // 1. Betöltjük a mentett hangerőket (opcionális, de hasznos)
-    ["master", "music", "sfx", "game"].forEach(t => {
-        const saved = localStorage.getItem(t + "Volume");
-        if (saved) volumes[t] = parseFloat(saved);
-    });
+    // 1. Betöltjük a mentett hangerőket
+
+    volumes = localStorage.getItem("volumes") ? JSON.parse(localStorage.getItem("volumes")) : localStorage.setItem("volumes", JSON.stringify(volumes));
 
     // 2. Globális kattintás figyelő (SFX)
     document.addEventListener("click", () => {
-        // Ez minden kattintásra lejátszik egy hangot
-        // playAudio(fájlnév, típus, loop, id)
-        playAudio("button-click4.mp3", "sfx", false);
+        playAudio("button-click4.mp3", "sfx", false, "click");
+        setVolume("click", volumes["sfx"]);
     });
 
-    // 3. Háttérzene indítása (csak az ELSŐ kattintáskor)
-    // A böngészők nem engedik a zenét, amíg a user nem interakciózik az oldallal
+    // 3. Háttérzene indítása
     document.addEventListener("click", () => {
-        // Megnézzük, megy-e már zene. Ha nem, indítjuk.
-        const musicIsPlaying = activeSounds.some(s => s.myType === "music");
-        
-        if (!musicIsPlaying) {
-            // ID-t adunk neki ("bg_music"), hogy később név szerint le tudjuk lőni ha kell
-            playAudio("chill-drum-loop.mp3", "music", true, "bg_music");
-        }
-    }, { once: true }); // A { once: true } miatt ez csak egyszer fut le
+        playAudio("chill-drum-bgmusic.mp3", "music", true, "bg_music");
+        setVolume("click", volumes["music"]);
+    }, { once: true });
+
+    // 4. Csúszkák beállítása
+    types.forEach(type => {
+        const slider = document.getElementById(type + "-volume-slider");
+        const sliderText = document.getElementById(type + "-volume-slider-text");
+
+        slider.value = localStorage.getItem(type + "Volume") * 100;
+        sliderText.value = slider.value;
+
+        slider.addEventListener("input", () => {
+            setVolume(type, slider.value / 100);
+            sliderText.value = slider.value;
+        });
+
+        sliderText.addEventListener("input", () => {
+            setVolume(type, sliderText.value / 100);
+            slider.value = sliderText.value;
+        });
+    });
 }

@@ -15,6 +15,9 @@ export function activateOverlay() {
     let activeStatus = Engine.gameState.status
 
     overlays.forEach((overlay) => {
+        
+        if (overlay.id == "settings-overlay") renderShop();
+
         if (overlay.id != `${activeStatus}-overlay`) {
             overlay.style.display = "none";
             overlay.style.height = "0";
