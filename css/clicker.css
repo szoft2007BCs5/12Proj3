@@ -54,7 +54,7 @@ body {
 
 
 /* TOP SECTION */
-#top-section{
+#top-section {
     display: flex;
     flex-direction: row;
     width: 100%;
@@ -66,7 +66,7 @@ body {
 }
 
 /* MIDDLE SECTION */
-#middle-section{
+#middle-section {
     display: flex;
     flex-direction: row;
     width: 100%;
@@ -92,6 +92,12 @@ body {
 #rpg-entry:hover {
     cursor: url(../source/img/cursor-pointer.png) 25 1, auto;
     filter: brightness(1.1);
+}
+
+#rpg-entry.active-state {
+    content: url(../source/img/blood_door-sus.webp);
+    transform: scale(0.90);
+    rotate: 2deg;
 }
 
 #rpg-entry:active {
@@ -232,6 +238,7 @@ body {
 #clicker-shop {
     width: 100%;
     overflow-y: auto;
+    overflow-x: hidden;
     display: flex;
     flex-direction: column;
     background-color: var(--right-bg);

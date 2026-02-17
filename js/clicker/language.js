@@ -24,10 +24,3 @@ async function changeLanguage(selectedLanguage) {
             });
         });
 }
-
-if ("asd"){
-
-}
-else{
-    
-}

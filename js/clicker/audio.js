@@ -96,9 +96,12 @@ export function setupAudioSystem() {
     volumes = localStorage.getItem("volumes") ? JSON.parse(localStorage.getItem("volumes")) : localStorage.setItem("volumes", JSON.stringify(volumes));
 
     // 2. Globális kattintás figyelő (other)
-    document.addEventListener("click", () => {
-        playAudio("button-click4.mp3", "other", false, "click");
-        setVolume("click", volumes["other"]);
+    const buttons = document.querySelectorAll(".button");
+    buttons.forEach(button => {
+        button.addEventListener("click", () => {
+            playAudio("button-click4.mp3", "other", false, "click");
+            setVolume("click", volumes["other"]);
+        });
     });
 
     // 3. Háttérzene indítása

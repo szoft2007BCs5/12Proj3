@@ -8,6 +8,7 @@ export let gameState = {
     totalCodeGenerated: 0,
     inventory: {}, // Pl: { 'keyboard': 5, 'monitor': 1 }
     clickPower: 1,
+    passiveIncome: 0,
     status: 'menu', // clicker, BSOD, menu, settings, information
     lastStatus: '',
     wifiLevel: 100,
@@ -17,10 +18,10 @@ export let gameState = {
 
 export let upgrades = {
     units: [
-        { id: "student", cost: 15, prod: 0.02, level: 1 },
-        { id: "nerd", cost: 100, prod: 0.3, level: 2 },
-        { id: "chatgpt", cost: 2500, prod: 0.5, level: 3 },
-        { id: "indians", cost: 125000, prod: 1, level: 4 }
+        { id: "student", cost: 15, prod: 0.02, powerincrease: 1, level: 1 },
+        { id: "nerd", cost: 100, prod: 0.3, powerincrease: 0, level: 2 },
+        { id: "chatgpt", cost: 2500, prod: 0.5, powerincrease: 0, level: 3 },
+        { id: "indians", cost: 125000, prod: 1, powerincrease: 0, level: 4 }
     ]
 }
 
@@ -49,12 +50,11 @@ async function gameLoop() {
     // 4. Szól a ui.js-nek, hogy: "Frissíts, mert változtak a számok!"
     setInterval(() => {
         if (gameState.status == "clicker") {
-            gameState.codeLines += passiveIncome();
-            triggerBlueScreen();
+            passiveIncome();
+            triggerEvent();
         }
-        triggerBlueScreen();
         UI.updateDisplay();
-        saveGame();
+        // saveGame();
     }, 100);
 }
 
@@ -104,21 +104,9 @@ function handleKeyDown(e) {
 
 // --- Gameplay ---
 function passiveIncome() {
-    let income = 0;
-
-    // Végigmegyünk az inventory objektum kulcs-érték párjain (pl. ["student", 5])
-    for (const [unitId, quantity] of Object.entries(gameState.inventory)) {
-
-        // Megkeressük az adott egységhez tartozó adatokat az upgrades.units tömbben
-        const unitData = upgrades.units.find(unit => unit.id === unitId);
-
-        // Ha megtaláltuk, hozzáadjuk a bevételhez (darabszám * termelés)
-        if (unitData) {
-            income += quantity * unitData.prod;
-        }
-    }
-
-    return income;
+    let passiveIncome = gameState.passiveIncome;
+    gameState.codeLines += passiveIncome;
+    gameState.totalCodeGenerated += passiveIncome;
 }
 
 function handleManualClick() {
@@ -149,6 +137,8 @@ export function buyUnit(key) {
             gameState.inventory[key] = 1;       // Ha nincs, létrehozzuk és beállítjuk 1-re
             gameState.level = unitData.level;
         }
+        gameState.passiveIncome += unitData.prod;
+        gameState.clickPower += unitData.powerincrease;
         _console.renderToScreen("Siker");
         upgrades.units.forEach(unit => {
             if (unit.id === key)
@@ -161,8 +151,10 @@ export function buyUnit(key) {
     _console.renderToScreen("NEM LYÓ");
 }
 
-export function triggerBlueScreen() {
-    if (Math.random() < 0.0002 && gameState.status != "BSOD" && gameState.status == "clicker") { // 1% esély  || gameState.status == "BSOD"
+export function triggerEvent() {
+    const random = Math.random();
+
+    if (random < 0.0002 && gameState.status == "clicker") { // 1% esély  || gameState.status == "BSOD"
         console.log("Kék Halál!");
 
         gameState.status = "BSOD";
@@ -194,6 +186,25 @@ export function triggerBlueScreen() {
                 else bsodInput.value = "";
             }
         });
+    }
+    else if (random > 0.99 && gameState.status == "clicker") {
+        const door = document.getElementById("rpg-entry");
+    
+        // Ellenőrizzük, hogy nincs-e rajta már az osztály (hogy ne fusson le többször)
+        if (!door.classList.contains("active-state")) {
+            console.log("AJTÓ NYÍLIK - Vizuális effekt indul");
+
+            // 1. Vizuális effekt BEKAPCSOLÁSA (hozzáadjuk a class-t)
+            door.classList.add("active-state");
+
+            Audio.playAudio("t5-door-tryingToOpen.mp3", "game", false);
+
+            setTimeout(() => {
+                // 2. Vizuális effekt KIKAPCSOLÁSA 6 másodperc után
+                door.classList.remove("active-state");
+                console.log("AJTÓ BEZÁRUL - Vizuális effekt vége");
+            }, 6000);
+        }
     }
 }
 

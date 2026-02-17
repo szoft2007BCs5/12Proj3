@@ -46,8 +46,8 @@ export function renderShop() {
     units.forEach((unit) => {
         if (unit.level <= Engine.gameState.level + 1) {
 
-            let div = document.createElement("div")
-            div.classList = "clicker-shop-item"
+            let div = document.createElement("div");
+            div.classList = "clicker-shop-item";
 
             if (inventory[unit.id])
                 div.innerHTML = `
@@ -60,8 +60,8 @@ export function renderShop() {
                             <h2>Ár: ${unit.cost}<h2>
                         </div>
                         <p>${(unit.prod * inventory[unit.id] * 10).toFixed(1)}/sec</p>
-                        <button id="buy-bt" draggable="false">Kattints rám!</button>
-                    </div>`;
+                        <button id="buy-bt" class="button" draggable="false">Kattints rám!</button>     
+                    </div>`;        //  class="button" miatt ki megy a képernyőről
             else
                 div.innerHTML = `
                     <div id="clicker-shop-item-left">
@@ -72,7 +72,7 @@ export function renderShop() {
                         <div id="clicker-shop-item-description">
                             <h2>Ár: ${unit.cost}<h2>
                         </div>
-                        <button id="buy-bt" draggable="false">Kattints rám!</button>
+                        <button id="buy-bt" class="button" draggable="false">Kattints rám!</button>
                     </div>`;
 
 
