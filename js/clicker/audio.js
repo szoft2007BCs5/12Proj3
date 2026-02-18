@@ -3,6 +3,8 @@ const BASE_PATH = "../../source/audio/";
 
 const types = ["master", "music", "other", "game"];
 
+let currentMusicFile = localStorage.getItem("selectedMusic") || "chill-drum-bgmusic.mp3";
+
 // Hangerők
 let volumes = {
     master: 1.0,
@@ -91,9 +93,13 @@ function getFinalVolume(type) {
 // --- SETUP (Ezt hívd meg a játék elején) ---
 
 export function setupAudioSystem() {
-    // 1. Betöltjük a mentett hangerőket
-
-    volumes = localStorage.getItem("volumes") ? JSON.parse(localStorage.getItem("volumes")) : localStorage.setItem("volumes", JSON.stringify(volumes));
+    // 1. Hangerők betöltése
+    const savedVolumes = localStorage.getItem("volumes");
+    if (savedVolumes) {
+        volumes = JSON.parse(savedVolumes);
+    } else {
+        localStorage.setItem("volumes", JSON.stringify(volumes));
+    }
 
     // 2. Globális kattintás figyelő (other)
     const buttons = document.querySelectorAll(".button");
@@ -105,9 +111,37 @@ export function setupAudioSystem() {
     });
 
     // 3. Háttérzene indítása
+    const musicSelector = document.getElementById("music-selector");
+    
+    // Beállítjuk a legördülőt a mentett értékre
+    if (musicSelector) {
+        musicSelector.value = currentMusicFile;
+
+        // Ha megváltoztatja a játékos a zenét
+        musicSelector.addEventListener("change", (e) => {
+            const newMusic = e.target.value;
+            
+            // 1. Leállítjuk a JELENLEGI háttérzenét (fontos az ID: "bg_music")
+            stopAudio("bg_music");
+
+            // 2. Elmentjük az újat
+            currentMusicFile = newMusic;
+            localStorage.setItem("selectedMusic", newMusic);
+
+            // 3. Elindítjuk az újat (ha nem a "none"-t választotta)
+            if (newMusic !== "none") {
+                playAudio(newMusic, "music", true, "bg_music");
+            }
+        });
+    }
+
+    // --- kattintás ---
     document.addEventListener("click", () => {
-        playAudio("chill-drum-bgmusic.mp3", "music", true, "bg_music");
-        setVolume("click", volumes["music"]);
+        const isMusicPlaying = activeSounds.some(active => active.myId === "bg_music");
+        
+        if (!isMusicPlaying && currentMusicFile !== "none") {
+            playAudio(currentMusicFile, "music", true, "bg_music");
+        }
     }, { once: true });
 
     // 4. Csúszkák beállítása

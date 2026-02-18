@@ -7,7 +7,7 @@ export function updateDisplay() {
     // 2. Beírja az elemekbe: document.getElementById('code-count').innerText = gameState.codeLines;
     // 3. Ha BSOD állapot van, hozzáadja a .visible osztályt a kékhalál div-hez
 
-    codeLinesCounter.innerHTML = Math.round(Engine.gameState.codeLines);
+    codeLinesCounter.innerHTML = formatNumber(Engine.gameState.codeLines);
 }
 
 export function activateOverlay() {
@@ -15,7 +15,7 @@ export function activateOverlay() {
     let activeStatus = Engine.gameState.status
 
     overlays.forEach((overlay) => {
-        
+
         if (overlay.id == "settings-overlay") renderShop();
 
         if (overlay.id != `${activeStatus}-overlay`) {
@@ -43,50 +43,117 @@ export function renderShop() {
     const units = Engine.upgrades.units;
     const inventory = Engine.gameState.inventory;
 
-    units.forEach((unit) => {
-        if (unit.level <= Engine.gameState.level + 1) {
+    // --- 1. LÉPÉS: Kiszámoljuk, meddig jutott a játékos ---
+    // Alapból az 1-es szint elérhető
+    let maxVisibleLevel = 1;
 
-            let div = document.createElement("div");
-            div.classList = "clicker-shop-item";
+    // Végigmegyünk a szinteken 1-től 7-ig (vagy ameddig vannak itemek)
+    for (let lvl = 1; lvl < 10; lvl++) {
+        // Kiválogatjuk az adott szint itemjeit
+        const itemsInLevel = units.filter(u => u.level === lvl);
 
-            if (inventory[unit.id])
-                div.innerHTML = `
+        // Ha nincs ilyen szint (pl. elfogytak az itemek), megállunk
+        if (itemsInLevel.length === 0) break;
+
+        // Megnézzük, hogy ezen a szinten megvan-e MINDEN itemből legalább 1 db
+        const isLevelComplete = itemsInLevel.every(u =>
+            inventory[u.id] && inventory[u.id] > 0
+        );
+
+        // Ha kész a szint, a következő szint is láthatóvá válik
+        if (isLevelComplete) {
+            maxVisibleLevel = lvl + 1;
+        } else {
+            // Ha ez a szint nincs kész, akkor a következőket már nem nézzük meg
+            break;
+        }
+    }
+
+    // Opcionális: A gameState-ben is frissítjük a szintet, ha kell máshova
+    Engine.gameState.level = maxVisibleLevel;
+
+    const unitsToRender = units.filter(u => u.level <= maxVisibleLevel);
+
+    unitsToRender.forEach((unit) => {
+
+        let div = document.createElement("div");
+        div.classList = "clicker-shop-item";
+
+        if (inventory[unit.id])
+            div.innerHTML = `
                     <div id="clicker-shop-item-left">
                         <h1 id="clicker-item-count">${inventory[unit.id]}</h1>
                     </div>
-                    <div id="clicker-shop-item-right">
-                        <h1>${unit.id}</h1>
-                        <div id="clicker-shop-item-description">
-                            <h2>Ár: ${unit.cost}<h2>
+                    <div class="clicker-shop-item-center" id="level-${unit.level}">
+                        <div id="clicker-shop-item-title">
+                            <h1>${unit.id}</h1>
+                            <p>${unit.desc}</p>
                         </div>
-                        <p>${(unit.prod * inventory[unit.id] * 10).toFixed(1)}/sec</p>
-                        <button id="buy-bt" class="button" draggable="false">Kattints rám!</button>     
-                    </div>`;        //  class="button" miatt ki megy a képernyőről
-            else
-                div.innerHTML = `
+                        <div  id="clicker-shop-item-mid">
+                            <div id="clicker-shop-item-description">
+                                <h2>Ár: ${formatNumber(unit.cost)}</h2>
+                            </div>
+                            
+                             <div id="clicker-shop-item-prod">
+                                <p>+${formatNumber((unit.prod * inventory[unit.id] * 10))}/sec</p>
+                                <p>+${formatNumber((unit.powerincrease * inventory[unit.id]))}/click</p>
+                                <p style="font-size: 0.8em; color: #4b4b4b;">(Alap: ${unit.prod * 10}/s, ${unit.powerincrease}/c)</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clicker-shop-item-right">
+                        <button id="buy-bt" class="button" draggable="false">+</button>
+                    </div>`;
+        else
+            div.innerHTML = `
                     <div id="clicker-shop-item-left">
                         <h1 id="clicker-item-count">0</h1>
                     </div>
-                    <div id="clicker-shop-item-right">
-                        <h1>${unit.id}</h1>
-                        <div id="clicker-shop-item-description">
-                            <h2>Ár: ${unit.cost}<h2>
+                    <div class="clicker-shop-item-center" id="level-${unit.level}">
+                        <div id="clicker-shop-item-title">
+                            <h1>${unit.id}</h1>
+                            <p>${unit.desc}</p>
                         </div>
-                        <button id="buy-bt" class="button" draggable="false">Kattints rám!</button>
+                        <div id="clicker-shop-item-mid">
+                            <div id="clicker-shop-item-description">
+                                <h2>Ár: ${formatNumber(unit.cost)}</h2>
+                            </div>
+                            
+                            <div id="clicker-shop-item-prod">
+                                <p>+${formatNumber(unit.prod)}/sec</p>
+                                <p>+${formatNumber(unit.powerincrease)}/click</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clicker-shop-item-right">
+                        <button id="buy-bt" class="button" draggable="false">+</button>
                     </div>`;
 
 
-            clickerShop.appendChild(div)
-            div.addEventListener("click", (e) => {
-                if (e.target.closest("#buy-bt"))
-                    Engine.buyUnit(unit.id);
-            });
-        };
+        clickerShop.appendChild(div)
+        div.addEventListener("click", (e) => {
+            if (e.target.closest("#buy-bt"))
+                Engine.buyUnit(unit.id);
+        });
     });
 }
 
+function formatNumber(num) {
+    if (num < 1000) return Math.floor(num); // 1000 alatt nem formázunk
 
-export function renderDoor(){
+    const suffixes = ["", "k", "M", "B", "T", "Qa", "Qi"]; // k=ezer, M=millió, B=milliárd...
+    const suffixNum = Math.floor(Math.log10(num) / 3); // Kiszámolja, hányszor fér bele az 1000
+
+    // Ha túl nagy a szám és nincs rá betűnk, akkor simán kiírjuk vagy tudományos jelölést használunk
+    if (suffixNum >= suffixes.length) return num.toExponential(2);
+
+    const shortValue = (num / Math.pow(1000, suffixNum));
+
+    // A toFixed(3) 3 tizedesre vág, a parseFloat pedig levágja a felesleges nullákat (pl 1.500 -> 1.5)
+    return parseFloat(shortValue.toFixed(3)) + suffixes[suffixNum];
+}
+
+export function renderDoor() {
 
 }
 

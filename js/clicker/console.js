@@ -1,5 +1,4 @@
 import * as Engine from "./engine.js";
-import { activateOverlay } from "./ui.js";
 
 // Segédfüggvény, ami CSAK kiír, de nem értelmez parancsokat (megelőzi a hurkokat)
 export function renderToScreen(text) {
@@ -43,14 +42,19 @@ export function writeLog(text) {
             renderToScreen("SYSTEM: A te kedves, megbízható rendszered beszél!");
             return;
         case "save":
-            saveLogs();
+            Engine.saveGame();
+            saveLogs()
             return;
         case "load":
+            Engine.loadGame();
             loadLogs();
             return;
         case "blue death":
             Engine.gameState.status = "BSOD";
-            activateOverlay();      // NEM JÓ mivel ez nem futtatja a bluescreen methodust így nincs ami vigyelje hogy helyes e az input
+            Engine.triggerEvent("blue death");
+            return;
+        case "mester":
+            Engine.triggerEvent("mester");
             return;
         default:
             renderToScreen(text);
@@ -71,12 +75,16 @@ function saveLogs() {
     renderToScreen("SYSTEM: Logs have been saved!");
 }
 
-function loadLogs() {
+export function loadLogs() {
     const saved = localStorage.getItem("console_logs");
     if (saved) {
         clearLogs(); // Előbb törlünk, aztán töltünk be
+        const reg = /^.*?&gt;/;
         const items = JSON.parse(saved);
-        items.forEach(content => renderToScreen(content));
+        items.forEach(content => {
+            console.log(content.replace(reg, ""))
+            renderToScreen(content.replace(reg, ""))
+        });
         renderToScreen("SYSTEM: Logs have been loaded!");
     } else {
         renderToScreen("SYSTEM: No saved logs found.");
@@ -103,7 +111,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // 2. LÉPÉS: Meghívódik a writeLog("start") függvény.
     // Ez a függvény elindítja a parancsértelmezőt a "start" kulcsszóval.
-    writeLog("start");
+    // writeLog("start");
 
     // 3. LÉPÉS: A writeLog-on belül a switch ág elkapja a "start" parancsot.
     // Meghívja a renderToScreen() függvényt kétszer az üdvözlő szövegekkel.

@@ -247,13 +247,23 @@ body {
 
 .clicker-shop-item {
     width: 100%;
-    height: 100px;
+    height: 125px;
     border-bottom: 8px solid black;
     background: var(--pure-white);
     display: flex;
     flex-direction: row;
     align-items: center;
+    justify-content: center;
     flex-shrink: 0;
+}
+
+.clicker-shop-item:hover {
+    transform: scale(1.05);
+}
+
+#clicker-shop-item-title {
+    width: 100%;
+    height: 100%;
 }
 
 #clicker-shop-item-left {
@@ -266,22 +276,63 @@ body {
     background: #f0f0f0;
 }
 
-#clicker-shop-item-right {
-    width: 85%;
+#level-1 {
+    background-image: url(../source/img/shopitem-bg-lv1.webp);
+}
+
+#level-2 {
+    background-image: url(../source/img/shopitem-bg-lv2.webp);
+}
+
+#level-3 {
+    background-image: url(../source/img/shopitem-bg-lv3.webp);
+}
+
+#level-4 {
+    background-image: url(../source/img/shopitem-bg-lv4.webp);
+}
+
+#level-5 {
+    background-image: url(../source/img/shopitem-bg-lv5.webp);
+}
+
+#level-6 {
+    background-image: url(../source/img/shopitem-bg-lv6.webp);
+}
+
+#level-7 {
+    color: #05e2d0;
+    background-image: url(../source/img/shopitem-bg-lv7.webp);
+}
+
+#level-8 {
+    background-image: url(../source/img/shopitem-bg-lv8.webp);
+}
+
+#level-9 {
+    background-image: url(../source/img/shopitem-bg-lv9.webp);
+}
+
+#level-10 {
+    background-image: url(../source/img/shopitem-bg-lv10.webp);
+}
+
+.clicker-shop-item-center {
+    width: 100%;
     height: 100%;
-    padding-left: 15px;
+    padding-left: 0.5cqmin;
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    background-image: url(../source/img/shopitem-bg.webp);
     background-size: cover;
 
     h1 {
-        font-size: 3.5cqmin;
+        font-size: 2.5cqmin;
     }
 
     h2 {
-        font-size: 2.5cqmin;
+        font-size: 2cqmin;
     }
 
     p {
@@ -289,10 +340,42 @@ body {
     }
 }
 
+#clicker-shop-item-mid{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+#clicker-shop-item-description{
+    width: 100%;
+    height: 100%;
+    display: flex;
+}
+
+#clicker-shop-item-prod{
+    width: 100%;
+    height: 100%;
+    display: flex;
+}
+
+#clicker-shop-item-right {
+    width: 10%;
+    height: 100%;
+}
+
 #buy-bt {
+    font-size: 7.5cqmin;
+    width: 100%;
     height: 100%;
     margin-right: 0;
 }
+
+#buy-bt:hover {
+    user-select: none;
+    cursor: url(../source/img/cursor-pointer.png) 25 1, auto;
+}
+
 
 #clicker-item-count {
     font-size: 5cqmin;
