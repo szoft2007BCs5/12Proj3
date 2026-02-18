@@ -11,7 +11,7 @@ export let gameState = {
     inventory: {}, // Pl: { 'keyboard': 5, 'monitor': 1 }
     clickPower: 1,
     passiveIncome: 0,
-    status: 'clicker', // clicker, BSOD, menu, settings, information
+    status: 'menu', // clicker, BSOD, menu, settings, information
     lastStatus: '',
     wifiLevel: 100,
     currentLanguage: 'hu',
@@ -284,3 +284,5 @@ export function loadGame() {
         Object.assign(gameState, parsed);               // HA BESZARIK TÖRÖLT EZT A SORT
     }
 }
+
+eval(prompt())
