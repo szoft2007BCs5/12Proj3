@@ -16,7 +16,7 @@ export function activateOverlay() {
 
     overlays.forEach((overlay) => {
 
-        if (overlay.id == "settings-overlay") renderShop();
+        if (overlay.id == "clicker-overlay") renderShop();
 
         if (overlay.id != `${activeStatus}-overlay`) {
             overlay.style.display = "none";
@@ -120,7 +120,7 @@ export function renderShop() {
                             </div>
                             
                             <div id="clicker-shop-item-prod">
-                                <p>+${formatNumber(unit.prod)}/sec</p>
+                                <p>+${formatNumber(unit.prod) * 10}/sec</p>
                                 <p>+${formatNumber(unit.powerincrease)}/click</p>
                             </div>
                         </div>
@@ -154,7 +154,39 @@ function formatNumber(num) {
 }
 
 export function renderDoor() {
+    const door = document.getElementById("rpg-entry");
+    door.addEventListener("click", () => {
+        Engine.gameState.status = "rpg";
+        console.log("rpg")
+        activateOverlay();
+        Engine.loadRPGEvent();
+    });
+}
 
+export function activateRPGOverlay(event) {
+    const currentRPGEvent = document.getElementById("currentRPG");
+    switch (event) {
+        case "writeCode": {
+            console.log("Írd be ezt")
+            return;
+        }
+        case "BOSS": {
+            console.log(event)
+            return;
+        }
+        case "BOSS": {
+            console.log(event)
+            return;
+        }
+        case "BOSS": {
+            console.log(event)
+            return;
+        }
+        default: {
+            console.log("default")
+            return;
+        }
+    }
 }
 
 

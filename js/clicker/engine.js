@@ -11,12 +11,14 @@ export let gameState = {
     inventory: {}, // Pl: { 'keyboard': 5, 'monitor': 1 }
     clickPower: 1,
     passiveIncome: 0,
-    status: 'menu', // clicker, BSOD, menu, settings, information
+    status: 'menu', // clicker, BSOD, menu, settings, information, rpg
     lastStatus: '',
     wifiLevel: 100,
     currentLanguage: 'hu',
     level: 1
 };
+
+export let RPGEvents = [ "BOSS", "writeCode" ];
 
 export let upgrades = {
     units: [
@@ -80,7 +82,7 @@ export let upgrades = {
 
 
 // --- FUNKCIÓK ---
-initGame();
+document.onload = initGame();
 
 function initGame() {
     // 1. Megpróbálja betölteni a mentést a localStorage-ból
@@ -94,12 +96,12 @@ function initGame() {
     Audio.setupAudioSystem();
     Language.setupLanguageSelector();
     if (localStorage.getItem("console_logs")) {
-        console.log("ASD")
         _console.loadLogs();
     }
     else{  
         _console.writeLog("start");
     }
+    UI.renderDoor();
     gameLoop();
 }
 
@@ -142,6 +144,7 @@ function setupButtons() {
 function setupGlobalInput() {
     document.addEventListener("keydown", handleKeyDown);
 }
+
 function handleKeyDown(e) {
     if (e.key === "Escape") {
         if (gameState.status == "settings") {
@@ -268,6 +271,11 @@ export function triggerEvent(event = null) {
     }
 }
 
+export function loadRPGEvent(){
+    const currentEvent = RPGEvents[Math.floor(Math.random() * RPGEvents.length)];
+    UI.activateRPGOverlay(currentEvent);
+}
+
 export function saveGame() {
     if (gameState.codeLines === null || gameState.codeLines === undefined) {
         console.error("HIBA: A codeLines értéke elveszett mentés előtt!", gameState);
@@ -284,5 +292,3 @@ export function loadGame() {
         Object.assign(gameState, parsed);               // HA BESZARIK TÖRÖLT EZT A SORT
     }
 }
-
-eval(prompt())

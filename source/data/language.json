@@ -58,5 +58,10 @@
         "magyar": "Suli büfé",
         "english": "School shop",
         "magyar - szleng": "Sufnituning"
+    },
+    "music-chooser": {
+        "magyar": "Zene választó",
+        "english": "Choose music",
+        "magyar - szleng": "Vibe választó"
     }
 }

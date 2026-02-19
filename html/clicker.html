@@ -44,11 +44,11 @@
         </div>
         <div class="overlay-center">
             <img src="../source/img/bt-settings.webp" class="bt-settings button" alt="Beállítások gomb"
-                draggable="false" data-target="settings"></img>
+                draggable="false" data-target="settings" style="width: 20cqmin;"/>
             <img src="../source/img/bt-play.webp" class="bt-play button" alt="Játék indítása gomb" draggable="false"
-                data-target="clicker"></img>
+                data-target="clicker" style="width: 20cqmin;"/>
             <img src="../source/img/bt-info.webp" class="bt-info button" alt="Infó gomb" draggable="false"
-                data-target="information"></img>
+                data-target="information" style="width: 20cqmin;"/>
         </div>
         <div class="overlay-bottom">
             <p id="verification">100%-ig MODERN, MEGBÍZHATÓ weboldal.</p>
@@ -100,7 +100,7 @@
                 </div>
 
                 <div class="menu-part-container">
-                    <label for="music-selector" class="menu-label">Zene választás:</label>
+                    <label for="music-selector" class="menu-label" id="music-chooser">Zene választás:</label>
                     <select class="volume-slider-text drawed-style" id="music-selector">
                         <option value="music/chill-drum-bgmusic.mp3">Chill Drum (Alap)</option>
                         <option value="music/cancan.mp3">Can can</option>
@@ -184,6 +184,18 @@
         </div>
 
     </div>
+
+    <!-- Menu overlay -->
+    <div id="rpg-overlay" class="overlay">
+        <div id="top-section">
+            <img src="../source/img/bt-back.webp" class="button" alt="Vissza gomb" 
+                draggable="false" data-target="clicker"/>
+            <img src="../source/img/bt-settings.webp" class="bt-settings button" alt="Beállítások gomb"
+                draggable="false" data-target="settings"/>
+        </div>
+
+    </div>
+
 </body>
 
 </html>

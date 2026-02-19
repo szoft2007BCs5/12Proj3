@@ -45,11 +45,11 @@ body {
   position: relative;
 }
 
-.bt-back {
+.bt-back{
+  width: 10cqmin;
   position: absolute;
-  left: 1cqmin;
-  top: 1cqmin;
-  width: 15cqmin !important;
+  left: 0;
+  top: 0;
 }
 
 .bt-settings {
@@ -59,7 +59,7 @@ body {
 .overlay-title {
   font-size: 6cqmin;
   font-family: "Mogra", system-ui;
-  margin-top: 5cqmin;
+  margin-top: 2cqmin;
 }
 
 .overlay-center {
@@ -72,7 +72,6 @@ body {
 }
 
 [class^="bt-"] {
-  width: 20cqmin;
   aspect-ratio: 1/1;
   filter: saturate(2) brightness(1);
   cursor: url(../source/img/cursor-pointer.png) 25 1, auto;
