@@ -18,7 +18,7 @@ export let gameState = {
     level: 1
 };
 
-export let RPGEvents = [ "BOSS", "writeCode" ];
+export let RPGEvents = [ "BOSS", "writeCode", "clickOnTarget" ];
 
 export let upgrades = {
     units: [

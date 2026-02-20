@@ -163,11 +163,28 @@ export function renderDoor() {
     });
 }
 
-export function activateRPGOverlay(event) {
+export async function activateRPGOverlay(event) {
     const currentRPGEvent = document.getElementById("currentRPG");
     switch (event) {
         case "writeCode": {
-            console.log("Írd be ezt")
+            const tasksToSolve = [
+                { "Add össze: 2 + 2": 4 },
+                { "Add össze: 2 + 5": 7 },
+            ]
+            let rpgMiddle = document.getElementById("rpg-middle");
+            let taskToSolve = tasksToSolve[Math.floor(Math.random() * tasksToSolve.length)];
+            rpgMiddle.innerHTML = `
+                <h1>Oldd meg:</h1>
+                <h2>${taskToSolve}</h2>
+                <input type="text" id="writeCode-input" placeholder="Írd ide..." autocomplete="off">
+            `
+
+            let input = await document.getElementById("writeCode-input");
+            input.addEventListener("keyup", (e) => {
+                if (e.target.value == taskToSolve)
+                    console.log("Megoldva")
+            });
+            console.log("writeCode")
             return;
         }
         case "BOSS": {
