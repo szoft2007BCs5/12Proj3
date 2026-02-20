@@ -167,7 +167,7 @@ export function renderDoor() {
 export async function activateRPGOverlay(event) {
     let rpgMiddle = document.getElementById("rpg-middle");
     rpgMiddle.innerHTML = "";
-    switch ("clickOnTarget") {
+    switch (event) {
         case "questions": {
             const tasksToSolve = [
                 // --- String (szöveg) műveletek ---
