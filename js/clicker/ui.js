@@ -1,4 +1,5 @@
-import * as Engine from "./engine.js"
+import * as Engine from "./engine.js";
+import * as UI from "./ui.js";
 
 const codeLinesCounter = document.getElementById("codeLinesCounter");
 
@@ -165,26 +166,48 @@ export function renderDoor() {
 
 export async function activateRPGOverlay(event) {
     const currentRPGEvent = document.getElementById("currentRPG");
+    event = "writeCode"
     switch (event) {
         case "writeCode": {
             const tasksToSolve = [
                 { "Add össze: 2 + 2": 4 },
                 { "Add össze: 2 + 5": 7 },
-            ]
-            let rpgMiddle = document.getElementById("rpg-middle");
-            let taskToSolve = tasksToSolve[Math.floor(Math.random() * tasksToSolve.length)];
-            rpgMiddle.innerHTML = `
-                <h1>Oldd meg:</h1>
-                <h2>${taskToSolve}</h2>
-                <input type="text" id="writeCode-input" placeholder="Írd ide..." autocomplete="off">
-            `
+            ];
 
-            let input = await document.getElementById("writeCode-input");
+            let rpgMiddle = document.getElementById("rpg-middle");
+
+            // 1. Kiválasztunk egy véletlenszerű objektumot
+            let taskObject = tasksToSolve[Math.floor(Math.random() * tasksToSolve.length)];
+
+            // 2. Kinyerjük a kulcsot (kérdés) és az értéket (megoldás)
+            let question = Object.keys(taskObject)[0]; // Pl.: "Add össze: 2 + 2"
+            let correctAnswer = Object.values(taskObject)[0]; // Pl.: 4
+
+            // 3. A H2-be csak a kérdést írjuk ki
+            rpgMiddle.innerHTML = `
+        <h1>Oldd meg:</h1>
+        <h2>${question}</h2>
+        <input type="text" id="writeCode-input" placeholder="Írd ide..." autocomplete="off">
+    `;
+
+            // 4. Eseményfigyelő hozzáadása (await nélkül)
+            let input = document.getElementById("writeCode-input");
+            input.focus()
             input.addEventListener("keyup", (e) => {
-                if (e.target.value == taskToSolve)
-                    console.log("Megoldva")
+                // Mivel az input értéke mindig string, a correctAnswer-t is stringgé alakítjuk az összehasonlításhoz
+                if (e.key === "Enter") {
+                    if (e.target.value === String(correctAnswer)) {
+                        Engine.gameState.status = "clicker";
+                        UI.activateOverlay();
+                        console.log("Megoldva!");
+                        // Ide jöhet a további logika (pl. pontadás, új feladat betöltése stb.)
+                    }
+                    else input.value = "";
+                }
             });
-            console.log("writeCode")
+
+            console.log("writeCode");
+
             return;
         }
         case "BOSS": {
