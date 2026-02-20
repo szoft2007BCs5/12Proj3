@@ -18,7 +18,7 @@ export let gameState = {
     level: 1
 };
 
-export let RPGEvents = [ "BOSS", "writeCode", "clickOnTarget" ];
+export let RPGEvents = ["questions", "clickOnTarget"];
 
 export let upgrades = {
     units: [
@@ -98,7 +98,7 @@ function initGame() {
     if (localStorage.getItem("console_logs")) {
         _console.loadLogs();
     }
-    else{  
+    else {
         _console.writeLog("start");
     }
     UI.renderDoor();
@@ -217,7 +217,7 @@ export function buyUnit(key) {
 export function triggerEvent(event = null) {
     const random = Math.random();
 
-    if ((random < 0.0002 && gameState.status == "clicker")  || event == "blue death") { // 1% esély  || gameState.status == "BSOD"
+    if ((random < 0.0002 && gameState.status == "clicker") || event == "blue death") { // 1% esély  || gameState.status == "BSOD"
         console.log("Kék Halál!");
 
         gameState.status = "BSOD";
@@ -271,7 +271,7 @@ export function triggerEvent(event = null) {
     }
 }
 
-export function loadRPGEvent(){
+export function loadRPGEvent() {
     const currentEvent = RPGEvents[Math.floor(Math.random() * RPGEvents.length)];
     UI.activateRPGOverlay(currentEvent);
 }

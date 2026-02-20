@@ -25,6 +25,13 @@ export function writeLog(text) {
 
     const command = text.trim().toLowerCase();
 
+    if (/^add \d+$/.test(text)) {
+        Engine.gameState.codeLines += parseInt(text.split(" ")[1]);
+        Engine.gameState.totalCodeGenerated += parseInt(text.split(" ")[1]);
+        renderToScreen("SYSTEM: Egyenleg feltöltve: " + text.split(" ")[1]);
+        return;
+    }
+
     switch (command) {
         /*
         case "stop":
@@ -54,6 +61,9 @@ export function writeLog(text) {
             Engine.triggerEvent("blue death");
             return;
         case "mester":
+            Engine.triggerEvent("mester");
+            return;
+        case "add /\d/":
             Engine.triggerEvent("mester");
             return;
         default:
