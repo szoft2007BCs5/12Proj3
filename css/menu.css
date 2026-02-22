@@ -14,6 +14,18 @@
   --lightblue: rgb(212, 232, 255);
 }
 
+::-webkit-scrollbar {
+  width: 1dvw;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--center-bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--lightblue);
+}
+
 .clicker-iframe {
   position: fixed;
   top: 0;
@@ -149,6 +161,11 @@ body {
 }
 
 .drawed-style {
+  cursor: url(../source/img/cursor.png) 25 1, auto;
+}
+
+.drawed-style::-webkit-inner-spin-button,
+.drawed-style::-webkit-outer-spin-button {
   cursor: url(../source/img/cursor-pointer.png) 25 1, auto;
 }
 

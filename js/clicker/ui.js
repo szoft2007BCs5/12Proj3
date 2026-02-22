@@ -79,13 +79,14 @@ export function renderShop() {
 
         let div = document.createElement("div");
         div.classList = "clicker-shop-item";
+        div.id = `level-${unit.level}`
 
         if (inventory[unit.id])
             div.innerHTML = `
                     <div id="clicker-shop-item-left">
                         <h1 id="clicker-item-count">${inventory[unit.id]}</h1>
                     </div>
-                    <div class="clicker-shop-item-center" id="level-${unit.level}">
+                    <div class="clicker-shop-item-center">
                         <div id="clicker-shop-item-title">
                             <h1>${unit.id}</h1>
                             <p>${unit.desc}</p>
@@ -110,7 +111,7 @@ export function renderShop() {
                     <div id="clicker-shop-item-left">
                         <h1 id="clicker-item-count">0</h1>
                     </div>
-                    <div class="clicker-shop-item-center" id="level-${unit.level}">
+                    <div class="clicker-shop-item-center">
                         <div id="clicker-shop-item-title">
                             <h1>${unit.id}</h1>
                             <p>${unit.desc}</p>

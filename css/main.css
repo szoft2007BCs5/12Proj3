@@ -14,6 +14,11 @@
   --lightblue: rgb(212, 232, 255);
 }
 
+/* 4. A csúszka színe, ha ráviszed az egeret (hover) */
+::-webkit-scrollbar-thumb:hover {
+  background: #555; 
+}
+
 .clicker-iframe {
   position: fixed;
   top: 0;

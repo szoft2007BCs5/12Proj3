@@ -243,22 +243,21 @@ body {
     flex-direction: column;
     background-color: var(--right-bg);
     padding-bottom: 20px;
+    transition: all 0.1s;
 }
 
 .clicker-shop-item {
     width: 100%;
     height: 125px;
-    border-bottom: 8px solid black;
     background: var(--pure-white);
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
+    border-block: 0.3cqmin solid black;
+    display: grid;
+    grid-template-columns: 1fr 5fr 1fr;
+    transition: all 0.1s;
 }
 
 .clicker-shop-item:hover {
-    transform: scale(1.05);
+    border-block: 0.6cqmin solid black;
 }
 
 #clicker-shop-item-title {
@@ -267,7 +266,6 @@ body {
 }
 
 #clicker-shop-item-left {
-    width: 15%;
     height: 100%;
     display: flex;
     justify-content: center;
@@ -318,7 +316,6 @@ body {
 }
 
 .clicker-shop-item-center {
-    width: 100%;
     height: 100%;
     padding-left: 0.5cqmin;
     display: flex;
@@ -326,6 +323,7 @@ body {
     justify-content: space-between;
     align-items: center;
     background-size: cover;
+    background-position: center;
 
     h1 {
         font-size: 2.5cqmin;
@@ -360,20 +358,27 @@ body {
 }
 
 #clicker-shop-item-right {
-    width: 10%;
     height: 100%;
 }
 
 #buy-bt {
-    font-size: 7.5cqmin;
+    margin: 0;
     width: 100%;
     height: 100%;
-    margin-right: 0;
+    font-size: 7.5cqmin;
+    border-radius: 0;
+    transition: all 0.1s;
 }
 
 #buy-bt:hover {
     user-select: none;
     cursor: url(../source/img/cursor-pointer.png) 25 1, auto;
+    transform: none;
+    background-color: var(--lightblue);
+}
+
+#buy-bt:active{
+    transform: scale(0.9);
 }
 
 
