@@ -1,0 +1,58 @@
+/* --- RPG AJTÓ ANIMÁCIÓK --- */
+#rpg-entry {
+    width: 100%;
+    max-width: 400px;
+    aspect-ratio: 1/1.4;
+    transition: all 0.2s;
+}
+
+#rpg-entry:hover {
+    cursor: url(../source/img/cursor-pointer.png) 25 1, auto;
+    filter: brightness(1.1);
+}
+
+#rpg-entry.active-state {
+    content: url(../source/img/blood_door-sus.webp);
+    transform: scale(0.90);
+    rotate: 2deg;
+}
+
+#rpg-entry:active {
+    content: url(../source/img/blood_door.webp);
+    transform: scale(0.90);
+}
+
+/* --- RPG OVERLAY ÉS JÁTÉKOK --- */
+#rpg-overlay {
+    /* Az alap overlay tulajdonságokat a global.css intézi */
+    background: var(--pure-white);
+}
+
+#rpg-middle {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100dvh;
+    width: 100dvw;
+    position: relative; /* a minijátékok miatt (pl. célpont mozgása) */
+}
+
+/* JS-ből generált elemek alapformázása (ui.js alapján) */
+#rpg-questions,
+#rpg-clickOnTarget {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    text-align: center;
+}
+
+#questions-input {
+    font-size: 2rem;
+    padding: 10px;
+    text-align: center;
+    border: 2px solid var(--border-color);
+    border-radius: 10px;
+    outline: none;
+}
