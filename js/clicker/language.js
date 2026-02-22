@@ -1,5 +1,9 @@
 import { gameState } from "./engine.js";
 
+// =========================================================================
+// NYELVI BEÁLLÍTÁSOK (LANGUAGE SYSTEM)
+// =========================================================================
+
 export function setupLanguageSelector() {
     const selector = document.getElementById("language-selector");
     selector.addEventListener("change", (e) => {

@@ -3,15 +3,17 @@ import * as Audio from "./audio.js";
 import * as _console from "./console.js";
 import * as Language from "./language.js";
 
-// --- GAME STATE ---
+// =========================================================================
+// 1. ÁLLAPOT ÉS ALAPADATOK (GAME STATE & UPGRADES)
+// =========================================================================
 
 export let gameState = {
     codeLines: 0,
     totalCodeGenerated: 0,
-    inventory: {}, // Pl: { 'keyboard': 5, 'monitor': 1 }
+    inventory: {}, 
     clickPower: 1,
     passiveIncome: 0,
-    status: 'menu', // clicker, BSOD, menu, settings, information, rpg
+    status: 'menu', 
     lastStatus: '',
     wifiLevel: 100,
     currentLanguage: 'hu',
@@ -37,7 +39,7 @@ export let upgrades = {
         { id: "50m UTP Kábel", desc: "A WiFi a gyengék fegyvere. Stabil net.", cost: 70000, prod: 60, powerincrease: 0, level: 2 },
         { id: "T5 Teremkulcs", desc: "Egy másolt kulcs. Meglesheted a Mestert.", cost: 120000, prod: 0, powerincrease: 25, level: 2 },
 
-        // --- TIER 3: Webfejlesztés (Németh G. vonal) ---
+        // --- TIER 3: Webfejlesztés ---
         { id: "HTML <br> Tag", desc: "Sortörés mindenhova. A design csúcsa.", cost: 250000, prod: 150, powerincrease: 0, level: 3 },
         { id: "CSS !important", desc: "Ha nem működik, csak erőltesd rá!", cost: 450000, prod: 220, powerincrease: 10, level: 3 },
         { id: "Német Billentyűzet", desc: "Németh G. ajánlásával. Az Y és Z cserélve.", cost: 750000, prod: 350, powerincrease: 0, level: 3 },
@@ -46,7 +48,7 @@ export let upgrades = {
         { id: "Spagetti Kód", desc: "Senki nem tudja mit csinál, de működik.", cost: 5000000, prod: 1500, powerincrease: 0, level: 3 },
         { id: "Németh G. Jóváhagyása", desc: "A tanár úr bólintott. Ez sokat ér.", cost: 8500000, prod: 2200, powerincrease: 150, level: 3 },
 
-        // --- TIER 4: Adatbázis & Nagyvállalat (Marosán O. vonal) ---
+        // --- TIER 4: Adatbázis & Nagyvállalat ---
         { id: "Excel Táblázat", desc: "A szegény ember adatbázisa.", cost: 14000000, prod: 3500, powerincrease: 0, level: 4 },
         { id: "SELECT * FROM users", desc: "Minden adat a tiéd.", cost: 25000000, prod: 5500, powerincrease: 0, level: 4 },
         { id: "Végtelen Ciklus", desc: "Véletlen volt, de pörög a számláló.", cost: 42000000, prod: 8000, powerincrease: 0, level: 4 },
@@ -55,7 +57,7 @@ export let upgrades = {
         { id: "Oracle Licensz", desc: "Drága, de Marosán szerint megéri.", cost: 180000000, prod: 24000, powerincrease: 0, level: 4 },
         { id: "Mindent Tudó Aura", desc: "Marosán Ottó tudása. Nincs kérdés válasz nélkül.", cost: 300000000, prod: 35000, powerincrease: 0, level: 4 },
 
-        // --- TIER 5: T5 Hardver & Sysadmin (De lehetne: Sági J. vonal) ---
+        // --- TIER 5: T5 Hardver & Sysadmin ---
         { id: "Zajszűrős Fejhallgató", desc: "Hogy ne halld a szerverek zúgását.", cost: 550000000, prod: 55000, powerincrease: 0, level: 5 },
         { id: "Cisco Kábelrengeteg", desc: "Valahova vezet, az biztos.", cost: 900000000, prod: 85000, powerincrease: 0, level: 5 },
         { id: "Kékhalál (BSOD)", desc: "Pihenőidő a gépnek. Újraindítás...", cost: 1500000000, prod: 130000, powerincrease: 0, level: 5 },
@@ -64,7 +66,7 @@ export let upgrades = {
         { id: "Saját Szerverterem", desc: "A teljes T5 a tiéd. Fűtésre nem kell költeni.", cost: 8000000000, prod: 550000, powerincrease: 0, level: 5 },
         { id: "Rendszergazda Jog", desc: "Te vagy a root. AZ Isten kezet fog veled.", cost: 15000000000, prod: 900000, powerincrease: 5000, level: 5 },
 
-        // --- TIER 6: A Mester Szintje (Házi G. L. & Linux) ---
+        // --- TIER 6: A Mester Szintje ---
         { id: "Ubuntu Install CD", desc: "A megvilágosodás első lépése.", cost: 30000000000, prod: 1500000, powerincrease: 0, level: 6 },
         { id: "Pingvin Eleség", desc: "Tux jóllakott. Gyorsabban fut.", cost: 55000000000, prod: 2500000, powerincrease: 0, level: 6 },
         { id: "Csak Terminál", desc: "Egér? Az a gyengéknek való.", cost: 90000000000, prod: 4000000, powerincrease: 15000, level: 6 },
@@ -80,15 +82,13 @@ export let upgrades = {
     ]
 }
 
+// =========================================================================
+// 2. INICIALIZÁLÁS ÉS JÁTÉK CIKLUS (INIT & LOOP)
+// =========================================================================
 
-// --- FUNKCIÓK ---
 document.onload = initGame();
 
 function initGame() {
-    // 1. Megpróbálja betölteni a mentést a localStorage-ból
-    // 2. Ha nincs, inicializálja az alapértékeket
-    // 3. Elindítja a Game Loop-ot
-    // loadGame();
     handleManualClick();
     setupButtons();
     setupGlobalInput();
@@ -106,19 +106,18 @@ function initGame() {
 }
 
 async function gameLoop() {
-    // 1. Kiszámolja a passzív termelést (inventory alapján)
-    // 2. Levonja a Wi-Fi-t (ha van ilyen mechanika)
-    // 3. Lefuttatja a véletlenszerű eseménygenerátort (pl. jön a tanár?)
-    // 4. Szól a ui.js-nek, hogy: "Frissíts, mert változtak a számok!"
     setInterval(() => {
         if (gameState.status == "clicker") {
             passiveIncome();
             triggerEvent();
         }
         UI.updateDisplay();
-        // saveGame();
     }, 100);
 }
+
+// =========================================================================
+// 3. ESEMÉNYFIGYELŐK (INPUTS & BUTTONS)
+// =========================================================================
 
 function setupButtons() {
     const buttons = document.querySelectorAll(".button");
@@ -136,11 +135,9 @@ function setupButtons() {
                 UI.activateOverlay()
             });
         }
-
     });
 }
 
-// --- Input ---
 function setupGlobalInput() {
     document.addEventListener("keydown", handleKeyDown);
 }
@@ -157,15 +154,16 @@ function handleKeyDown(e) {
             UI.activateOverlay()
         }
     }
-
     if (e.key === "Tab") {
         gameState.status = "menu";
         UI.activateOverlay()
     }
 }
 
+// =========================================================================
+// 4. JÁTÉKMECHANIKA CORE (INCOME & PURCHASING)
+// =========================================================================
 
-// --- Gameplay ---
 function passiveIncome() {
     let passiveIncome = gameState.passiveIncome;
     gameState.codeLines += passiveIncome;
@@ -173,31 +171,22 @@ function passiveIncome() {
 }
 
 function handleManualClick() {
-    // Megnézi, kattintható-e a terminál (nincs-e BSOD)
-    // Növeli a codeLines értékét
-
     const clickerButton = document.getElementById("clicker-button");
     clickerButton.addEventListener("click", () => {
         gameState.codeLines += gameState.clickPower;
         gameState.totalCodeGenerated += gameState.clickPower;
-
-
     });
 }
 
 export function buyUnit(key) {
-    // 1. Kiszámolja az aktuális árat (basePrice * multiplier^darabszám)
-    // 2. Ha van elég codeLines, levonja és növeli az inventory-t
-    // 3. Visszaadja a sikert vagy sikertelenséget
-
     const unitData = upgrades.units.find(unit => unit.id === key);
 
     if (gameState.codeLines >= unitData.cost) {
         gameState.codeLines -= unitData.cost;
         if (gameState.inventory[key]) {
-            gameState.inventory[key]++;         // Ha van, növeljük
+            gameState.inventory[key]++;         
         } else {
-            gameState.inventory[key] = 1;       // Ha nincs, létrehozzuk és beállítjuk 1-re
+            gameState.inventory[key] = 1;       
             gameState.level = unitData.level;
         }
         gameState.passiveIncome += unitData.prod;
@@ -214,31 +203,28 @@ export function buyUnit(key) {
     _console.renderToScreen("NEM LYÓ");
 }
 
+// =========================================================================
+// 5. RANDOM ESEMÉNYEK ÉS RPG (MINIGAMES)
+// =========================================================================
+
 export function triggerEvent(event = null) {
     const random = Math.random();
 
-    if ((random < 0.0002 && gameState.status == "clicker") || event == "blue death") { // 1% esély  || gameState.status == "BSOD"
+    if ((random < 0.0002 && gameState.status == "clicker") || event == "blue death") { 
         console.log("Kék Halál!");
 
         gameState.status = "BSOD";
         UI.activateOverlay();
         const bsodInput = document.getElementById("bsod-input");
 
-        // Fókuszáljunk az inputra, hogy azonnal tudjon írni
         bsodInput.focus();
-        bsodInput.value = ""; // Töröljük a korábbi szöveget
+        bsodInput.value = ""; 
 
-        // Eseményfigyelő
         bsodInput.addEventListener("keyup", function (event) {
-            // Ellenőrizzük, hogy Enter-t nyomott-e
             if (event.key === "Enter") {
-
-                // Itt olvassuk ki, mit írt be
                 const beirtSzoveg = bsodInput.value;
-
                 console.log("A játékos ezt írta: " + beirtSzoveg);
 
-                // Ellenőrzés (pl. ha azt írja be: "reboot")
                 if (beirtSzoveg === "reboot") {
                     gameState.status = "clicker";
                     UI.activateOverlay();
@@ -253,17 +239,12 @@ export function triggerEvent(event = null) {
     else if ((random > 0.9998 && gameState.status == "clicker") || event == "mester") {
         const door = document.getElementById("rpg-entry");
 
-        // Ellenőrizzük, hogy nincs-e rajta már az osztály (hogy ne fusson le többször)
         if (!door.classList.contains("active-state")) {
             console.log("AJTÓ NYÍLIK - Vizuális effekt indul");
-
-            // 1. Vizuális effekt BEKAPCSOLÁSA (hozzáadjuk a class-t)
             door.classList.add("active-state");
-
             Audio.playAudio("t5-door-tryingToOpen.mp3", "game", false);
 
             setTimeout(() => {
-                // 2. Vizuális effekt KIKAPCSOLÁSA 6 másodperc után
                 door.classList.remove("active-state");
                 console.log("AJTÓ BEZÁRUL - Vizuális effekt vége");
             }, 6000);
@@ -276,10 +257,14 @@ export function loadRPGEvent() {
     UI.activateRPGOverlay(currentEvent);
 }
 
+// =========================================================================
+// 6. MENTÉS ÉS BETÖLTÉS (SAVE/LOAD SYSTEM)
+// =========================================================================
+
 export function saveGame() {
     if (gameState.codeLines === null || gameState.codeLines === undefined) {
         console.error("HIBA: A codeLines értéke elveszett mentés előtt!", gameState);
-        return; // Ne mentsük el a hibás állapotot!
+        return; 
     }
     localStorage.setItem("save", JSON.stringify(gameState));
 }
@@ -288,7 +273,6 @@ export function loadGame() {
     const saved = localStorage.getItem("save");
     if (saved) {
         const parsed = JSON.parse(saved);
-        // Csak azokat az értékeket írjuk felül, amik megvannak a mentésben
-        Object.assign(gameState, parsed);               // HA BESZARIK TÖRÖLT EZT A SORT
+        Object.assign(gameState, parsed);               
     }
 }

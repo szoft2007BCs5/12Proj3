@@ -1,3 +1,7 @@
+// =========================================================================
+// ÜZENETEK MEGJELENÍTÉSE (MESSAGES SYSTEM)
+// =========================================================================
+
 document.addEventListener("DOMContentLoaded", async () => {
     const messagesDiv = document.getElementById("messages");
     // A filePath-t a try előtt definiáljuk, hogy a catch-ben is lássuk

@@ -1,11 +1,11 @@
-// --- BEÁLLÍTÁSOK ---
+// =========================================================================
+// ALAPBEÁLLÍTÁSOK ÉS VÁLTOZÓK
+// =========================================================================
 const BASE_PATH = "../../source/audio/";
-
 const types = ["master", "music", "other", "game"];
 
 let currentMusicFile = localStorage.getItem("selectedMusic") || "chill-drum-bgmusic.mp3";
 
-// Hangerők
 let volumes = {
     master: 1.0,
     music: 0.5,
@@ -13,45 +13,35 @@ let volumes = {
     game: 0.5
 };
 
-
-// Ebben a listában tároljuk az összes éppen futó hangot
 let activeSounds = [];
 
-// --- FŐ FÜGGVÉNYEK ---
+// =========================================================================
+// FŐ AUDIO FUNKCIÓK (LEJÁTSZÁS, LEÁLLÍTÁS, HANGERŐ)
+// =========================================================================
 
-// 1. Hang lejátszása
 export function playAudio(fileName, type, loop = false, id = null) {
     const src = BASE_PATH + fileName;
     const audio = new Audio(src);
     audio.myType = type;
-    audio.myId = id || Math.random().toString(36).substr(2, 9); // ID beállítása (ha adtál meg nevet, pl: "intro_zene", amivel később leállíthatod)
+    audio.myId = id || Math.random().toString(36).substr(2, 9); 
     audio.loop = loop;
     audio.volume = getFinalVolume(type);
 
     audio.play().catch(err => console.warn("Nem sikerült lejátszani:", src, err));
     activeSounds.push(audio);
 
-    // TÖRLÉS: Ha vége a hangnak és NEM loopolós, kivesszük a listából
     if (!loop) {
         audio.onended = () => {
-            // Megkeressük hol van a listában és kivesszük
             const index = activeSounds.indexOf(audio);
             if (index > -1) {
                 activeSounds.splice(index, 1);
             }
         };
     }
-
     return audio;
 }
 
-// 2. Hang leállítása
-// Használat:
-// stopAudio("music") -> Leállít minden zenét
-// stopAudio("intro_zene") -> Leállítja azt a konkrét hangot, aminek ez az ID-ja
-// stopAudio("all") -> Leállít MINDENT
 export function stopAudio(target) {
-    // Végigmegyünk a listán visszafelé
     for (let i = activeSounds.length - 1; i >= 0; i--) {
         const sound = activeSounds[i];
 
@@ -63,16 +53,12 @@ export function stopAudio(target) {
     }
 }
 
-// 3. Hangerő beállítása
 export function setVolume(type, value) {
     if (volumes[type] !== undefined) {
         volumes[type] = value;
     }
 
-    // Frissítjük az éppen szóló hangokat
     activeSounds.forEach(sound => {
-        // Ha mastert állítunk, mindenre hat
-        // Ha típust állítunk, csak arra a típusra hat
         if (type === "master" || sound.myType === type) {
             sound.volume = getFinalVolume(sound.myType);
         }
@@ -81,19 +67,15 @@ export function setVolume(type, value) {
     localStorage.setItem("volumes", JSON.stringify(volumes));
 }
 
-
-// --- SEGÉDFÜGGVÉNYEK ---
-
 function getFinalVolume(type) {
-    // A végső hangerő = Master * Típus hangereje
     return volumes["master"] * volumes[type];
 }
 
-
-// --- SETUP (Ezt hívd meg a játék elején) ---
+// =========================================================================
+// INICIALIZÁLÁS (SETUP)
+// =========================================================================
 
 export function setupAudioSystem() {
-    // 1. Hangerők betöltése
     const savedVolumes = localStorage.getItem("volumes");
     if (savedVolumes) {
         volumes = JSON.parse(savedVolumes);
@@ -101,7 +83,6 @@ export function setupAudioSystem() {
         localStorage.setItem("volumes", JSON.stringify(volumes));
     }
 
-    // 2. Globális kattintás figyelő (other)
     const buttons = document.querySelectorAll(".button");
     buttons.forEach(button => {
         button.addEventListener("click", () => {
@@ -110,32 +91,24 @@ export function setupAudioSystem() {
         });
     });
 
-    // 3. Háttérzene indítása
     const musicSelector = document.getElementById("music-selector");
     
-    // Beállítjuk a legördülőt a mentett értékre
     if (musicSelector) {
         musicSelector.value = currentMusicFile;
 
-        // Ha megváltoztatja a játékos a zenét
         musicSelector.addEventListener("change", (e) => {
             const newMusic = e.target.value;
             
-            // 1. Leállítjuk a JELENLEGI háttérzenét (fontos az ID: "bg_music")
             stopAudio("bg_music");
-
-            // 2. Elmentjük az újat
             currentMusicFile = newMusic;
             localStorage.setItem("selectedMusic", newMusic);
 
-            // 3. Elindítjuk az újat (ha nem a "none"-t választotta)
             if (newMusic !== "none") {
                 playAudio(newMusic, "music", true, "bg_music");
             }
         });
     }
 
-    // --- kattintás ---
     document.addEventListener("click", () => {
         const isMusicPlaying = activeSounds.some(active => active.myId === "bg_music");
         
@@ -144,7 +117,6 @@ export function setupAudioSystem() {
         }
     }, { once: true });
 
-    // 4. Csúszkák beállítása
     types.forEach(type => {
         const slider = document.getElementById(type + "-volume-slider");
         const sliderText = document.getElementById(type + "-volume-slider-text");
