@@ -10,17 +10,35 @@ import * as Language from "./language.js";
 export let gameState = {
     codeLines: 0,
     totalCodeGenerated: 0,
-    inventory: {}, 
+    inventory: {},
     clickPower: 1,
     passiveIncome: 0,
-    status: 'menu', 
+    status: 'menu',
     lastStatus: '',
     wifiLevel: 100,
     currentLanguage: 'hu',
     level: 1
 };
 
-export let RPGEvents = ["questions", "clickOnTarget"];
+export let RPGEvents = [
+    "questions",
+    "clickOnTarget",
+    "spamClick",
+    "typingTest",
+    "memory",
+    "colorMatch",
+    "findTheBug",
+    "mathRush",
+    "wordScramble",
+    "sequenceClick",
+    "reactionTime",
+    "higherLower",
+    "rps",
+    "stopwatch",
+    "oddOneOut",
+    "binaryQuiz",
+    "minesweeperMini"
+];
 
 export let upgrades = {
     units: [
@@ -184,9 +202,9 @@ export function buyUnit(key) {
     if (gameState.codeLines >= unitData.cost) {
         gameState.codeLines -= unitData.cost;
         if (gameState.inventory[key]) {
-            gameState.inventory[key]++;         
+            gameState.inventory[key]++;
         } else {
-            gameState.inventory[key] = 1;       
+            gameState.inventory[key] = 1;
             gameState.level = unitData.level;
         }
         gameState.passiveIncome += unitData.prod;
@@ -210,7 +228,7 @@ export function buyUnit(key) {
 export function triggerEvent(event = null) {
     const random = Math.random();
 
-    if ((random < 0.0002 && gameState.status == "clicker") || event == "blue death") { 
+    if ((random < 0.0002 && gameState.status == "clicker") || event == "blue death") {
         console.log("Kék Halál!");
 
         gameState.status = "BSOD";
@@ -218,7 +236,7 @@ export function triggerEvent(event = null) {
         const bsodInput = document.getElementById("bsod-input");
 
         bsodInput.focus();
-        bsodInput.value = ""; 
+        bsodInput.value = "";
 
         bsodInput.addEventListener("keyup", function (event) {
             if (event.key === "Enter") {
@@ -264,7 +282,7 @@ export function loadRPGEvent() {
 export function saveGame() {
     if (gameState.codeLines === null || gameState.codeLines === undefined) {
         console.error("HIBA: A codeLines értéke elveszett mentés előtt!", gameState);
-        return; 
+        return;
     }
     localStorage.setItem("save", JSON.stringify(gameState));
 }
@@ -273,6 +291,6 @@ export function loadGame() {
     const saved = localStorage.getItem("save");
     if (saved) {
         const parsed = JSON.parse(saved);
-        Object.assign(gameState, parsed);               
+        Object.assign(gameState, parsed);
     }
 }
