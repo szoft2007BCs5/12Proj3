@@ -4,71 +4,198 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/clicker.css">
-
-    <script src="../js/clicker/messages.js"></script>
-    <script src="../js/clicker/console.js" type="module" defer></script>
-    <script src="../js/clicker/ui.js" type="module" defer></script>
-    <script src="../js/clicker/engine.js" type="module" defer></script>
+    <link rel="stylesheet" href="../css/global.css">
+    <link rel="stylesheet" href="../css/menus.css">
+    <link rel="stylesheet" href="../css/game.css">
+    <link rel="stylesheet" href="../css/rpg.css">
+    
+    <script src="../js/engine.js" type="module" defer></script>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=VT323&family=Fira+Code:wght@300..700&display=swap"
         rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Caveat+Brush&family=DynaPuff:wght@400..700&family=Mogra&family=Story+Script&display=swap">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Caveat+Brush&family=DynaPuff:wght@400..700&family=Mogra&family=Story+Script&display=swap"
+        rel="stylesheet">
+
+    <title>Clicker</title>
+    <link rel="icon" type="image/x-icon" href="../source/img/tux.webp">
 </head>
 
 <body>
-    <div id="blueDeath-overlay" class="hidden">
+
+    <!-- BSOD overlay -->
+    <div id="BSOD-overlay" class="overlay">
         <h1>:(</h1>
         <p>A rendszered hibába ütközött, mert a tanár kihúzta a kábelt.</p>
         <p>Hibakód: _SPAGHETTI_CODE_ERROR</p>
-        <p>A javításhoz írd be: "sudo reboot"</p>
+        <p>A javításhoz írd be: "reboot"</p>
         <input type="text" id="bsod-input" placeholder="Írd ide..." autocomplete="off">
     </div>
 
-    <div class="play" id="clicker-screen">
-        <!-- Left Section -->
-        <section id="left-section">
-            <h1 id="codeLinesCouner"></h1>
-            <img src="../source/img/bt-play.webp" alt="click" id="clicker-button">
-        </section>
-
-        <!-- Center Section -->
-        <section id="center-section">
-            <div id="messages">
-                <!-- ide töltjük be a message-t-->
-            </div>
-        </section>
-
-        <!-- Right Section -->
-        <section id="right-section">
-            <!-- Right header -->
-            <div id="console">
-                <div id="console-log">
-
-                </div>
-                <div id="console-input-holder">
-                    <input type="text" name="console-input" id="console-input" autocomplete="off">
-                </div>
-            </div>
-
-            <!-- Clicker blueprint -->
-            <div id="clicker-blueprint">
-                <div class="clicker-blueprint-item">
-                    <p>Blueprints</p>
-                </div>
-            </div>
-
-            <!-- Clicker shop -->
-            <div id="clicker-shop">
-                <div class="clicker-shop-item">
-                    <p>Kattintás sebesség növelő</p>
-                    <button>Kattints rám!</button>
-                </div>
-            </div>
-        </section>
+    <!-- Menu overlay -->
+    <div id="menu-overlay" class="overlay">
+        <div class="overlay-top">
+            <h1 class="overlay-title" id="title-main" style="grid-column: 1 / span 2; text-align: center;">Helyi
+                Bolondok Szövetsége</h1>
+        </div>
+        <div class="overlay-center">
+            <img src="../source/img/bt-settings.webp" class="bt-settings button" alt="Beállítások gomb"
+                draggable="false" data-target="settings" style="width: 20cqmin;" />
+            <img src="../source/img/bt-play.webp" class="bt-play button" alt="Játék indítása gomb" draggable="false"
+                data-target="clicker" style="width: 20cqmin;" />
+            <img src="../source/img/bt-info.webp" class="bt-info button" alt="Infó gomb" draggable="false"
+                data-target="information" style="width: 20cqmin;" />
+        </div>
+        <div class="overlay-bottom">
+            <p id="verification">100%-ig MODERN, MEGBÍZHATÓ weboldal.</p>
+        </div>
     </div>
+
+    <!-- Settings overlay -->
+    <div id="settings-overlay" class="overlay">
+        <div class="overlay-top">
+            <img src="../source/img/bt-back.webp" class="bt-back button" alt="Beállítások gomb" draggable="false"></img>
+            <h1 class="overlay-title" id="title-settings">Beállítások</h1>
+        </div>
+        <div class="overlay-center" style="margin-bottom: auto;">
+            <section id="settings-section">
+                <div class="menu-part-container" id="language-select-container">
+                    <label for="language-select" class="menu-label" id="language-label">Nyelv:</label>
+                    <select class="volume-slider-text drawed-style" id="language-selector">
+                        <option>English</option>
+                        <option selected>Magyar</option>
+                        <option>Magyar - Szleng</option>
+                    </select>
+                </div>
+                <div class="menu-part-container">
+                    <label for="master-volume-slider" class="menu-label" id="master-volume-label">Fő hangerő:</label>
+                    <input type="range" class="volume-slider" id="master-volume-slider" min="0" max="100" value="50">
+                    <input type="number" class="volume-slider-text drawed-style" id="master-volume-slider-text" min="0"
+                        max="100" value="50">
+                </div>
+
+                <div class="menu-part-container">
+                    <label for="music-volume-slider" class="menu-label" id="music-volume-label">Zenehangerő:</label>
+                    <input type="range" class="volume-slider" id="music-volume-slider" min="0" max="100" value="50">
+                    <input type="number" class="volume-slider-text drawed-style" id="music-volume-slider-text" min="0"
+                        max="100" value="50">
+                </div>
+
+                <div class="menu-part-container">
+                    <label for="game-volume-slider" class="menu-label" id="game-volume-label">Játék hangerő:</label>
+                    <input type="range" class="volume-slider" id="game-volume-slider" min="0" max="100" value="50">
+                    <input type="number" class="volume-slider-text drawed-style" id="game-volume-slider-text" min="0"
+                        max="100" value="50">
+                </div>
+
+                <div class="menu-part-container">
+                    <label for="other-volume-slider" class="menu-label" id="other-volume-label">További hangerő:</label>
+                    <input type="range" class="volume-slider" id="other-volume-slider" min="0" max="100" value="50">
+                    <input type="number" class="volume-slider-text drawed-style" id="other-volume-slider-text" min="0"
+                        max="100" value="50" autocomplete="false">
+                </div>
+
+                <div class="menu-part-container">
+                    <label for="music-selector" class="menu-label" id="music-chooser">Zene választás:</label>
+                    <select class="volume-slider-text drawed-style" id="music-selector">
+                        <option value="music/chill-drum-bgmusic.mp3">Chill Drum (Alap)</option>
+                        <option value="music/cancan.mp3">Can can</option>
+                        <option value="music/tesco.mp3">Tesco Radio</option>
+                        <option value="music/thunder.mp3">Thunder</option>
+                        <option value="music/azene.mp3">AZENE</option>
+                        <option value="music/zaj.mp3">Fehér Zaj</option>
+                        <option value="none">Nincs zene</option>
+                    </select>
+                </div>
+            </section>
+        </div>
+        <div class="overlay-bottom">
+            <p id="verification">100%-ig MODERN, MEGBÍZHATÓ weboldal.</p>
+        </div>
+    </div>
+
+    <!-- Information overlay -->
+    <div id="information-overlay" class="overlay">
+        <div class="overlay-top">
+            <img src="../source/img/bt-back.webp" class="bt-back button" alt="Beállítások gomb" draggable="false"></img>
+            <h1 class="overlay-title" id="title-info">Információ</h1>
+        </div>
+        <div class="overlay-center">
+            <p id="info-text">Üdvözöllek a Clicker játékban! Ez a projekt a végtelen kattintgatás örömét hozza el neked.
+                Gyűjts kódsorokat, fejleszd a rendszeredet, és vigyázz a tanárokra! A játék célja, hogy minél jobb
+                fejlesztővé válj (vagy legalábbis annak tűnj).</p>
+        </div>
+        <div class="overlay-bottom">
+            <p id="verification">100%-ig MODERN, MEGBÍZHATÓ weboldal.</p>
+        </div>
+    </div>
+
+    <!-- Clicker overlay -->
+    <div id="clicker-overlay" class="overlay">
+        <div id="top-section">
+            <img src="../source/img/bt-settings.webp" class="bt-settings button" alt="Beállítások gomb"
+                draggable="false" data-target="settings"></img>
+        </div>
+        <div id="middle-section">
+            <!-- Left Section -->
+            <section id="left-section">
+                <img src="../source/img/door.webp" alt="door" id="rpg-entry">
+            </section>
+
+            <!-- Center Section -->
+            <section id="center-section">
+                <div id="messages">
+                    <!-- ide töltjük be a message-t-->
+                </div>
+                <div id="clicker-container">
+                    <h1 id="codeLinesCounter"></h1>
+                    <img src="../source/img/tux.webp" alt="click" id="clicker-button">
+                </div>
+            </section>
+
+            <!-- Right Section -->
+            <section id="right-section">
+                <!-- Right header -->
+                <div id="console">
+                    <div id="console-log">
+                        <!-- Ide tölti be a console itemeket -->
+                    </div>
+                    <div id="console-input-holder">
+                        <input type="text" name="console-input" id="console-input" autocomplete="off">
+                    </div>
+                </div>
+
+                <!-- Clicker blueprint -->
+                <div id="clicker-blueprint">
+                    <div class="clicker-blueprint-item">
+                        <p>Blueprints</p>
+                    </div>
+                </div>
+
+                <!-- Clicker shop -->
+                <div id="clicker-shop">
+                    <!-- Ide tölti be az itemeket -->
+                </div>
+            </section>
+        </div>
+
+    </div>
+
+    <!-- Menu overlay -->
+    <div id="rpg-overlay" class="overlay">
+        <div id="top-section">
+            <img src="../source/img/bt-back.webp" class="button" alt="Vissza gomb" draggable="false"
+                data-target="clicker" />
+            <img src="../source/img/bt-settings.webp" class="bt-settings button" alt="Beállítások gomb"
+                draggable="false" data-target="settings" />
+        </div>
+        <div id="rpg-middle">
+
+        </div>
+    </div>
+
 </body>
 
 </html>

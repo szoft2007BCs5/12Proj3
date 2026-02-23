@@ -1,0 +1,153 @@
+/* --- GLOBÁLIS VÁLTOZÓK ÉS ALAPOK --- */
+:root {
+    --console-text-color: #00FF00;
+    --console-bg-color: #0C0C0C;
+    --border-color: #000000;
+    --pure-white: #ffffff;
+    --console-glow: #00ff0080;
+    --front-index: 10;
+    --door-bg: #e4d1c2;
+    --center-bg: #5481fd;
+    --right-bg: #05e2d0;
+    --white: rgb(255, 255, 255);
+    --black: rgb(0, 0, 0);
+    --lightblue: rgb(212, 232, 255);
+}
+
+* {
+    padding: 0;
+    margin: 0;
+    scroll-behavior: smooth;
+    box-sizing: border-box;
+    font-family: "DynaPuff", system-ui;
+    hyphens: auto;
+    cursor: url(../source/img/cursor.png) 25 20, auto;
+    -webkit-user-drag: none;
+    user-select: none;
+}
+
+::-webkit-scrollbar {
+    width: 1dvw;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--center-bg);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--lightblue);
+}
+
+html, body {
+    height: 100dvh;
+    width: 100dvw;
+    background: var(--pure-white);
+    overflow: hidden;
+}
+
+/* --- KÖZÖS ABLAKOK (OVERLAYS) ELRENDEZÉSE --- */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    min-height: 100dvh;
+    z-index: 1000;
+    display: none; /* JS kapcsolja */
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.overlay-top {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    text-align: center;
+}
+
+.overlay-center {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 8dvw;
+    flex-grow: 1;
+    height: 100%;
+    margin-block: 5dvh;
+}
+
+.overlay-bottom {
+    text-align: center;
+    word-break: normal;
+    white-space: normal;
+    text-wrap: wrap;
+}
+
+.overlay-title {
+    font-size: 6cqmin;
+    font-family: "Mogra", system-ui;
+    margin-top: 2cqmin;
+}
+
+/* --- KÖZÖS GOMBOK --- */
+.bt-back {
+    width: 10cqmin;
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+.bt-settings {
+    object-fit: contain;
+}
+
+[class^="bt-"] {
+    aspect-ratio: 1/1;
+    filter: saturate(2) brightness(1);
+    cursor: url(../source/img/cursor-pointer.png) 25 1, auto;
+    transition: 1s rotate;
+}
+
+[class^="bt-"]:hover {
+    filter: brightness(1.2);
+}
+
+[class^="bt-"]:nth-child(even):hover {
+    rotate: 360deg;
+}
+
+[class^="bt-"]:nth-child(odd):hover {
+    rotate: -360deg;
+}
+
+.button {
+    transition: transform 0.1s;
+    cursor: pointer;
+    margin: 0.5cqmin;
+}
+
+.button:hover {
+    transform: scale(1.1);
+}
+
+.button:active {
+    transform: scale(0.95);
+}
+
+/* --- RESPONSZÍV ALAPOK --- */
+@media screen and (max-width: 500px) {
+    .overlay-center {
+        flex-direction: column;
+        gap: 4dvw;
+    }
+    .overlay-center > img {
+        width: 25cqmin;
+    }
+    .overlay-center > img:nth-child(2) {
+        scale: 1.2;
+    }
+}
