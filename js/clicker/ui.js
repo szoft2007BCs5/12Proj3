@@ -147,10 +147,11 @@ export async function activateRPGOverlay(event) {
 
     function applyReward(isWin) {
         let totalGen = Engine.gameState.totalCodeGenerated || 0;
-        let amount = Math.floor(totalGen * 0.10);
+        let amount = Math.floor(totalGen * 0.01);
         
         if (isWin) {
             Engine.gameState.codeLines += amount;
+            Engine.gameState.totalCodeGenerated += amount;
             return `+${amount} kódsor`;
         } else {
             Engine.gameState.codeLines -= amount;
