@@ -90,3 +90,25 @@
 .rpg-bug-box:hover { background: #333; }
 .rpg-reaction-box { width: 200px; height: 200px; background: #dc3545; margin: 20px auto; border-radius: 10px; cursor: pointer; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 20px; transition: background 0.1s; }
 .rpg-reaction-box.ready { background: #28a745; }
+
+
+
+
+
+/* --- INLINE STÍLUSOK KIVÁLTÁSA --- */
+.hidden-overlay { display: none !important; height: 0 !important; width: 0 !important; }
+.active-overlay { display: flex !important; height: 100dvh !important; width: 100dvw !important; }
+
+.msg-container { text-align: center; }
+.msg-italic { font-style: italic; }
+
+.mt-10 { margin-top: 10px; }
+.h-60 { height: 60px; }
+.text-upper { text-transform: uppercase; }
+
+.color-red { color: red; }
+.color-blue { color: blue; }
+.color-green { color: green; }
+
+.bg-red { background-color: red !important; }
+.bg-green { background-color: green !important; }
