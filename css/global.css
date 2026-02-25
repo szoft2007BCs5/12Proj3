@@ -39,8 +39,7 @@
 }
 
 html, body {
-    height: 100dvh;
-    width: 100dvw;
+    min-height: 100dvh;
     background: var(--pure-white);
 }
 
@@ -185,6 +184,8 @@ html, body {
 @media screen and (width < 768px) {
     .overlay-title{
         font-size: 10cqmin;
+        hyphens: none;
+        width: min-content;
     }
 
     .overlay-center {

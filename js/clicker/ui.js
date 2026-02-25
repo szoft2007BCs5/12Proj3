@@ -26,7 +26,7 @@ export function activateOverlay() {
         else {
             overlay.style.display = "flex";
             overlay.style.height = "auto";
-            overlay.style.width = "100dvw";
+            overlay.style.width = "100%";
         }
     });
 }
