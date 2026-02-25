@@ -212,4 +212,14 @@ html, body {
     .volume-slider-text{
         text-align: center;
     }
+
+    .clicker-shop-item-center h1 {
+        font-size: 3cqmax !important;
+    }
+    .clicker-shop-item-center h2 {
+        font-size: 2.5cqmax !important; 
+    }
+    .clicker-shop-item-center p {
+        font-size: 2cqmax !important; 
+    }
 }

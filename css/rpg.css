@@ -1,6 +1,6 @@
 /* --- RPG AJTÓ ANIMÁCIÓK --- */
 #rpg-entry {
-    width: 100%;
+    width: 40cqmin;
     max-width: 400px;
     aspect-ratio: 1/1.4;
     transition: all 0.2s;
