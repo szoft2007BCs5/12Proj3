@@ -130,6 +130,8 @@ export function setupAudioSystem() {
         });
 
         sliderText.addEventListener("input", () => {
+            if (sliderText.value < 0) sliderText.value = 0;
+            if (sliderText.value > 100) sliderText.value = 100;
             setVolume(type, sliderText.value / 100);
             slider.value = sliderText.value;
         });
