@@ -42,7 +42,6 @@ html, body {
     height: 100dvh;
     width: 100dvw;
     background: var(--pure-white);
-    overflow: hidden;
 }
 
 /* --- KÖZÖS ABLAKOK (OVERLAYS) ELRENDEZÉSE --- */
@@ -57,7 +56,7 @@ html, body {
     display: none; /* JS kapcsolja */
     flex-direction: column;
     align-items: center;
-    justify-content: space-between;
+    justify-content: space-around;
 }
 
 .overlay-top {
@@ -75,9 +74,6 @@ html, body {
     justify-content: center;
     align-items: center;
     gap: 8dvw;
-    flex-grow: 1;
-    height: 100%;
-    margin-block: 5dvh;
 }
 
 .overlay-bottom {
@@ -139,15 +135,80 @@ html, body {
 }
 
 /* --- RESPONSZÍV ALAPOK --- */
-@media screen and (max-width: 500px) {
+@media screen and (width < 1024px) {
+    .overlay{
+        position: relative;
+        overflow-x: hidden;
+    }
+
+    .overlay-bottom{
+        margin-inline: 5dvw;
+    }
+
+    #middle-section{
+        flex-direction: column !important;
+        height: auto !important;
+    }
+    
+    #left-section{
+        width: 100% !important;
+        height: 50dvh !important;
+        border: black solid 1dvw;
+    }
+
+    #center-section{
+        width: 100% !important;
+        min-height: 50dvh !important;
+        order: -1;
+    }
+
+    #right-section{
+        width: 100% !important;
+        height: 100dvh !important;
+        order: -1;
+        border: black solid 1dvw;
+    }
+
+    #messages{
+        height: auto !important;
+    }
+
+    #clicker-container{
+        height: auto !important;
+    }
+
+    #clicker-button, #rpg-entry{
+        width: 25cqmin !important;
+    }
+}
+
+@media screen and (width < 768px) {
+    .overlay-title{
+        font-size: 10cqmin;
+    }
+
     .overlay-center {
         flex-direction: column;
-        gap: 4dvw;
     }
-    .overlay-center > img {
-        width: 25cqmin;
+
+    #settings-section{
+        margin-block: 5dvh;
     }
-    .overlay-center > img:nth-child(2) {
-        scale: 1.2;
+    
+    .menu-part-container{
+        flex-direction: column;
+        margin-block: 1dvh;
+    }
+
+    .menu-label{
+        margin-right: 0 !important;
+    }
+
+    .volume-slider{
+        width: 50dvw !important;
+    }
+
+    .volume-slider-text{
+        text-align: center;
     }
 }

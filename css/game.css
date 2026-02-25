@@ -7,9 +7,7 @@
 
 #top-section {
     display: flex;
-    position: absolute;
     flex-direction: row;
-    top: 0;
     width: 100%;
     height: 7dvh;
     background-color: #212121;
@@ -21,8 +19,6 @@
     flex-direction: row;
     width: 100%;
     height: 93dvh;
-    position: absolute;
-    bottom: 0;
 }
 
 #left-section,
@@ -95,7 +91,7 @@
 }
 
 #right-section {
-    background-color: var(--right-bg);
+    background-color: black;
     display: grid;
     grid-template-columns: 1fr;
     grid-template-rows: 30fr 10fr 60fr;
@@ -110,7 +106,6 @@
     position: relative;
     display: flex;
     flex-direction: column;
-    overflow: hidden;
 }
 
 #console::before {
@@ -168,7 +163,6 @@
     overflow-x: hidden;
     display: flex;
     flex-direction: column;
-    background-color: var(--right-bg);
     padding-bottom: 20px;
     transition: all 0.1s;
 }
